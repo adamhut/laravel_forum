@@ -13,6 +13,11 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    <style type="text/css">
+    .list-group-item >  .label{
+        margin-right: 1em;
+    }
+    </style>
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
@@ -43,9 +48,45 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <li>
-                            <a href="/threads">All Thread</a>
+                        <li class="dropdown">
+                            <a href="#" 
+                                class="dropdown-toggle" 
+                                data-toggle="dropdown" 
+                                role="button" 
+                                aria-haspopup="true" 
+                                aria-expanded="false"
+                            >
+                                Browse
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/threads">All Thread</a></li>
+                                @if(auth()->check())
+                                <li><a href="/threads?by={{auth()->user()->name}}">My Threads</a></li>
+                                @endif
+                            </ul>
                         </li>
+                        <li>
+                            <a href="/threads/create">New Thread</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" 
+                                class="dropdown-toggle" 
+                                data-toggle="dropdown" 
+                                role="button" 
+                                aria-haspopup="true" 
+                                aria-expanded="false"
+                            >
+                                Channels 
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                @foreach($channels as $channel)
+                                    <li><a href="/threads/{{$channel->slug}}">{{$channel->name}}</a></li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -79,11 +120,17 @@
                 </div>
             </div>
         </nav>
-
-        @yield('content')
+        <div class="container">
+            @include('flash::message')
+            @yield('content')
+        </div>
     </div>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        $('div.alert').not('alert-important').delay(3000).fadeOut(350);
+        $('#flash-overlay-modal').modal();
+    </script>
 </body>
 </html>

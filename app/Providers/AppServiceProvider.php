@@ -14,6 +14,22 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        /*
+        \View::composer('threads/create', function($view){
+            $view->with('channels',\App\ForumChannel::all());
+        });
+        */
+       //if you want to share it on every single page. you can do * or change the function to share, pass an array
+      
+        \View::composer('*', function($view){
+            $view->with('channels',\App\ForumChannel::all());
+        });
+         /**/
+       //Move it to dedicate service provider ==>ViewServiceProvider
+       /*
+       \View::share('channels',\App\ForumChannel::all());
+       */
+        
     }
 
     /**

@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ReplyTest extends TestCase
 {
-	use DatabaseMigrations;
+	use DatabaseTransactions;
     /**
      * A basic test example.
      *

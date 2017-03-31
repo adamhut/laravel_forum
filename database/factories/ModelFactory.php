@@ -25,14 +25,18 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 
 $factory->define(App\Thread::class, function (Faker\Generator $faker) {
-    static $password;
+    // /static $password;
 
     return [
         'title' => $faker->sentence,
         'body' => $faker->paragraph,
+        'channel_id' =>function(){
+            return factory('App\ForumChannel')->create()->id;
+        },
         'user_id' => function(){
         	return factory('App\User')->create()->id;
         },
+        
      ];
 });
 
@@ -48,4 +52,36 @@ $factory->define(App\Reply::class, function (Faker\Generator $faker) {
         },
         'body' => $faker->paragraph,
      ];
+});
+
+
+$factory->define(App\CommunityLink::class, function (Faker\Generator $faker) {
+    static $password;
+
+    return [
+        'user_id'=>function(){
+            return factory('App\User')->create()->id;
+        },
+        'channel_id'=> 1 ,
+        'title'=>$faker->sentence,
+        'url'=>$faker->url,
+        'approved'=>0,
+    ];
+});
+
+$factory->define(App\Channel::class, function (Faker\Generator $faker) {
+    $name = $faker->sentence;
+     return [
+        'title'=>$name,
+        'slug'=> strtolower($name) ,
+        'color'=>'red',
+    ];
+});
+
+$factory->define(App\ForumChannel::class, function (Faker\Generator $faker) {
+      $name = $faker->word;
+     return [
+        'name'=> $name,
+        'slug'=> $name,
+    ];
 });

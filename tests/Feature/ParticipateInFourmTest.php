@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ParticipateInFourmTest extends TestCase
 {
-	use DatabaseTransactions;
+	use DatabaseMigrations;
     /**
      * A basic test example.
      *
@@ -57,6 +57,58 @@ class ParticipateInFourmTest extends TestCase
         $reply = make('App\Reply',['body'=>null]);
         $this->post($thread->path().'/replies',$reply->toArray())
             ->assertSessionHasErrors('body');     
-    
+    }
+
+    /** @test */
+    public function unauthorized_user_can_not_delete_replies()
+    {
+        $this->withExceptionHandling();
+        
+        $reply = create('App\Reply');
+        
+        $this->delete("/replies/{$reply->id}")
+            ->assertRedirect('/login');
+
+        $this->signIn()
+            ->delete("/replies/{$reply->id}")
+            ->assertStatus(403);
+    }
+
+    /** @test */
+    public function authorized_user_can_delete_replies()
+    {
+        $this->signIn();
+        
+        $reply = create('App\Reply',['user_id'=>auth()->id()]);
+
+        $this->delete("/replies/{$reply->id}")->assertStatus(302);
+        $this->assertDatabaseMissing('replies',['id'=>$reply->id]);
+    }
+
+    /** @test */
+    public function authorized_user_can_dudate_replies()
+    {
+        $this->signIn();
+        
+        $updateText="You have been updated";
+        $reply = create('App\Reply',['user_id'=>auth()->id()]);
+
+        $this->patch("/replies/{$reply->id}",['body'=>$updateText]);//->assertStatus(302);
+        $this->assertDatabaseHas('replies',['id'=>$reply->id,'body'=>$updateText]);
+    }
+
+    /** @test */
+    public function unauthorized_user_can_not_update_replies()
+    {
+        $this->withExceptionHandling();
+         $updateText="You have been updated";
+        $reply = create('App\Reply');
+        
+        $this->patch("/replies/{$reply->id}",['body'=>$updateText])
+            ->assertRedirect('/login');
+
+        $this->signIn()
+            ->delete("/replies/{$reply->id}")
+            ->assertStatus(403);
     }
 }

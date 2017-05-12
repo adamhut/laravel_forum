@@ -10,7 +10,35 @@ class Thread extends Model
 {
     //
     //
+    use RecordActivity;
+
     protected $guarded =[];
+
+    protected $with=['creator','channel'];
+
+    protected static function boot(){
+        parent::boot();
+        static::addGlobalScope('replyCount', function($builder){
+            $builder->withCount('replies');
+        });
+        /*
+        static::addGlobalScope('creator', function($builder){
+            $builder->with('creator');
+        });
+        */
+        static::deleting(function($thread){
+            $thread->replies()->each(function($reply){
+                $reply->delete();
+            });
+        });
+
+        /* move to RecordActivity trait
+        static::created(function($thread){
+            $thread->recordActivity('create');
+        });
+        */
+    } 
+  
 
     public function path()
     {
@@ -19,12 +47,27 @@ class Thread extends Model
 
     public function replies()
     {
-    	return $this->hasMany(Reply::class);
+        //return $this->hasMany(Reply::class)->withCount('favorites');
+
+        //load the reply with the favorites count
+    	return $this->hasMany(Reply::class)
+            ->withCount('favorites')
+            ->with('owner');
+    }
+
+    public function getReplyCountAttribute()
+    {
+        return $this->replies()->count();
+    }
+
+    public function scropReplyCount($query)
+    {
+            
     }
 
     public function addReply($reply)
     {
-    	$this->replies()->create($reply);
+    	return $this->replies()->create($reply);
     }
 
     /**

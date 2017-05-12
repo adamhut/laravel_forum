@@ -50,11 +50,16 @@ class RepliesController extends Controller
             
         ]);
 
-        $thread->addReply([
+        $reply = $thread->addReply([
             'body' => request('body'),
             'user_id' => auth()->id()
         ]);
-        return back();
+
+        if (request()->expectsJson()) {
+            
+            return $reply->load('owner');
+        }
+        return back()->with('flash','your reply has been left!!!');
     }
 
     /**
@@ -91,9 +96,11 @@ class RepliesController extends Controller
      * @param  \App\Reply  $reply
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Reply $reply)
+    public function update(Reply $reply)
     {
-        //
+        $this->authorize('update',$reply);
+        $reply->update(['body'=>request('body')]);
+
     }
 
     /**
@@ -104,6 +111,23 @@ class RepliesController extends Controller
      */
     public function destroy(Reply $reply)
     {
-        //
+        /*//change to use policy
+        if($reply->user_id != auth()->id())
+        {
+            return response([],403);
+        }
+        */
+        $this->authorize('update',$reply);
+
+        
+        $reply->delete();
+
+
+        if(request()->expectsJson())
+        {
+            return response(['status'=>'Your Reply has been deleted']);
+        }
+
+        return back();
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Thread;
+use App\Activity;
 use App\CommunityLink;
 use App\CommunityLinkVote;
 use Illuminate\Notifications\Notifiable;
@@ -26,10 +28,19 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token','email'
     ];
 
+     /**
+     * get route key name for Laravel
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
 
+   
     public function isTrusted()
     {
         return !! $this->trusted;
@@ -51,5 +62,26 @@ class User extends Authenticatable
     {
         return $link->contains('user_id',$this->id);
     }  
+
+    /**
+     * get User threads
+     * @return [type] [description]
+     */
+    public function threads()
+    {
+        return $this->hasMany(Thread::class)->latest();
+    }
+
+
+    public function isAdmin()
+    {
+        return $this->type== 'admin';
+    }
+
+
+    public function activity()
+    {
+        return $this->hasMany(Activity::class);
+    }
 
 }

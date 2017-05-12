@@ -9,7 +9,7 @@ use App\Filters\ThreadFilters;
 
 class ThreadsController extends Controller
 {
-   
+    protected static $countPerPage=20;   
 
     public function __construct()
     {
@@ -29,6 +29,10 @@ class ThreadsController extends Controller
         
         $threads = $this->getThreads($channel,$filters);
       
+        if(request()->wantsJson())
+        {
+            return $threads;
+        }
 
         return view('threads.index',compact('threads'));
     }
@@ -73,21 +77,31 @@ class ThreadsController extends Controller
             'body'=> request('body')
         ]);
         
-        return redirect($thread->path());
+
+        return redirect($thread->path())
+            ->with('flash','Your thread has been publish');
     }
 
     /**
      * Display the specified resource.
      *
+     * @param  Integer  $channel
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function show($channelId,Thread $thread)
+    public function show($channel,Thread $thread)
     {
-        //
+        //return $thread->load('replies.favorites')->load('replies.owner');//eager loading to prevent n+1 issues
         //$thread = Thread::find($id);
-       // dd($thread);
-        return view('threads.show',compact('thread'));
+        //return $thread->replyCount;
+        //return Thread::withCount('replies')->first();
+        //return $thread->load('replies');
+        //return $thread;
+        return view('threads.show',compact('thread'))->with([
+            'thread'=> $thread,
+            'replies' =>   $thread->replies()->paginate(static::$countPerPage),
+           
+        ]);
     }
 
     /**
@@ -110,18 +124,38 @@ class ThreadsController extends Controller
      */
     public function update(Request $request, Thread $thread)
     {
-        //
+       
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param  Integer  $channel
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Thread $thread)
+    public function destroy($channel,Thread $thread)
     {
-        //
+        /* //Change to Policy  
+        if($thread->user_id != auth()->id() )
+        {
+            abort(403,'You do not have permission to delete this thread');
+            if(request()->wantsJson())
+            {
+                return response(['status'=>'Permission Denied'],403);
+            }
+            return redirect('/login');
+        }
+        */
+      
+        $this->authorize('update',$thread);
+        $thread->delete();
+
+        if(request()->wantsJson())
+        {
+            return response([],204);
+        }
+        return redirect('threads');
     }
 
     /**
@@ -137,6 +171,7 @@ class ThreadsController extends Controller
         if ($channel->exists) {
             $threads->where('channel_id', $channel->id);
         }
+        //dd($threads->toSql());
         return $threads->get();
     }
     

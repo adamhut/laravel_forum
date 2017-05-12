@@ -19,6 +19,18 @@ require('bootstrap-sass');
 
 window.Vue = require('vue');
 
+window.Vue.prototype.authorize= function(handler){
+	//Additional admin privilege.
+	let user  = window.App.user;
+	
+	if(!user) return false;
+	
+	return handler(user);
+}
+
+window.moment = require('moment');
+
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
@@ -28,7 +40,7 @@ window.Vue = require('vue');
 window.axios = require('axios');
 
 window.axios.defaults.headers.common = {
-    'X-CSRF-TOKEN': window.Laravel.csrfToken,
+    'X-CSRF-TOKEN': window.App.csrfToken,
     'X-Requested-With': 'XMLHttpRequest'
 };
 
@@ -44,3 +56,14 @@ window.axios.defaults.headers.common = {
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
+
+
+window.events = new Vue();
+
+window.flash = function(message,level='success'){
+	let payload={
+		message,
+		level
+	}
+	window.events.$emit('flash',payload);
+}//flash my new message

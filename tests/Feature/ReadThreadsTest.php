@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ReadThreadsTest extends TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations;
     
     public function setUp()
     {
@@ -53,9 +53,7 @@ class ReadThreadsTest extends TestCase
 
     }
 
-    /** @test */
-   
-    
+    /** @test */ 
     public function a_user_can_filter_threads_by_any_username()
     {
         $this->SignIn(create('App\User',['name'=>'JohnDoe']));
@@ -65,5 +63,17 @@ class ReadThreadsTest extends TestCase
             ->assertSee($threadByJohn->title)
             ->assertDontSee($threadNotByJohn->title);
     }
-    /* */
+    
+    /** @test */ 
+    public function a_user_request_all_replies_for_a_give_thread()
+    {
+        
+        $thread=create('App\Thread');
+        create('App\Reply',['thread_id'=>$thread->id],2);
+        
+        $response = $this->getJson($thread->path().'/replies')->json();
+        $this->assertCount(1, $response['data']);
+        $this->assertEquals(2, $response['total']);
+        
+    }
 }

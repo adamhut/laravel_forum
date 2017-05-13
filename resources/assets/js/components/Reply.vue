@@ -7,7 +7,7 @@
                         v-text="data.owner.name">
                     </a>
                     said 
-                    {{fromNow}} ...
+                    <span v-text="ago"> </span>
                 </h5>
 
                 <div v-if="signedIn">
@@ -60,8 +60,8 @@
 				return this.authorize(user=>this.data.user_id == user.id);
 				//return this.data.user_id== window.App.user.id;
 			},
-			fromNow(){
-				return moment(this.data.created_at).fromNow();
+			ago(){
+				return moment(this.data.created_at).fromNow() +' ...';
 			}
 		},
 		mounted(){

@@ -29,14 +29,13 @@
                 </div>
             </div>
           
-            <replies :data="{{$thread->replies}}" 
-                @removed="repliesCount--"
+            <replies @removed="repliesCount--"
                 @added="repliesCount++"
                 can-updated="{{Auth::user()->can('update',$thread)}}"
             >
-                
             </replies>
-            {{--
+           
+            {{--<
             @foreach($replies as $reply)
                 @include('threads.reply')
             @endforeach

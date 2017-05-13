@@ -97,11 +97,13 @@ class ThreadsController extends Controller
         //return Thread::withCount('replies')->first();
         //return $thread->load('replies');
         //return $thread;
+        /*
         return view('threads.show',compact('thread'))->with([
             'thread'=> $thread,
             'replies' =>   $thread->replies()->paginate(static::$countPerPage),
            
-        ]);
+        ]);*/
+        return view('threads.show',compact('thread'));
     }
 
     /**

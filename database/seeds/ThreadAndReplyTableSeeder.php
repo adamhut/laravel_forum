@@ -24,6 +24,7 @@ class ThreadAndReplyTableSeeder extends Seeder
                 'email' => 'ahuang@bacera.com',
                 'password' => bcrypt('test0000'),
         ]);
+        
         factory('App\Thread',10)->create(['user_id'=>$user->id]);
         
         $threads = factory('App\Thread',50)->create();

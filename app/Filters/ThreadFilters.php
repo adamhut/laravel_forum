@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ThreadFilters extends Filters{
 	
-	protected $filters = ['by','popular'];	
+	protected $filters = ['by','popular','unanswered'];	
 
 	
 	/**
@@ -30,5 +30,16 @@ class ThreadFilters extends Filters{
 		//To clear out any existing order by ;
 		$this->builder->getQuery()->orders = [];
 		return $this->builder->orderBy('replies_count','desc');	
+	}
+
+	/**
+	 * Filter the query accounding to most popular threads
+	 * @return [type] [description]
+	 */
+	public function unanswered()
+	{
+		//To clear out any existing order by ;
+		
+		return $this->builder->where('replies_count',0);
 	}
 }

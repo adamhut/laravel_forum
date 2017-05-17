@@ -22,7 +22,7 @@
                     </div>
                     <div class="panel-body">                       
                         <article>      
-                            <div class="body">{{$thread->body}}</div>
+                            <div class="body">{!!$thread->body!!}</div>
                         </article>
                     </div>
                 </div>

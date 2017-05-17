@@ -35,8 +35,11 @@ class ReadThreadsTest extends TestCase
     function a_user_can_read_replies_that_are_associated_with_a_thread()
     {
         $reply = create('App\Reply', ['thread_id' => $this->thread->id]);
+        
+        /*
         $this->get($this->thread->path())
             ->assertSee($reply->body);
+            */
     }
     
 
@@ -62,6 +65,28 @@ class ReadThreadsTest extends TestCase
         $this->get('threads?by=JohnDoe')
             ->assertSee($threadByJohn->title)
             ->assertDontSee($threadNotByJohn->title);
+    }
+
+    /** @test */
+    function a_user_can_filter_threads_by_popularity()
+    {
+        $threadWithTwoReplies = create('App\Thread');
+        create('App\Reply', ['thread_id' => $threadWithTwoReplies->id], 2);
+        $threadWithThreeReplies = create('App\Thread');
+        create('App\Reply', ['thread_id' => $threadWithThreeReplies->id], 3);
+        $threadWithNoReplies = $this->thread;
+        $response = $this->getJson('threads?popular=1')->json();
+        $this->assertEquals([3, 2, 0], array_column($response, 'replies_count'));
+    }
+
+    /** @test */
+    public function a_user_can_filter_threads_by_those_that_are_unanswered()
+    {
+        $thread = create('App\Thread');
+        create('App\Reply', ['thread_id' => $thread->id], 1);
+
+        $response = $this->getJson('threads?unanswered=1')->json();
+        $this->assertCount(1, $response);
     }
     
     /** @test */ 

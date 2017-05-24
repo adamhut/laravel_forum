@@ -103,6 +103,7 @@ class ThreadsController extends Controller
             'replies' =>   $thread->replies()->paginate(static::$countPerPage),
            
         ]);*/
+        //return $thread;
         return view('threads.show',compact('thread'));
     }
 

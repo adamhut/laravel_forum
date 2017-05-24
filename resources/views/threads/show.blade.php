@@ -31,11 +31,10 @@
           
             <replies @removed="repliesCount--"
                 @added="repliesCount++"
-                can-updated="{{Auth::user()->can('update',$thread)}}"
             >
             </replies>
            
-            {{--<
+            {{--import Replies from '../components/replies.vue';
             @foreach($replies as $reply)
                 @include('threads.reply')
             @endforeach
@@ -69,8 +68,11 @@
                         <br/>by <a href="#">{{$thread->creator->name}}</a> , 
                         and currently has  <span v-text="repliesCount"></span> {{str_plural('comment',$thread->replies_count)}}
                     </p>
-                    
-                </div>
+                    <p>
+                        <subscribe-button :active="{{json_encode($thread->isSubscribedTo)}}"></subscribe-button>
+                        
+                    </p>
+                </div>  
             </div>
         </div>
     </div>

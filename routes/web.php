@@ -40,6 +40,9 @@ Route::delete('/replies/{reply}/favorites', 'FavoritesController@destroy');
 
 Route::get('/threads/{channel}/{thread}/replies', 'RepliesController@index');
 
+Route::post('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsController@store')->middleware('auth');
+Route::delete('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsController@destroy')->middleware('auth');
+
 
 
 Route::get('/home', 'HomeController@index');
@@ -53,6 +56,8 @@ Route::post('votes/{link}','VotesController@store');
 
 
 Route::get('profiles/{user}','ProfilesController@show')->name('profile');	
+Route::delete('profiles/{user}/noticiations/{notification}','UserNotificationsController@destroy');
+Route::get('profiles/{user}/noticiations','UserNotificationsController@index');
 
 //Route::get('impersonate/{user}','ImpersonateController@index')
 

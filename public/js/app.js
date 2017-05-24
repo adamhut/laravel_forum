@@ -1933,12 +1933,15 @@ module.exports = function spread(callback) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_replies_vue__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_replies_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_replies_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_SubscribeButton_vue__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_SubscribeButton_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_SubscribeButton_vue__);
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	props: ['initialRepliesCount'],
-	components: { Replies: __WEBPACK_IMPORTED_MODULE_0__components_replies_vue___default.a },
+	components: { Replies: __WEBPACK_IMPORTED_MODULE_0__components_replies_vue___default.a, SubscribeButton: __WEBPACK_IMPORTED_MODULE_1__components_SubscribeButton_vue___default.a },
 	data: function data() {
 		return {
 			repliesCount: this.initialRepliesCount
@@ -58205,6 +58208,98 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-1069ed90", module.exports)
+  }
+}
+
+/***/ }),
+/* 188 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['active'],
+
+	data: function data() {
+		return {
+			isActived: this.active
+		};
+	},
+
+	computed: {
+		classes: function classes() {
+			return ['btn', this.isActived ? 'btn-primary' : 'btn-default'];
+		}
+	},
+	methods: {
+		subscribe: function subscribe() {
+			var requestType = this.isActived ? 'delete' : 'post';
+			axios[requestType](location.pathname + '/subscriptions').then(function (res) {
+				flash('subscrbed');
+			});
+			this.isActived = !this.isActived;
+		}
+	}
+});
+
+/***/ }),
+/* 189 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(188),
+  /* template */
+  __webpack_require__(190),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm\\resources\\assets\\js\\components\\SubscribeButton.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] SubscribeButton.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-456fe183", Component.options)
+  } else {
+    hotAPI.reload("data-v-456fe183", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 190 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('button', {
+    class: _vm.classes,
+    on: {
+      "click": _vm.subscribe
+    }
+  }, [_vm._v("Subscribe")])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-456fe183", module.exports)
   }
 }
 

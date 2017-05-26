@@ -18,6 +18,15 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('test', function () {
+
+	Collection::marco('trnaspose', function(){
+		$items = array_map(function(...$items){
+			return $items;
+		},...$this->values());	
+		return new static($items);
+	});
+});
 
 Auth::routes();
 

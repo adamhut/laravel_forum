@@ -4,6 +4,7 @@ namespace App;
 
 
 use App\ForumChannel;
+use App\Events\ThreadHasNewReply;
 use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Model;
 
@@ -87,12 +88,22 @@ class Thread extends Model
         //$this->increment('replies_count');
         
         //prepare all notification to all subscribers.
-        //
+        
+        // event(new ThreadHasNewReply($this,$reply));
+        $this->notifySubscribers($reply);
+        /*
+        $this->subscriptions
+            ->where('user_id','!=',$reply->user_id)
+            ->each
+            ->notify($reply);
+        */
+        /*
         $this->subscriptions
             ->filter(function($subscription) use ($reply){
                 return $subscription->user_id != $reply->user_id;
             })
             ->each->notify($reply);
+        */
             /*
             ->each(function($subscription)use ($reply){
                 //$subscription->user->notify(new ThreadWasUpdated($this,$reply));
@@ -110,6 +121,14 @@ class Thread extends Model
 
         return $reply;
 
+    }
+
+    public function notifySubscribers($reply)
+    {
+        $this->subscriptions
+            ->where('user_id','!=',$reply->user_id)
+            ->each
+            ->notify($reply);
     }
 
     /**

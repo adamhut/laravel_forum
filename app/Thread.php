@@ -189,4 +189,18 @@ class Thread extends Model
             ->exists();
     }
 
+
+    public function hasUpdatesFor($user = null)
+    {
+        //Look in the cache for the proper key.
+        //compare that carbon instance with the $thread->updated_at
+        
+        //$key = sprintf("user.%s.visit.%s",auth()->id(),$this->id);
+        $user = $user ?: auth()->user();
+        $key = $user->visitedThreadCacheKey($this);
+        //
+
+        return $this->updated_at > cache($key);
+    }
+
 }

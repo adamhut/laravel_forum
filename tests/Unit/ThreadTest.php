@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Carbon\Carbon;
 use Tests\TestCase;
 use App\Notifications\ThreadWasUpdated;
 use Illuminate\Support\Facades\Notification;
@@ -55,7 +56,7 @@ class ThreadTest extends TestCase
     }
 
     /** @test */
-    public function a_threa_notify_all_register_subscribers_when_a_reply_is_added()
+    public function a_thread_notify_all_register_subscribers_when_a_reply_is_added()
     {
         Notification::fake();
 
@@ -152,7 +153,28 @@ class ThreadTest extends TestCase
 
     }
 
-    
+    /** @test */
+    public function a_thread_can_check_if_the_authenticated_user_has_read_all_replies()
+    {
+        //Give a authenticated user
+        $this->signIn(); 
+        
+        //  we have a thread
+        $thread = create('App\Thread');
+       // dd($thread->id);
+        $user = auth()->user();
+        $this->assertTrue($thread->hasUpdatesFor($user));
+
+        //Record that the user visited this page.
+       // $key = sprintf("user.%s.visit.%s",auth()->id(),$thread->id);
+        //Record the timestamp when they do so.
+        //simulate that the user visited the thread
+        $user->read($thread);
+       
+        
+        $this->assertFalse($thread->hasUpdatesFor($user));
+
+    }
 
    
 }

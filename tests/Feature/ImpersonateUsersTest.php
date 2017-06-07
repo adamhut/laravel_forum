@@ -15,7 +15,7 @@ class ImpersonateUsersTest extends TestCase
     /** @test */
     public function non_admins_cannot_impersonate_users()
     {
-    		$user = factory('App\User')->create();
+    	$user = factory('App\User')->create();
     	
     	$this->get(route('impersonate',$user))
     		->assertRedirect('login');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Thread;
+use Carbon\Carbon;
 use App\ForumChannel;
 use Illuminate\Http\Request;
 use App\Filters\ThreadFilters;
@@ -104,6 +105,16 @@ class ThreadsController extends Controller
            
         ]);*/
         //return $thread;
+        
+        //Record that the user visited this page.
+        if(auth()->check())
+        {
+            auth()->user()->read($thread);
+        }
+        //$key = auth()->user()->visitedThreadCacheKey($thread);
+        //Record the timestamp when they do so.
+        //cache()->forever($key,Carbon::now());
+
         return view('threads.show',compact('thread'));
     }
 

@@ -4,6 +4,7 @@ namespace App;
 
 use App\Thread;
 use App\Activity;
+use Carbon\Carbon;
 use App\CommunityLink;
 use App\CommunityLinkVote;
 use Illuminate\Notifications\Notifiable;
@@ -75,7 +76,7 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->type== 'admin';
+        return !! $this->type== 'admin';
     }
 
 

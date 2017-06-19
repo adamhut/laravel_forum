@@ -12,12 +12,12 @@ class ThreadPolicy
 
     public function before(User $user)
     {
-        /*
+        
         if($user->isAdmin())
         {
             return true;
         }
-        */
+        /**/
     }
 
     /**

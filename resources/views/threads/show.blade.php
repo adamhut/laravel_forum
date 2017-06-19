@@ -21,6 +21,16 @@
                                 <button type="submit" class="btn btn-danger btn-xs">Delete Thread</button> 
                             </form>
                         @endcan
+                        @if(auth()->check())
+                        <form action="{{$thread->path()}}/favorite" method="POST">
+                            {{csrf_field()}}
+                            {{method_field('PATCH')}}
+                            <button type="button" class="btn btn-default" onclick="favorite">
+                                <span class="glyphicon glyphicon-heart"></span>
+                                <span v-text="count" ></span>
+                            </button>
+                        </form>
+                        @endif
                     </div>
                 </div>
                 <div class="panel-body">

@@ -163,6 +163,8 @@ class ThreadsController extends Controller
         */
       
         $this->authorize('update',$thread);
+        //Move to model Event
+        //$thread->replies()->delete();
         $thread->delete();
 
         if(request()->wantsJson())

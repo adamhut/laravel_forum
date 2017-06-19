@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Activity;
+use App\Thread;
+use App\ForumChannel;
 use Illuminate\Http\Request;
 
-class ProfilesController extends Controller
+class FavoriteThreadsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,9 +34,10 @@ class ProfilesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ForumChannel $channel,Thread $thread)
     {
-        //
+        $thread->favorite();    
+        return back();
     }
 
     /**
@@ -45,15 +46,9 @@ class ProfilesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($id)
     {
-        //$activities = $this->getActivity($user);
-        
-
-        return view('profiles.show',[
-            'profileUser' => $user,
-            'activities' => Activity::feed($user),
-        ]);
+        //
     }
 
     /**
@@ -65,7 +60,6 @@ class ProfilesController extends Controller
     public function edit($id)
     {
         //
-       
     }
 
     /**
@@ -80,23 +74,14 @@ class ProfilesController extends Controller
         //
     }
 
-    /**
+     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ForumChannel $channel,Thread $thread)
     {
-        //
-    }
-
-
-
-    public function getActivity(User $user)
-    {
-        return $user->activity()->with('subject')->latest()->take(50)->get()->groupBy(function($activity){
-            return $activity->created_at->format('Y-m-d');
-        });
+        $thread->unfavorite();
     }
 }

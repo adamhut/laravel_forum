@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +40,10 @@ Route::post('/threads', 'ThreadsController@store');
 
 Route::get('/threads/create', 'ThreadsController@create');
 Route::get('/threads/{channel}', 'ThreadsController@index');
+
 Route::get('/threads/{channel}/{thread}', 'ThreadsController@show');
+Route::post('/threads/{channel}/{thread}/favorites', 'FavoriteThreadsController@store');
+Route::delete('/threads/{channel}/{thread}/favorites', 'FavoriteThreadsController@destroy');
 
 Route::delete('/threads/{channel}/{thread}', 'ThreadsController@destroy');
 
@@ -54,6 +57,7 @@ Route::delete('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsC
 
 Route::patch('/replies/{reply}', 'RepliesController@update');
 Route::delete('/replies/{reply}', 'RepliesController@destroy');
+
 Route::post('/replies/{reply}/favorites', 'FavoritesController@store');
 Route::delete('/replies/{reply}/favorites', 'FavoritesController@destroy');
 

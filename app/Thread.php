@@ -4,6 +4,7 @@ namespace App;
 
 
 use App\ForumChannel;
+use App\Favoritable;
 use App\Events\ThreadHasNewReply;
 use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,8 @@ class Thread extends Model
 {
     //
     //
-    use RecordActivity;
+    use RecordActivity,Favoritable;
+
 
     protected $guarded =[];
 

@@ -37,6 +37,13 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="" class="col-md-4 control-label"></label>
+
+                            <div class="col-md-6">
+                                {!! app('captcha')->render(); !!}
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">

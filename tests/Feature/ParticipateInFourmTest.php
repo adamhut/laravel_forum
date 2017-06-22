@@ -118,4 +118,25 @@ class ParticipateInFourmTest extends TestCase
             ->delete("/replies/{$reply->id}")
             ->assertStatus(403);
     }
+
+    /** @test*/
+    public function replies_that_contain_spam_may_not_be_created()
+    {
+        //Give a authenticated user
+        $this->signIn();
+
+        //And an existing thread
+        $thread = create('App\Thread');
+        
+        //When the user adds a reply to the thread
+        $reply = make('App\Reply',[
+            'body'=>'Yahoo Customer Support',
+        ]);
+
+        $this->expectException(\Exception::class);
+
+        // /dd($reply);
+        $this->post($thread->path().'/replies',$reply->toArray());  
+        
+    }
 }

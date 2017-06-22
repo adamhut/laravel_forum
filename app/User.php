@@ -87,7 +87,7 @@ class User extends Authenticatable
 
     public function visitedThreadCacheKey($thread)
     {
-       // dd($thread->id);
+        //dd($thread->id);
         return sprintf("user.%s.visit.%s",$this->id,$thread->id);
     }
 

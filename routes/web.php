@@ -1,8 +1,8 @@
  <?php
 
 use App\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redis;
+//use Illuminate\Support\Facades\Auth;
+//use Illuminate\Support\Facades\Redis;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Redis;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//auth()->loginUsingId(1);
+auth()->loginUsingId(1);
 //auth()->logout();
 Route::get('/', function () {
 

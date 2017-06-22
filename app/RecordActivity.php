@@ -47,7 +47,7 @@ trait RecordActivity{
 
     public function getActivityType($event)
     {
-    	$type = strtolower((new \ReflectionClass($this))->getShortName());
-        return $event.'_'.$type; // App/Thread =>Thread
+    	$type = strtolower((new \ReflectionClass($this))->getShortName());// App/Thread =>Thread
+        return $event.'_'.$type; 
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Thread;
 use Carbon\Carbon;
 use App\ForumChannel;
+use App\Inspection\Spam;
 use Illuminate\Http\Request;
 use App\Filters\ThreadFilters;
 
@@ -59,7 +60,7 @@ class ThreadsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,Spam $spam)
     {
         // $request->all();
         // dd(auth()->id());
@@ -73,11 +74,12 @@ class ThreadsController extends Controller
         $thread =Thread::create([
             'user_id' => auth()->id(),
             'title'=>request('title'),
-
             'channel_id'=>request('channel_id'),
             'body'=> request('body')
         ]);
-        
+
+        $spam->check(request('body'));
+        $spam->check(request('title'));
 
         return redirect($thread->path())
             ->with('flash','Your thread has been publish');
@@ -190,5 +192,7 @@ class ThreadsController extends Controller
         //dd($threads->toSql());
         return $threads->get();
     }
-    
+
+
+   
 }

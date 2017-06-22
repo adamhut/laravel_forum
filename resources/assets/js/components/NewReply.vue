@@ -9,8 +9,7 @@
       	    		rows=5
       	    		required 
       	    		v-model="body"
-      	    	>
-      	    		
+      	    	>	
       	    	</textarea>
             </div>
             <button class="btn btn-default" 
@@ -53,6 +52,10 @@
 					this.body ='';
 					flash('Your reply Has been Post');
 					this.$emit('created',response.data);
+				}).catch(error=>{
+					console.log(error.response);
+					flash(error.response.data,'danger');
+					return;
 				});
 			}
 		}

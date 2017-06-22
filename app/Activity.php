@@ -12,6 +12,7 @@ class Activity extends Model
 
     public function subject()
     {
+        //This will find out what the relative activity it related to 
     	return $this->morphTo();
     }
 

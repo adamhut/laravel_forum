@@ -1,7 +1,10 @@
 <template>
-    <div class="alert alert-flash" :class="level" role="alert" v-show="show">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Warning!</strong> {{body}}
+    <div class="alert alert-flash" 
+        :class="'alert-'+level" 
+        role="alert" 
+        v-show="show"
+        v-text="body"
+    >
     </div>
 </template>
 
@@ -23,17 +26,17 @@ const defaultType=[
             return {
                 body:this.message,
                 show:false,
-                level:'alert-success',
+                level:'success',
             };
         },
         created(){
-            this.calcLevel(this.cate)
+            //this.calcLevel(this.cate)
             if(this.message){
                 this.body = this.message;
                 this.flash(this.message);
             };
-            window.events.$on('flash',payload=>{
-                this.flash(payload.message,payload.level);
+            window.events.$on('flash',data=>{
+                this.flash(data);
             });
         },
         computed: {
@@ -48,12 +51,13 @@ const defaultType=[
                    return ;
                 }
 
-                this.level="alert-success";
-            }
-            ,
-            flash(message,level){
-                this.calcLevel(level);
-                this.body = message;
+               // this.level="alert-success";
+            },
+            flash(data){
+                //this.calcLevel(level);
+                console.log('level is'+data.level)
+                this.level = data.level;
+                this.body = data.message;
                 this.show=true;
                 this.hide();
             },

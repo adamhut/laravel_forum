@@ -55,7 +55,7 @@ const defaultType=[
             },
             flash(data){
                 //this.calcLevel(level);
-                console.log('level is'+data.level)
+                //console.log('level is'+data.level)
                 this.level = data.level;
                 this.body = data.message;
                 this.show=true;

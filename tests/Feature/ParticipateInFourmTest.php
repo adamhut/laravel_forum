@@ -133,10 +133,37 @@ class ParticipateInFourmTest extends TestCase
             'body'=>'Yahoo Customer Support',
         ]);
 
-        $this->expectException(\Exception::class);
+        //$this->expectException(\Exception::class);
 
         // /dd($reply);
-        $this->post($thread->path().'/replies',$reply->toArray());  
+        $this->post($thread->path().'/replies',$reply->toArray())
+            ->assertStatus(422);  
         
+    }
+
+    /** @test */
+    public function users_may_only_reply_a_maximum_of_once_per_minute()
+    {
+        //Give a authenticated user
+        $this->signIn();
+
+        //And an existing thread
+        $thread = create('App\Thread');
+
+        //When the user adds a reply to the thread
+        $reply = make('App\Reply',[
+            'body'=>'My Simple Reply',
+        ]);
+
+        $this->post($thread->path().'/replies',$reply->toArray())
+            ->assertStatus(200);  
+
+         //When the user adds a reply to the thread
+        $reply = make('App\Reply',[
+            'body'=>'My Simple Reply again',
+        ]);
+
+        $this->post($thread->path().'/replies',$reply->toArray())
+            ->assertStatus(422);  
     }
 }

@@ -57790,7 +57790,7 @@ var defaultType = ['success', 'danger', 'warning', 'info'];
         },
         flash: function flash(data) {
             //this.calcLevel(level);
-            console.log('level is' + data.level);
+            //console.log('level is'+data.level)
             this.level = data.level;
             this.body = data.message;
             this.show = true;
@@ -58119,6 +58119,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -58220,7 +58221,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	methods: {
 		toggle: function toggle() {
-			return this.isFavorited ? this.unfavorite() : this.favorite();
+			this.isFavorited ? this.unfavorite() : this.favorite();
 		},
 		unfavorite: function unfavorite() {
 			axios.delete(this.endpoint);

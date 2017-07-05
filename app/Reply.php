@@ -3,13 +3,13 @@
 namespace App;
 
 use App\User;
+use Carbon\Carbon;
 use App\Favoritable;
 use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
     //
-    
 
     use Favoritable, RecordActivity;
     
@@ -52,6 +52,9 @@ class Reply extends Model
         return $this->thread->path()."#reply-{$this->id}";
     }
  
-    
+    public function wasJustPublished()
+    {
+        return $this->created_at->gt(Carbon::now()->subMinute());
+    }
 
 }

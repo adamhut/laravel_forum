@@ -4,7 +4,8 @@
             <div class="level">
                 <h5 class="flex">
                     <a :href="'/profiles/'+data.owner.name"
-                        v-text="data.owner.name">
+                        v-text="data.owner.name"
+                    >
                     </a>
                     said 
                     <span v-text="ago"> </span>

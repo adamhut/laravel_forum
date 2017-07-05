@@ -14,8 +14,8 @@ use App\User;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//auth()->loginUsingId(1);
-auth()->logout();
+auth()->loginUsingId(1);
+// /auth()->logout();
 Route::get('/', function () {
 
 	//$visit = Redis::incr('visit');

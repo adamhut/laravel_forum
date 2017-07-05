@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Thread;
 use Carbon\Carbon;
 use App\ForumChannel;
-use App\Inspection\Spam;
+//use App\Inspection\Spam;
 use Illuminate\Http\Request;
 use App\Filters\ThreadFilters;
 
@@ -60,14 +60,14 @@ class ThreadsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,Spam $spam)
+    public function store(Request $request)
     {
         // $request->all();
         // dd(auth()->id());
         //dd(request()->all());
         $this->validate($request,[
-            'title' => 'required',
-            'body' => 'required',
+            'title' => 'required|spamfree',
+            'body' => 'required|spamfree',
             'channel_id' => 'required|exists:forum_channels,id'
         ]);
 
@@ -78,8 +78,8 @@ class ThreadsController extends Controller
             'body'=> request('body')
         ]);
 
-        $spam->check(request('body'));
-        $spam->check(request('title'));
+        //$spam->detect(request('body'));
+        //$spam->detect(request('title'));
 
         return redirect($thread->path())
             ->with('flash','Your thread has been publish');

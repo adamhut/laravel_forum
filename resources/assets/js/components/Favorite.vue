@@ -32,7 +32,7 @@
 
 		methods:{
 			toggle(){
-				return this.isFavorited ? this.unfavorite():this.favorite()
+				this.isFavorited ? this.unfavorite():this.favorite();
 			},
 
 			unfavorite(){

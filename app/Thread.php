@@ -43,7 +43,10 @@ class Thread extends Model
         static::addGlobalScope('creator', function($builder){
             $builder->with('creator');
         });
+        //in code you can add  App\Thread::withoutGlobalScopes()->first()//to disable it
         */
+      
+        
         static::deleting(function($thread){
             $thread->replies()->each(function($reply){
                 $reply->delete();
@@ -68,9 +71,9 @@ class Thread extends Model
         //return $this->hasMany(Reply::class)->withCount('favorites');
 
         //load the reply with the favorites count
-    	return $this->hasMany(Reply::class)
-            ->withCount('favorites')
-            ->with('owner');
+    	return $this->hasMany(Reply::class); 
+           // ->withCount('favorites')
+            //->with('owner');
     }
 
     public function getReplyCountAttribute()
@@ -90,7 +93,7 @@ class Thread extends Model
         //$this->increment('replies_count');
         
         //prepare all notification to all subscribers.
-        
+
         // event(new ThreadHasNewReply($this,$reply));
         $this->notifySubscribers($reply);
         /*

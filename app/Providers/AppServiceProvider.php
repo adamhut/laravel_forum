@@ -36,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
        \View::share('channels',\App\ForumChannel::all());
        */
         
+       \Validator::extend('spamfree','App\Rules\SpamFree@passes');
+
     }
 
     /**

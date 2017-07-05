@@ -93,7 +93,7 @@ class ParticipateInFourmTest extends TestCase
     }
 
     /** @test */
-    public function authorized_user_can_dudate_replies()
+    public function authorized_user_can_update_replies()
     {
         $this->signIn();
         

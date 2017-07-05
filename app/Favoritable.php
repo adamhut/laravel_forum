@@ -32,9 +32,12 @@ trait Favoritable
         //$reply->favorites()->create(['user_id' => auth()->id()]);
         $attributes = ['user_id' => auth()->id()];
 
-        $this->favorites()->where($attributes)->get()->each(function($favorite){
-            $favorite->delete();
-        });
+        $this->favorites()
+            ->where($attributes)
+            ->get()
+            ->each(function($favorite){
+                $favorite->delete();
+            });
         //or
         /*
         $this->favorites()->where($attributes)->get()->each->delete();

@@ -46,7 +46,7 @@
 	export default {
 		
 		components:{Reply,NewReply},
-		 mixins: [collection],
+		mixins: [collection],
 		data(){
 			return {
 				dataSet:false,

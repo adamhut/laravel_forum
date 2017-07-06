@@ -108,7 +108,7 @@ class ParticipateInFourmTest extends TestCase
     public function unauthorized_user_can_not_update_replies()
     {
         $this->withExceptionHandling();
-         $updateText="You have been updated";
+        $updateText="You have been updated";
         $reply = create('App\Reply');
         
         $this->patch("/replies/{$reply->id}",['body'=>$updateText])
@@ -123,6 +123,8 @@ class ParticipateInFourmTest extends TestCase
     public function replies_that_contain_spam_may_not_be_created()
     {
         //Give a authenticated user
+        $this->withExceptionHandling();
+
         $this->signIn();
 
         //And an existing thread
@@ -136,7 +138,11 @@ class ParticipateInFourmTest extends TestCase
         //$this->expectException(\Exception::class);
 
         // /dd($reply);
+        /*
         $this->post($thread->path().'/replies',$reply->toArray())
+            ->assertStatus(422);  
+        */
+        $this->json('post',$thread->path().'/replies',$reply->toArray())
             ->assertStatus(422);  
         
     }
@@ -144,6 +150,7 @@ class ParticipateInFourmTest extends TestCase
     /** @test */
     public function users_may_only_reply_a_maximum_of_once_per_minute()
     {
+        $this->withExceptionHandling();
         //Give a authenticated user
         $this->signIn();
 
@@ -155,15 +162,17 @@ class ParticipateInFourmTest extends TestCase
             'body'=>'My Simple Reply',
         ]);
 
-        $this->post($thread->path().'/replies',$reply->toArray())
+        $this->json('post',$thread->path().'/replies',$reply->toArray())
             ->assertStatus(200);  
 
-         //When the user adds a reply to the thread
+        //When the user adds a reply to the thread
         $reply = make('App\Reply',[
             'body'=>'My Simple Reply again',
         ]);
-
+        /*
         $this->post($thread->path().'/replies',$reply->toArray())
-            ->assertStatus(422);  
+            ->assertStatus(422);  */
+        $this->json('post',$thread->path().'/replies',$reply->toArray())
+            ->assertStatus(429);  
     }
 }

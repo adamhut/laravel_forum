@@ -31,10 +31,11 @@ class AuthServiceProvider extends ServiceProvider
             if ($user->isAdmin()) return true;
         });
         */
+       /*
         Gate::before(function(User $user){
            //dd($user);
             return $user->isAdmin();
         });
-       
+       */
     }
 }

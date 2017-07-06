@@ -12,12 +12,12 @@ class ThreadPolicy
 
     public function before(User $user)
     {
-        
+        /*
         if($user->isAdmin())
         {
             return true;
         }
-        /**/
+        */
     }
 
     /**
@@ -53,6 +53,8 @@ class ThreadPolicy
     public function update(User $user, Thread $thread)
     {
         //
+        
+
         //dd($thread->user_id , $user->id);
         return $thread->user_id == $user->id;
     }

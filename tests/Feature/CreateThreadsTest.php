@@ -107,7 +107,7 @@ class CreateThreadsTest extends TestCase
             'subject_id'  =>$reply->id,
             'subject_type'  => get_class($reply)
         ]);
-        $this->assertEquals(0, Activity::count());
+        $this->assertEquals(0, \App\Activity::count());
 
     }
 

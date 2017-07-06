@@ -15,7 +15,7 @@ use App\User;
 |
 */
 //auth()->loginUsingId(1);
-// /auth()->logout();
+//auth()->logout();
 Route::get('/', function () {
 
 	//$visit = Redis::incr('visit');

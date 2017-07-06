@@ -46,6 +46,20 @@ class Handler extends ExceptionHandler
     {
         // if(app()->environment()=='testing') throw $exception;
        // throw $exception;
+        if($exception instanceof ValidationException)
+        {
+            if($request->wantsJson())
+            {
+                return response('sorry Validation Failed',422);
+            }
+        }
+        if($exception instanceof ThrottleException)
+        {
+            if($request->wantsJson())
+            {
+                return response('You are posting too frequently, please take a break',429);
+            }
+        }
         return parent::render($request, $exception);
     }
 

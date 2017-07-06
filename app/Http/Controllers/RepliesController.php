@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 
 use App\Reply;
 use App\Thread;
-//use App\Inspection\Spam;
 use Illuminate\Http\Request;
+
+use App\Http\Requests\CreatePostRequest;
+
 
 class RepliesController extends Controller
 {
@@ -44,36 +46,19 @@ class RepliesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($channelId, Thread $thread)
-    {
-        if(Gate::denies('creat',new Reply))
-        {
-                 return response('You are posting too frequently, please take a break', 422 );
-        }
-
-        try{
-            //$this->authorize('creat',new Reply);
-
-            //$this->validateReply();            
-            $this->validate(request(),[
-                'body' => 'required|spamfree',
-            ]);
-
-            // check ,spam       
-            $reply = $thread->addReply([
-                'body' => request('body'),
-                'user_id' => auth()->id()
-            ]);
-        }catch(\Exception $e)
-        {
-            return response('Sorry your reply could not be save at this time', 422 );
-        }
-
+    public function store($channelId, Thread $thread,CreatePostRequest $form)
+    { 
+        
+        $reply = $thread->addReply([
+            'body' => request('body'),
+            'user_id' => auth()->id()
+        ]);
+        
         if (request()->expectsJson()) {
-            
             return $reply->load('owner');
         }
         return back()->with('flash','your reply has been left!!!');
+        
     }
 
     /**
@@ -137,14 +122,18 @@ class RepliesController extends Controller
      */
     public function destroy(Reply $reply)
     {
-        /*//change to use policy
+        //change to use policy
+        /* 
         if($reply->user_id != auth()->id())
         {
-            return response([],403);
-        }
-        */
-        $this->authorize('update',$reply);
+            if(request()->expectsJson())
+            {
+                return response(['status'=>'permission Denied'],403);
+            }
+        }*/
 
+       
+        $this->authorize('update',$reply);
         
         $reply->delete();
 

@@ -21,7 +21,7 @@ class ReplyTest extends TestCase
         $this->assertInstanceOf('App\User',$reply->owner);
     }
 
-    /** @teset */
+    /** @test */
     public function it_knows_if_it_was_just_test()
     {
         $reply  = create('App\Reply');
@@ -33,5 +33,16 @@ class ReplyTest extends TestCase
         $reply->save();
 
         $this->assertFasle($reply->wasJustPublished());
+    }
+
+
+    /** @test */
+    public function it_can_detect_all_mentioned_user_in_the_body()
+    {
+        $reply = create('App\Reply',[
+            'body'=>'@JaneDoe wants to talk to @JohnDoe'
+        ]);
+        $mentionedUsers=$reply->mentionedUsers();
+        $this->assertEquals(['JaneDoe','JohnDoe'],$mentionedUsers);
     }
 }

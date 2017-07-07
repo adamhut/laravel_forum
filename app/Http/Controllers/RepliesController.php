@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 
+
 use App\Reply;
 use App\Thread;
 use Illuminate\Http\Request;
-
 use App\Http\Requests\CreatePostRequest;
 
 
@@ -54,9 +54,11 @@ class RepliesController extends Controller
             'user_id' => auth()->id()
         ]);
         
+
         if (request()->expectsJson()) {
             return $reply->load('owner');
         }
+
         return back()->with('flash','your reply has been left!!!');
         
     }

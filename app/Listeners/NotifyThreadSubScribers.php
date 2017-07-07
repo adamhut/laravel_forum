@@ -26,8 +26,9 @@ class NotifyThreadSubScribers
      */
     public function handle(ThreadHasNewReply $event)
     {
+        $thread = $event->reply->thread;
         //prepare all notification to all subscribers.
-        $event->thread->subscriptions
+        $thread->subscriptions
             ->where('user_id','!=',$event->reply->user_id)
             ->each
             ->notify($event->reply);

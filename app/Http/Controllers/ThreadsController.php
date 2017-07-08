@@ -13,6 +13,9 @@ class ThreadsController extends Controller
 {
     protected static $countPerPage=20;   
 
+    /**
+     *  create a new ThreadsContrtoller instance.
+     */
     public function __construct()
     {
         $this->middleware('auth')->except(['index','show']);

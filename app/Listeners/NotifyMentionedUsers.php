@@ -29,13 +29,7 @@ class NotifyMentionedUsers
     public function handle(ThreadReceivedNewReply $event)
     {
         //inspect the body of the reply for username mention
-        $mentionedUsers=$event->reply->mentionedUsers();
-
-        collect($mentionedUsers)
-            ->map(function($name){
-                return User::where('name',$name)->first();
-            })
-            ->filter()
+        User::whereIn('name',$event->reply->mentionedUsers())
             ->each(function($user) use($event){
                 //and then for each mentioned user , notify them
                 $user->notify(new YouWereMentioned($event->reply));

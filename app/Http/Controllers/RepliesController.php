@@ -101,19 +101,19 @@ class RepliesController extends Controller
     {
         $this->authorize('update',$reply);
         
-        try{
+        //try{
             $this->validate(request(),[
                 'body' => 'required|spamfree',
             ]);         
             // check ,spam       
             $reply->update(['body'=>request('body')]);
+        
+        /*
         }catch(\Exception $e)
         {
             return response('Sorry your reply could not be save at this time', 422 );
         }
-
-        
-
+        */      
     }
 
     /**

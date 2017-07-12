@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -32,7 +33,7 @@ class ReplyTest extends TestCase
 
         $reply->save();
 
-        $this->assertFasle($reply->wasJustPublished());
+        $this->assertFalse($reply->wasJustPublished());
     }
 
 
@@ -44,5 +45,16 @@ class ReplyTest extends TestCase
         ]);
         $mentionedUsers=$reply->mentionedUsers();
         $this->assertEquals(['JaneDoe','JohnDoe'],$mentionedUsers);
+    }
+
+    /** @test */
+    public function it_wraps_mentionsed_usernames_in_the_body_within_anchor_tags()
+    {
+        $reply = create('App\Reply',[
+            'body'=>'Hello @JaneDoe.'
+        ]);
+        $this->assertEquals(
+            'Hello <a href="/profiles/JaneDoe">@JaneDoe</a>.', 
+        $reply->body);
     }
 }

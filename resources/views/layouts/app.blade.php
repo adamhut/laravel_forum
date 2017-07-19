@@ -11,7 +11,9 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">   
+    
 
     <style type="text/css">
     .list-group-item >  .label{
@@ -45,6 +47,7 @@
             align-items: center;
         }
     </style>
+    @yield('header')
 </head>
 <body>
     <div id="app">

@@ -195,7 +195,8 @@ class ThreadsController extends Controller
             $threads->where('channel_id', $channel->id);
         }
         //dd($threads->toSql());
-        return $threads->get();
+        //return $threads->get();
+        return $threads->paginate(25);
     }
 
 

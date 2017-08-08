@@ -14,7 +14,7 @@ use App\User;
 | contains the "web" middleware group. Now create something great!
 |
 */
-auth()->loginUsingId(1);
+//auth()->loginUsingId(1);
 //auth()->logout();
 Route::get('/', function () {
 
@@ -77,6 +77,8 @@ Route::delete('profiles/{user}/noticiations/{notification}','UserNotificationsCo
 Route::get('profiles/{user}/noticiations','UserNotificationsController@index');
 
 Route::get('api/users','Api\UsersController@index');
+Route::post('api/users/{user}/avatar','Api\UserAvatarController@store')->middleware('auth')->name('avatar');
+
 
 //Route::get('impersonate/{user}','ImpersonateController@index')
 

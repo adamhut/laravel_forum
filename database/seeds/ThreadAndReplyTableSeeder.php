@@ -15,9 +15,9 @@ class ThreadAndReplyTableSeeder extends Seeder
     public function run()
     {
 
-    	User::truncate();
-    	Reply::truncate();
-    	Thread::truncate();
+    	//User::truncate();
+    	//Reply::truncate();
+    	//Thread::truncate();
         //
         $user=factory('App\User')->create([
                 'name' => 'adamtest',
@@ -28,11 +28,13 @@ class ThreadAndReplyTableSeeder extends Seeder
         factory('App\Thread',10)->create(['user_id'=>$user->id]);
         
         $threads = factory('App\Thread',50)->create();
-        $threads->each(function($thread){
+        
+        /*$threads->each(function($thread){
             $times= mt_rand(1,30);
         	factory('App\Reply',$times)->create([
         		'thread_id' =>$thread->id
         	]);
         });
+        */
     }
 }

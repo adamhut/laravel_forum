@@ -23,6 +23,8 @@ Vue.component('user-notifications', require('./components/UserNotifications.vue'
 Vue.component('Paginator', require('./components/Paginator.vue'));
 
 Vue.component('favorite', require('./components/Favorite.vue'));
+Vue.component('avatar-form', require('./components/AvatarForm.vue'));
+
 
 const app = new Vue({
     el: '#app'

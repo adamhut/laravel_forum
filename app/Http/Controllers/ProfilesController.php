@@ -49,7 +49,7 @@ class ProfilesController extends Controller
     {
         //$activities = $this->getActivity($user);
         
-
+  
         return view('profiles.show',[
             'profileUser' => $user,
             'activities' => Activity::feed($user),

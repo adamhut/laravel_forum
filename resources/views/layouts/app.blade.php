@@ -19,6 +19,7 @@
     .list-group-item >  .label{
         margin-right: 1em;
     }
+    .level {display: flex;align-items: center;}
     .flex{
         flex:1;
     }

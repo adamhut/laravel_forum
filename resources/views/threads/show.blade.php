@@ -14,7 +14,7 @@
                     <div class="level">
                         <span class="flex">
                             
-                            <img src="{{ $thread->creator->avatar() }}" 
+                            <img src="{{ $thread->creator->avatar_path}}" 
                                 alt="{{$thread->creator->name}}" 
                                 width="25" 
                                 height="25" 

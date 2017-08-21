@@ -40,13 +40,14 @@ class AddAvatarTest extends TestCase
     	$this->signIn();
 
     	Storage::fake('public');
+
 		//dd(UploadedFile::fake()->image('avatar.jpg'));
     	$this->json('POST','api/users/',auth()->id().'/avatar',[
 
     		'avatar'=> $file = UploadedFile::fake()->image('avatar.jpg')
     	]);
 
-    	$this->assertEquals('avatars/'.$file->hashName(),auth()->user()->avatar_path);
+    	$this->assertEquals(asset('storage/avatars/'.$file->hashName()),auth()->user()->avatar_path);
 
     	Storage::disk('public')->assertExists('avatars/'.$file->hashName());
     	//422 unprocessorable enitity

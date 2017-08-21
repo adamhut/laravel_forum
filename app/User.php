@@ -23,6 +23,8 @@ class User extends Authenticatable
         'name', 'email', 'password','avatar_path'
     ];
 
+
+   
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -106,13 +108,24 @@ class User extends Authenticatable
     }
 
 
-    public function avatar()
+     public function avatar()
     {
         if(!$this->avatar_path)
         {
-            return asset('/storage/avatars/default.png');
+            return asset('/images/avatars/default.png');
         }
         return asset('/storage/'.$this->avatar_path);
+    }
+
+    /**
+      * Get the path to the user's avatar.
+      *
+      * @param  string $avatar
+      * @return string
+      */
+    public function getAvatarPathAttribute($avatar)
+    {
+        return asset($avatar ? '/storage/'.$avatar: 'images/avatars/default.png');
     }
 
 }

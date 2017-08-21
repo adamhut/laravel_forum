@@ -14,7 +14,7 @@ use App\User;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//auth()->loginUsingId(1);
+auth()->loginUsingId(4);
 //auth()->logout();
 Route::get('/', function () {
 

@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Thread;
+use App\Trending;
 use Carbon\Carbon;
 use App\ForumChannel;
 use Illuminate\Http\Request;
 use App\Filters\ThreadFilters;
-use Illuminate\Support\Facades\Redis;
+
 
 class ThreadsController extends Controller
 {
@@ -27,7 +28,7 @@ class ThreadsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ForumChannel $channel,ThreadFilters $filters)
+    public function index(ForumChannel $channel,ThreadFilters $filters,Trending $trending)
     {
         //dd($channel);
         //Move it to App serviceprovider as View Composer
@@ -38,12 +39,17 @@ class ThreadsController extends Controller
         {
             return $threads;
         }
-        //get the top 5
-        $trending = collect(Redis::zrevrange('trending_threads',0,4))->map(function($thread){
-            return json_decode($thread);
-        });
 
-        return view('threads.index',compact('threads','trending'));
+        //get the top 5
+        //$$trending->test()
+        // $trending = collect(Redis::zrevrange('trending_threads',0,4))->map(function($thread){
+        //    return json_decode($thread);
+        //});
+
+        return view('threads.index',[
+            'threads' =>$threads,
+            'trending' =>$trending->get(),
+        ]);
     }
 
     
@@ -99,7 +105,7 @@ class ThreadsController extends Controller
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function show($channel,Thread $thread)
+    public function show($channel,Thread $thread ,Trending $trending)
     {
         //return $thread->load('replies.favorites')->load('replies.owner');//eager loading to prevent n+1 issues
         //$thread = Thread::find($id);
@@ -121,10 +127,9 @@ class ThreadsController extends Controller
             auth()->user()->read($thread);
         }
 
-        Redis::zincrby('trending_threads',1,json_encode([
-            'title' => $thread->title,
-            'path'  => $thread->path(),
-        ]));
+       
+        $trending->push($thread);
+    
         //$key = auth()->user()->visitedThreadCacheKey($thread);
         //Record the timestamp when they do so.
         //cache()->forever($key,Carbon::now());

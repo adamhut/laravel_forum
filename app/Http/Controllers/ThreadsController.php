@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Thread;
 use Carbon\Carbon;
 use App\ForumChannel;
-//use App\Inspection\Spam;
 use Illuminate\Http\Request;
 use App\Filters\ThreadFilters;
+use Illuminate\Support\Facades\Redis;
 
 class ThreadsController extends Controller
 {
@@ -38,8 +38,12 @@ class ThreadsController extends Controller
         {
             return $threads;
         }
+        //get the top 5
+        $trending = collect(Redis::zrevrange('trending_threads',0,4))->map(function($thread){
+            return json_decode($thread);
+        });
 
-        return view('threads.index',compact('threads'));
+        return view('threads.index',compact('threads','trending'));
     }
 
     
@@ -116,6 +120,11 @@ class ThreadsController extends Controller
         {
             auth()->user()->read($thread);
         }
+
+        Redis::zincrby('trending_threads',1,json_encode([
+            'title' => $thread->title,
+            'path'  => $thread->path(),
+        ]));
         //$key = auth()->user()->visitedThreadCacheKey($thread);
         //Record the timestamp when they do so.
         //cache()->forever($key,Carbon::now());

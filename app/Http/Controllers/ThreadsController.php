@@ -129,7 +129,7 @@ class ThreadsController extends Controller
 
        
         $trending->push($thread);
-    
+        $thread->visits()->record();
         //$key = auth()->user()->visitedThreadCacheKey($thread);
         //Record the timestamp when they do so.
         //cache()->forever($key,Carbon::now());
@@ -213,6 +213,6 @@ class ThreadsController extends Controller
         return $threads->paginate(25);
     }
 
-
+   
    
 }

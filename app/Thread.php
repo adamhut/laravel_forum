@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Model;
 class Thread extends Model
 {
     //
-    //
     use RecordActivity,Favoritable;
 
 
@@ -211,4 +210,10 @@ class Thread extends Model
         return $this->updated_at > cache($key);
     }
 
+    public function visits()
+    {
+        return new Visits($this);
+    }
+
+    
 }

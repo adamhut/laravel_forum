@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Carbon\Carbon;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Redis;
 use App\Notifications\ThreadWasUpdated;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -170,11 +171,35 @@ class ThreadTest extends TestCase
         //Record the timestamp when they do so.
         //simulate that the user visited the thread
         $user->read($thread);
-       
         
         $this->assertFalse($thread->hasUpdatesFor($user));
-
     }
 
+    /** @test */
+    public function a_thread_record_each_visit()
+    {
+        //Give a authenticated user
+        $this->signIn(); 
+        
+        //  we have a thread
+        $thread = make('App\Thread',['id'=>1]);
+        $thread->visits()->reset();
+        $this->assertSame(0, $thread->visits()->count());
+        
+        $thread->visits()->record(); //incr 100 to 101
+        $this->assertEquals(1, $thread->visits()->count());
+        
+        $thread->visits()->record(); //incr 100 to 101
+        $this->assertEquals(2, $thread->visits()->count());
+        return;
+       
+        $this->assertSame(0, $thread->visits());
+
+        $thread->recordVisit(); //incr 100 to 101
+        $this->assertEquals(1, $thread->visits());
+
+        $thread->recordVisit(); //incr 100 to 101
+        $this->assertEquals(2, $thread->visits());
+    }
    
 }

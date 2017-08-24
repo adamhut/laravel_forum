@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Redis;
 
 class Trending {
 
-
 	public function get()
 	{
 		return collect(Redis::zrevrange($this->cacheKey(),0,4))->map(function($thread){

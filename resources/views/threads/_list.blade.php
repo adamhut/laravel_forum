@@ -30,6 +30,9 @@
                             <div class="body">{!!$thread->body!!}</div>
                         </article>
                     </div>
+                    <div class="panel-footer">
+                        {{$thread->visits()->count()}} Visits
+                    </div>
                 </div>
             @empty
                 <p>There are no releveant results as this time</p>

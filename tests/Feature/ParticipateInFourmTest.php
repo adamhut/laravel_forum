@@ -56,7 +56,7 @@ class ParticipateInFourmTest extends TestCase
     function a_reply_required_to_have_body()
     {
        $this->withExceptionHandling()->signIn();
-       $thread = create('App\Thread');
+         
         
         //When the user adds a reply to the thread
         $reply = make('App\Reply',['body'=>null]);

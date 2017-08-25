@@ -14,7 +14,7 @@ use App\User;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// /auth()->loginUsingId(4);
+//auth()->loginUsingId(1);
 //auth()->logout();
 Route::get('/', function () {
 
@@ -36,7 +36,7 @@ Route::get('test', function () {
 Auth::routes();
 
 Route::get('/threads', 'ThreadsController@index');
-Route::post('/threads', 'ThreadsController@store');
+Route::post('/threads', 'ThreadsController@store')->middleware('must-be-confirmed');
 
 Route::get('/threads/create', 'ThreadsController@create');
 Route::get('/threads/{channel}', 'ThreadsController@index');

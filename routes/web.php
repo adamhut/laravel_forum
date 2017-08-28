@@ -35,7 +35,7 @@ Route::get('test', function () {
 
 Auth::routes();
 
-Route::get('/threads', 'ThreadsController@index');
+Route::get('/threads', 'ThreadsController@index')->name('threads');
 Route::post('/threads', 'ThreadsController@store')->middleware('must-be-confirmed');
 
 Route::get('/threads/create', 'ThreadsController@create');
@@ -72,9 +72,12 @@ Route::post('community', 'CommunityLinksController@store');
 Route::post('votes/{link}','VotesController@store');
 
 
-Route::get('profiles/{user}','ProfilesController@show')->name('profile');	
+Route::get('profiles/{user}','ProfilesController@show')->name('profile');
 Route::delete('profiles/{user}/noticiations/{notification}','UserNotificationsController@destroy');
 Route::get('profiles/{user}/noticiations','UserNotificationsController@index');
+
+Route::get('/register/confirm','Api\RegisterConfirmationController@index')->name('register.confirm');
+
 
 Route::get('api/users','Api\UsersController@index');
 Route::post('api/users/{user}/avatar','Api\UserAvatarController@store')->middleware('auth')->name('avatar');

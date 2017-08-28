@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->boolean('trusted')->default(0);
             $table->enum('type',['member','admin'])->default('member');
             $table->boolean('confirmed')->default(false);
+            $table->string('confirmation_token',25)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

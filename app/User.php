@@ -20,11 +20,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','avatar_path'
+        'name', 'email', 'password','avatar_path','confirmation_token','confirmed'
     ];
 
-
-   
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -32,6 +30,10 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token','email'
+    ];
+
+    protected $casts = [
+        'confirmed' => 'boolean',
     ];
 
      /**
@@ -43,7 +45,7 @@ class User extends Authenticatable
         return 'name';
     }
 
-   
+
     public function isTrusted()
     {
         return !! $this->trusted;
@@ -59,12 +61,12 @@ class User extends Authenticatable
     {
        // return $link->votes()->create(['user_id'=>$this->id]);
         return $link->votes()->toggle(['user_id'=>$this->id]);
-    }  
+    }
     */
     public function votedFor(CommunityLink $link)
     {
         return $link->contains('user_id',$this->id);
-    }  
+    }
 
     /**
      * get User threads
@@ -99,7 +101,7 @@ class User extends Authenticatable
         cache()->forever(
             $this->visitedThreadCacheKey($thread),
             Carbon::now()
-        );   
+        );
     }
 
     public function lastReply()
@@ -128,4 +130,11 @@ class User extends Authenticatable
         return asset($avatar ? '/storage/'.$avatar: 'images/avatars/default.png');
     }
 
+
+    public function confirm()
+    {
+        $this->confirmed= true;
+        $this->save();
+        return $this;
+    }
 }

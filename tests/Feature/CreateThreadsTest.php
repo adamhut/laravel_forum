@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class CreateThreadsTest extends TestCase
 {
 	use DatabaseMigrations;
-   
+
 
 	/** @test */
     function guests_may_not_create_threads()
@@ -23,17 +23,24 @@ class CreateThreadsTest extends TestCase
     }
 
     /** @test */
-    public function authenticated_user_must_first_confirm_their_email_address_before_create_thread()
+    public function new_user_must_first_confirm_their_email_address_before_create_threads()
     {
+        $user = factory('App\User')->states('unconfirmd')->create();
+
+        $this->withExceptionHandling()->signIn($user);
+
+        $thread = make('App\Thread', $overrides);
+
         $this->publishThread()
             ->assertRedirect('/threads')
             ->assertSessionHas('flash','You must first confirm your email address');
     }
 
     /** @test */
-    function an_authenticated_user_can_create_new_forum_threads()
+    function a_user_user_can_create_new_forum_threads()
     {
         $this->signIn();
+
         $thread = make('App\Thread');
         $response = $this->post('/threads', $thread->toArray());
         //dd($thread->path());
@@ -43,14 +50,14 @@ class CreateThreadsTest extends TestCase
             ->assertSee($thread->body);
     }
 
- 
+
     /** @test */
     function a_thread_requires_a_title()
     {
-            
+
         $this->publishThread(['title'=>null])
             ->assertSessionHasErrors('title');
-        
+
         /*$thread = make('App\Thread',['title'=>null]);
         //dd($thread);
         $this->post('/threads', $thread->toArray())
@@ -61,7 +68,7 @@ class CreateThreadsTest extends TestCase
     /** @test */
     function a_thread_requires_a_body()
     {
-            
+
         $this->publishThread(['body'=>null])
             ->assertSessionHasErrors('body');
     }
@@ -74,7 +81,7 @@ class CreateThreadsTest extends TestCase
             ->assertSessionHasErrors('channel_id');
         $this->publishThread(['channel_id'=>-1])
             ->assertSessionHasErrors('channel_id');
-    
+
     }
 
     /** @test */
@@ -105,7 +112,7 @@ class CreateThreadsTest extends TestCase
         $response->assertStatus(204);
         $this->assertDatabaseMissing('threads',['id'=>$thread->id]);
         $this->assertDatabaseMissing('replies',['id'=>$reply->id]);
-        
+
         $this->assertDatabaseMissing('activities',[
             'subject_id'  =>$thread->id,
             'subject_type'  => get_class($thread)
@@ -119,8 +126,8 @@ class CreateThreadsTest extends TestCase
 
     }
 
-   
-    
+
+
     protected function publishThread($overrides = [])
     {
         $this->withExceptionHandling()->signIn();

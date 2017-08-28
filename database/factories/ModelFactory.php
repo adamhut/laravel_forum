@@ -21,12 +21,18 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'password' => $password ?: $password = bcrypt('secret'),
         'type' => 'member',
         'remember_token' => str_random(10),
-        'confirmed' => false,
+        'confirmed' => true,
     ];
 });
 
 $factory->state(App\User::class,'admin', function (Faker\Generator $faker) {
    return ['type'=>'admin'];
+});
+
+$factory->state(App\User::class,'unconfirmed', function (Faker\Generator $faker) {
+    return [
+        'confirmed'=>false
+    ];
 });
 
 $factory->define(App\Thread::class, function (Faker\Generator $faker) {
@@ -41,7 +47,7 @@ $factory->define(App\Thread::class, function (Faker\Generator $faker) {
         'user_id' => function(){
         	return factory('App\User')->create()->id;
         },
-        
+
      ];
 });
 

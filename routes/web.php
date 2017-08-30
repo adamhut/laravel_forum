@@ -76,7 +76,7 @@ Route::get('profiles/{user}','ProfilesController@show')->name('profile');
 Route::delete('profiles/{user}/noticiations/{notification}','UserNotificationsController@destroy');
 Route::get('profiles/{user}/noticiations','UserNotificationsController@index');
 
-Route::get('/register/confirm','Api\RegisterConfirmationController@index')->name('register.confirm');
+Route::get('/register/confirm','Auth\RegisterConfirmationController@index')->name('register.confirm');
 
 
 Route::get('api/users','Api\UsersController@index');

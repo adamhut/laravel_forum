@@ -92,7 +92,8 @@ class ThreadsController extends Controller
             'user_id' => auth()->id(),
             'title'=>request('title'),
             'channel_id'=>request('channel_id'),
-            'body'=> request('body')
+            'body'=> request('body'),
+            'slug' =>str_slug(request('title')),
         ]);
 
         //$spam->detect(request('body'));

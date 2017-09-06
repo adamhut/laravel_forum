@@ -37,16 +37,17 @@ $factory->state(App\User::class,'unconfirmed', function (Faker\Generator $faker)
 
 $factory->define(App\Thread::class, function (Faker\Generator $faker) {
     // /static $password;
-
+    $title =$faker->sentence;
     return [
-        'title' => $faker->sentence,
+        'title' => $title,
         'body' => $faker->paragraph,
         'channel_id' =>function(){
             return factory('App\ForumChannel')->create()->id;
         },
         'user_id' => function(){
-        	return factory('App\User')->create()->id;
+            return factory('App\User')->create()->id;
         },
+        'slug' => str_slug($title),
 
      ];
 });

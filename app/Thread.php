@@ -53,6 +53,10 @@ class Thread extends Model
             });
         });
 
+        static::created(function($thread){
+            $thread->update(['slug'=> $thread->title]);
+        });
+
         /* move to RecordActivity trait
         static::created(function($thread){
             $thread->recordActivity('create');
@@ -216,10 +220,26 @@ class Thread extends Model
     }
 
 
-    public function getRouteKeyName()
+    public  function getRouteKeyName()
     {
         return 'slug';
     }
 
-    
+    /**
+     * Set the proper slug Attribute //mutator
+     * @param $string $value 
+     */
+    public function setSlugAttribute($value)
+    {
+        $slug = str_slug($value);
+        //$original = $slug;
+
+        if(static::whereSlug($slug)->exists()) {
+            $slug = "{$slug}-".$this->id;
+        }
+
+        $this->attributes['slug'] = $slug;
+    }
+
+   
 }

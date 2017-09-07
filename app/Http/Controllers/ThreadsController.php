@@ -93,8 +93,13 @@ class ThreadsController extends Controller
             'title'=>request('title'),
             'channel_id'=>request('channel_id'),
             'body'=> request('body'),
-            'slug' =>str_slug(request('title')),
+            //'slug' =>request('title'),//create a customer mutator
         ]);
+
+        if($request->wantsJson())
+        {
+            return response($thread,201);
+        }
 
         //$spam->detect(request('body'));
         //$spam->detect(request('title'));

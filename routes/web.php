@@ -1,6 +1,9 @@
  <?php
 
 use App\User;
+use Pusher\Pusher;
+use App\ChatMessage;
+use App\Events\ChatMessageWasReceived;
 //use Illuminate\Support\Facades\Auth;
 //use Illuminate\Support\Facades\Redis;
 
@@ -14,8 +17,34 @@ use App\User;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//auth()->loginUsingId(1);
+auth()->loginUsingId(1);
 //auth()->logout();
+//
+Route::get('/pusher',function(){
+ 	/*$user = User::first();
+    $message = ChatMessage::create([
+        'user_id' => $user->id,
+        'message' => 'hello world'
+    ]);*/
+    return view('pusher.index');
+	/*
+	$options = array(
+    'encrypted' => true
+  	);
+  	$pusher = new Pusher(
+    	'b12fcbcf3175a9c80082',
+    	'5ea3ee3811bf7e9a4397',
+    	'403050',
+    	$options
+  	);
+
+  	$data['message'] = 'hello world';
+  	$pusher->trigger('my-channel', 'my-event', $data);
+  	*/
+	// /    event(new ChatMessageWasReceived($message, $user));
+
+});
+//
 Route::get('/', function () {
 
 	//$visit = Redis::incr('visit');

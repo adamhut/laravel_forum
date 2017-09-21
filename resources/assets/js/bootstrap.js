@@ -50,14 +50,39 @@ window.axios.defaults.headers.common = {
  * allows your team to easily build robust real-time web applications.
  */
 
-// import Echo from "laravel-echo"
+import Echo from "laravel-echo" 
 
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: 'your-pusher-key'
-// });
+window.Pusher = require('pusher-js');
 
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: 'b12fcbcf3175a9c80082',
+    //cluster: 'mt1',
+    //encrypted: true
+});
+	/*
+	window.Echo.channel('my-channel')
+        .listen('my-event', (e) => {
+        console.log(e);
 
+    });
+    console.log('ech2o');*/
+  /*
+    window.Echo.channel('chat-room.1')
+    .listen('ChatMessageWasReceived', (e) => {
+        console.log(e.user,e.chatMessage);
+
+    });  */
+     /*
+    var pusher = new Pusher('b12fcbcf3175a9c80082', {
+      encrypted: true
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+      console.log(data);
+    });
+   */
 window.events = new Vue();
 
 window.flash = function(message,level='success'){

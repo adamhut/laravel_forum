@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 
 class YouWereMentioned extends Notification
 {
@@ -30,7 +31,7 @@ class YouWereMentioned extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database','broadcast'];
     }
 
     /**
@@ -59,5 +60,14 @@ class YouWereMentioned extends Notification
             'message'=>$this->reply->owner->name.' mentioned you in '.$this->reply->thread->title,
             'link' => $this->reply->path(),
         ];
+    }
+
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+             'message'=>$this->reply->owner->name.' mentioned you in '.$this->reply->thread->title.' by Pusher',
+            'link' => $this->reply->path(),
+            //'user'=>,
+        ]);
     }
 }

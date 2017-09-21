@@ -89,7 +89,7 @@ class UserNotificationsController extends Controller
     {
         auth()->user()
             ->notifications()
-            ->findOrFail ($notificationId)
+            ->findOrFail($notificationId)
             ->markAsRead();
     }
 }

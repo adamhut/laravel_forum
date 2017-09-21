@@ -4,6 +4,7 @@ use App\User;
 use Pusher\Pusher;
 use App\ChatMessage;
 use App\Events\ChatMessageWasReceived;
+use App\Notifications\YouWereMentioned;
 //use Illuminate\Support\Facades\Auth;
 //use Illuminate\Support\Facades\Redis;
 
@@ -20,12 +21,19 @@ use App\Events\ChatMessageWasReceived;
 auth()->loginUsingId(1);
 //auth()->logout();
 //
+Route::get('notifytest',function(){
+
+    $reply = App\Reply::first();
+    //dd($reply);
+    auth()->user()->notify(new YouWereMentioned($reply));
+});
 Route::get('/pusher',function(){
  	/*$user = User::first();
     $message = ChatMessage::create([
         'user_id' => $user->id,
         'message' => 'hello world'
     ]);*/
+
     return view('pusher.index');
 	/*
 	$options = array(
@@ -44,6 +52,8 @@ Route::get('/pusher',function(){
 	// /    event(new ChatMessageWasReceived($message, $user));
 
 });
+
+
 //
 Route::get('/', function () {
 

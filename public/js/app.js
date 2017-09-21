@@ -26777,6 +26777,7 @@ Vue.component('avatar-form', __webpack_require__(189));
 
 var app = new Vue({
   el: '#app'
+
 });
 
 /***/ }),
@@ -26844,27 +26845,29 @@ window.Pusher = __webpack_require__(155);
 
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
   broadcaster: 'pusher',
-  key: 'b12fcbcf3175a9c80082',
-  cluster: 'mt1',
-  encrypted: true
+  key: 'b12fcbcf3175a9c80082'
+  //cluster: 'mt1',
+  //encrypted: true
 });
 /*
-window.Echo.channel('chat-room.1')
-   .listen('ChatMessageWasReceived', (e) => {
-       console.log(e.user,e.chatMessage);
+window.Echo.channel('my-channel')
+       .listen('my-event', (e) => {
+       console.log(e);
 
    });
-   */
-window.Echo.private('chat-room.1').listen('ChatMessageWasReceived', function (e) {
-  console.log(e.user, e.chatMessage);
-});
+   console.log('ech2o');*/
+/*
+  window.Echo.channel('chat-room.1')
+  .listen('ChatMessageWasReceived', (e) => {
+      console.log(e.user,e.chatMessage);
+    });  */
 /*
 var pusher = new Pusher('b12fcbcf3175a9c80082', {
-  encrypted: true
+ encrypted: true
 });
-  var channel = pusher.subscribe('my-channel');
+ var channel = pusher.subscribe('my-channel');
 channel.bind('my-event', function(data) {
-  alert(data.message);
+ console.log(data);
 });
 */
 window.events = new Vue();
@@ -65904,6 +65907,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__NotificationItem__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__NotificationItem___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__NotificationItem__);
 //
 //
 //
@@ -65923,11 +65928,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -65935,6 +65936,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			notifications: false
 		};
 	},
+
+	components: { NotificationItem: __WEBPACK_IMPORTED_MODULE_0__NotificationItem___default.a },
 	created: function created() {
 		var _this = this;
 
@@ -65942,6 +65945,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		axios.get("/profiles/" + window.App.user.name + "/noticiations").then(function (response) {
 			return _this.notifications = response.data;
 		});
+	},
+
+	computed: {
+		notificationCount: function notificationCount() {
+			return this.notifications.length;
+		}
+	},
+	mounted: function mounted() {
+		var _this2 = this;
+
+		/*
+  window.Echo.channel('chat-room.1')
+  	.listen('ChatMessageWasReceived', (e) => {
+  		console.log(e.user,e.chatMessage);
+  	});*/
+		Echo.private('App.User.' + window.App.user.id).notification(function (notification) {
+			console.log(notification);
+			var newNotification = { data: {
+					message: notification.message,
+					link: notification.link,
+					id: notification.id
+				} };
+			_this2.notifications.push(newNotification);
+		});
+		console.log('Mounted5');
 	},
 
 
@@ -65959,28 +65987,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return (_vm.notifications) ? _c('li', {
     staticClass: "dropdown"
-  }, [_vm._m(0), _vm._v(" "), _c('ul', {
-    staticClass: "dropdown-menu",
-    attrs: {
-      "role": "menu"
-    }
-  }, _vm._l((_vm.notifications), function(notification) {
-    return _c('li', [_c('a', {
-      attrs: {
-        "href": notification.data.link
-      },
-      domProps: {
-        "textContent": _vm._s(notification.data.message)
-      },
-      on: {
-        "click": function($event) {
-          _vm.markAsRead(notification)
-        }
-      }
-    })])
-  }))]) : _vm._e()
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
+  }, [_c('a', {
     staticClass: "dropdown-toggle",
     attrs: {
       "href": "#",
@@ -65990,8 +65997,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "glyphicon glyphicon-bell"
-  })])
-}]}
+  }), _vm._v(" "), _c('span', {
+    staticClass: "badge",
+    domProps: {
+      "textContent": _vm._s(_vm.notifications.length)
+    }
+  })]), _vm._v(" "), _c('ul', {
+    staticClass: "dropdown-menu",
+    attrs: {
+      "role": "menu"
+    }
+  }, _vm._l((_vm.notifications), function(notification) {
+    return _c('notification-item', {
+      attrs: {
+        "notification": notification
+      }
+    })
+  }))]) : _vm._e()
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -66417,6 +66440,108 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 196 */,
+/* 197 */,
+/* 198 */,
+/* 199 */,
+/* 200 */,
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(205),
+  /* template */
+  __webpack_require__(206),
+  /* styles */
+  null,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm\\resources\\assets\\js\\components\\NotificationItem.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] NotificationItem.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-76e1ec47", Component.options)
+  } else {
+    hotAPI.reload("data-v-76e1ec47", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 205 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['notification'],
+
+	methods: {
+		markAsRead: function markAsRead(notification) {
+			axios.delete('/profiles/' + window.App.user.name + '/noticiations/' + notification.id).then().catch();
+		}
+	}
+});
+
+/***/ }),
+/* 206 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', [_c('a', {
+    attrs: {
+      "href": _vm.notification.data.link
+    },
+    domProps: {
+      "textContent": _vm._s(_vm.notification.data.message)
+    },
+    on: {
+      "click": function($event) {
+        _vm.markAsRead(_vm.notification)
+      }
+    }
+  })])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-76e1ec47", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

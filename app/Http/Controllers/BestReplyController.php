@@ -16,7 +16,8 @@ class BestReplyController extends Controller
    		// /$reply->thread->update(['best_reply_id'=>$reply->id]);
 
    		$reply->thread->markAsBestReply($reply);
-
-   	}
+		
+	}
+	
 
 }

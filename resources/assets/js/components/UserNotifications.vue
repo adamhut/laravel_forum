@@ -11,7 +11,12 @@
         </a>
 
         <ul class="dropdown-menu" role="menu">
-			<notification-item v-for="notification in notifications" :notification="notification"> </notification-item>
+			<notificationItem 
+				v-for="notification in notifications"
+				:key="notification.id" 
+				:notification="notification"
+			>
+			</notificationItem>
             
         </ul>
 	</li>

@@ -47,7 +47,7 @@
 				.listen('ChatMessageWasReceived', (e) => {
 					console.log(e.user,e.chatMessage);
 
-			});*/
+			});
 			Echo.private('App.User.' + window.App.user.id)
 				.notification((notification) => {
 					console.log(notification);
@@ -58,6 +58,7 @@
 					}}
 					this.notifications.push(newNotification);
 				});
+			*/
 			console.log('Mounted5');
 		},
 

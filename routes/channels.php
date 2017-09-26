@@ -19,3 +19,9 @@ Broadcast::channel('chat-room.{id}', function ($user, $id) {
 	return true;
     // return (int) $user->id === (int) $id;
 });
+
+
+Broadcast::channel('chat', function ($user) {
+  	return Auth::check();
+});
+

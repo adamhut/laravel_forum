@@ -11,7 +11,12 @@
         </a>
 
         <ul class="dropdown-menu" role="menu">
-			<notification-item v-for="notification in notifications" :notification="notification"> </notification-item>
+			<notificationItem 
+				v-for="notification in notifications"
+				:key="notification.id" 
+				:notification="notification"
+			>
+			</notificationItem>
             
         </ul>
 	</li>
@@ -42,7 +47,7 @@
 				.listen('ChatMessageWasReceived', (e) => {
 					console.log(e.user,e.chatMessage);
 
-			});*/
+			});
 			Echo.private('App.User.' + window.App.user.id)
 				.notification((notification) => {
 					console.log(notification);
@@ -53,6 +58,7 @@
 					}}
 					this.notifications.push(newNotification);
 				});
+			*/
 			console.log('Mounted5');
 		},
 

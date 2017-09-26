@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Thread;
+use App\Message;
 use App\Activity;
 use Carbon\Carbon;
 use App\CommunityLink;
@@ -137,5 +138,10 @@ class User extends Authenticatable
         $this->confirmation_token=null;
         $this->save();
         return $this;
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
     }
 }

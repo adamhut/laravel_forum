@@ -18,7 +18,7 @@ use App\Notifications\YouWereMentioned;
 | contains the "web" middleware group. Now create something great!
 |
 */
-auth()->loginUsingId(1);
+//auth()->loginUsingId(1);
 //auth()->logout();
 //
 Route::get('notifytest',function(){
@@ -26,9 +26,10 @@ Route::get('notifytest',function(){
     $reply = App\Reply::first();
     //dd($reply);
     auth()->user()->notify(new YouWereMentioned($reply));
+
 });
 Route::get('/pusher',function(){
- 	/*$user = User::first();
+ 	  /*$user = User::first();
     $message = ChatMessage::create([
         'user_id' => $user->id,
         'message' => 'hello world'
@@ -135,3 +136,30 @@ Route::get('impersonate/{user}', 'ImpersonationController')
 //Auth::routes();
 
 //Route::get('/home', 'HomeController@index');
+
+
+Route::group(['middleware'=>'auth'],function(){
+    Route::get('/chat', 'ChatsController@index');
+    Route::get('messages', 'ChatsController@show');
+    Route::post('messages', 'ChatsController@store');
+    Route::get('testmessages', function(){
+        $user = auth()->user();
+        $message = App\Message::first();
+        //dd($message);
+        broadcast(new App\Events\MessageSent($user, $message))->toOthers();
+         /*$options = array(
+       'encrypted' => true
+     );
+     $pusher = new Pusher\Pusher(
+       'b12fcbcf3175a9c80082',
+       '5ea3ee3811bf7e9a4397',
+       '403050',
+       $options
+     );
+    
+     $data['message'] = 'hello world';
+     $pusher->trigger('my-channel', 'my-event', $data);
+    */
+
+    });
+});

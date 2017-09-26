@@ -65,7 +65,7 @@ class YouWereMentioned extends Notification
     public function toBroadcast($notifiable)
     {
         return new BroadcastMessage([
-             'message'=>$this->reply->owner->name.' mentioned you in '.$this->reply->thread->title.' by Pusher',
+            'message'=>$this->reply->owner->name.' mentioned you in '.$this->reply->thread->title.' by Pusher',
             'link' => $this->reply->path(),
             //'user'=>,
         ]);

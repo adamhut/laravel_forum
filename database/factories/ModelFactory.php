@@ -109,3 +109,11 @@ $factory->define(\Illuminate\Notifications\DatabaseNotification::class, function
         'data' => ['foo' => 'bar']
     ];
 });
+
+
+$factory->define(App\Message::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => factory(App\User)->create(),
+        'message' =>  $faker->paragraph,
+     ];
+});

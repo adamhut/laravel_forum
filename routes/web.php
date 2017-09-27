@@ -55,6 +55,10 @@ Route::get('/pusher',function(){
 });
 
 
+Route::get('/vuex',function(){
+  return view('vuex');
+});
+
 //
 Route::get('/', function () {
 

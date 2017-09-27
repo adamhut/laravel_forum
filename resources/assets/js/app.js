@@ -7,6 +7,8 @@
 
 require('./bootstrap');
 
+import store from './store';
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -29,6 +31,10 @@ Vue.component('avatar-form', require('./components/AvatarForm.vue'));
 Vue.component('chatMessages', require('./components/ChatMessages.vue'));
 Vue.component('chatForm', require('./components/ChatForm.vue'));
 
+Vue.component('todo', require('./components/Todo.vue'));
+
+import {mapState,mapMutations} from 'vuex';
+
 
 const app = new Vue({
     el: '#app',
@@ -37,8 +43,17 @@ const app = new Vue({
         messages: []
     },
 
+    store,
+    /*
+    computed:{
+        todos(){
+            return this.$store.state.todos;
+        }
+    },*/
+    computed:mapState(['todos']),
     created() {
         this.fetchMessages();
+        /*
         Echo.private('chat')
             .listen('MessageSent', (e) => {
                 this.messages.push({
@@ -46,10 +61,12 @@ const app = new Vue({
                 user: e.user
             });
         });
+        */
         
     },
 
     methods: {
+        
         fetchMessages() {
             axios.get('/messages').then(response => {
                 this.messages = response.data;

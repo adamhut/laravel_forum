@@ -54,7 +54,9 @@ Route::get('/pusher',function(){
 
 });
 
-
+Route::get('/vuex_start',function(){
+  return view('vue_start');
+});
 Route::get('/vuex',function(){
   return view('vuex');
 });
@@ -160,7 +162,7 @@ Route::group(['middleware'=>'auth'],function(){
        '403050',
        $options
      );
-    
+
      $data['message'] = 'hello world';
      $pusher->trigger('my-channel', 'my-event', $data);
     */

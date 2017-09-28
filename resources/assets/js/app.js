@@ -35,6 +35,7 @@ Vue.component('todo', require('./components/Todo.vue'));
 
 import {mapState,mapMutations} from 'vuex';
 
+Vue.component('counter',require('./components/Counter.vue'));
 
 const app = new Vue({
     el: '#app',

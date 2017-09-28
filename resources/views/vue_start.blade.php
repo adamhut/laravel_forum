@@ -58,16 +58,9 @@
 </head>
     <body>
        <div id="app">
-            <div class="level">
-                <h1 class="mr-1">Todos</h1>
-                <button @click="completeAll">Complete All</button>
-            </div>
-
-            <todo v-for="(todo,index) in todos" :todo='todo' :key="index">
-
-            </todo>
-
+            <counter></counter>
+            
        </div>
-       <script src="/js/app.js"></script>
+       <script src="/js/vuexapp.js"></script>
     </body>
 </html>

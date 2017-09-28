@@ -12,7 +12,7 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-
+/*
 let store = new Vuex.Store({
     state:{
         count:0,
@@ -28,14 +28,14 @@ let store = new Vuex.Store({
 
 
 })
-
+*/
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-
+import store from './countstore';
 
 Vue.component('counter',require('./components/Counter.vue'));
 Vue.component('other',require('./components/Other.vue'));
@@ -43,6 +43,6 @@ Vue.component('other',require('./components/Other.vue'));
 
 const app = new Vue({
     el: '#app',
-    store:store,
+    store:new Vuex.Store(store),
     
 });

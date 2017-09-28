@@ -60,14 +60,17 @@
        <div id="app">
             <div class="level">
                 <h1 class="mr-1">Todos</h1>
-                <button @click="completeAll">Complete All</button>
+                <button @click="completeAll" v-show="! allComplete">Complete All</button>
+                <button @click="uncompleteAll">Uncomplete All</button>
             </div>
-
+            <p>
+                <input type="text" placeholder="do this" @keyup.enter="addTodo"/>
+            </p>
             <todo v-for="(todo,index) in todos" :todo='todo' :key="index">
 
             </todo>
 
        </div>
-       <script src="/js/app.js"></script>
+       <script src="/js/vuextodo.js"></script>
     </body>
 </html>

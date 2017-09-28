@@ -7,7 +7,6 @@
 
 require('./bootstrap');
 
-import store from './store';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -31,15 +30,9 @@ Vue.component('avatar-form', require('./components/AvatarForm.vue'));
 Vue.component('chatMessages', require('./components/ChatMessages.vue'));
 Vue.component('chatForm', require('./components/ChatForm.vue'));
 
-Vue.component('todo', require('./components/Todo.vue'));
-
-import {mapState,mapMutations} from 'vuex';
-
-Vue.component('counter',require('./components/Counter.vue'));
-
 const app = new Vue({
     el: '#app',
-    
+   
     data: {
         messages: []
     },

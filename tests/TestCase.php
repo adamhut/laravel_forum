@@ -4,6 +4,7 @@ namespace Tests;
 
 
 use App\Exceptions\Handler;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
@@ -15,6 +16,8 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
         $this->disableExceptionHandling();
+        DB::statement('PRAGMA foreign_keys=on'); //Due to sqlite by default disable foreign key constraint
+       
     }
 
     protected function signIn($user = null)

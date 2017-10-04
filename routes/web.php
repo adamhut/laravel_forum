@@ -103,7 +103,7 @@ Route::delete('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsC
 Route::post('/replies/{reply}/best','BestReplyController@store')->name('best-replies.store');
 
 Route::patch('/replies/{reply}', 'RepliesController@update');
-Route::delete('/replies/{reply}', 'RepliesController@destroy');
+Route::delete('/replies/{reply}', 'RepliesController@destroy')->name('replies.destory');
 
 Route::post('/replies/{reply}/favorites', 'FavoritesController@store');
 Route::delete('/replies/{reply}/favorites', 'FavoritesController@destroy');

@@ -31,6 +31,15 @@ Route::get('notifytest',function(){
 Route::get('grid',function(){
     return view('grid');
 });
+Route::get('grid-nav',function(){
+    return view('gridnav');
+});
+Route::get('grid-nest',function(){
+    return view('gridnest');
+});
+Route::get('grid-autofill',function(){
+    return view('gridautofill');
+});
 Route::get('/pusher',function(){
  	  /*$user = User::first();
     $message = ChatMessage::create([

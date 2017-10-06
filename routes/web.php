@@ -28,6 +28,9 @@ Route::get('notifytest',function(){
     auth()->user()->notify(new YouWereMentioned($reply));
 
 });
+Route::get('grid',function(){
+    return view('grid');
+});
 Route::get('/pusher',function(){
  	  /*$user = User::first();
     $message = ChatMessage::create([

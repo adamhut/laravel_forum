@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 156);
+/******/ 	return __webpack_require__(__webpack_require__.s = 159);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1896,7 +1896,7 @@ function loadLocale(name) {
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
-            __webpack_require__(132)("./" + name);
+            __webpack_require__(133)("./" + name);
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
             getSetGlobalLocale(oldLocale);
@@ -4944,7 +4944,7 @@ module.exports = function normalizeComponent (
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(1);
-var normalizeHeaderName = __webpack_require__(137);
+var normalizeHeaderName = __webpack_require__(138);
 
 var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 var DEFAULT_CONTENT_TYPE = {
@@ -5035,7 +5035,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(136)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(137)))
 
 /***/ }),
 /* 4 */
@@ -16198,12 +16198,12 @@ module.exports = function bind(fn, thisArg) {
 
 
 var utils = __webpack_require__(1);
-var settle = __webpack_require__(138);
-var buildURL = __webpack_require__(140);
-var parseHeaders = __webpack_require__(141);
-var isURLSameOrigin = __webpack_require__(142);
+var settle = __webpack_require__(139);
+var buildURL = __webpack_require__(141);
+var parseHeaders = __webpack_require__(142);
+var isURLSameOrigin = __webpack_require__(143);
 var createError = __webpack_require__(123);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(143);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(144);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -16299,7 +16299,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(144);
+      var cookies = __webpack_require__(145);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -16381,7 +16381,7 @@ module.exports = function xhrAdapter(config) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(139);
+var enhanceError = __webpack_require__(140);
 
 /**
  * Create an Error with the specified message, config, error code, and response.
@@ -36897,15 +36897,16 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 128 */
+/* 128 */,
+/* 129 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_laravel_echo__);
 
-window._ = __webpack_require__(129);
+window._ = __webpack_require__(130);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -36915,7 +36916,7 @@ window._ = __webpack_require__(129);
 
 window.$ = window.jQuery = __webpack_require__(126);
 
-__webpack_require__(130);
+__webpack_require__(131);
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -36925,7 +36926,7 @@ __webpack_require__(130);
 
 window.Vue = __webpack_require__(127);
 
-var authorizations = __webpack_require__(131);
+var authorizations = __webpack_require__(132);
 
 window.Vue.prototype.authorize = function () {
 
@@ -36953,7 +36954,7 @@ window.moment = __webpack_require__(0);
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(133);
+window.axios = __webpack_require__(134);
 
 window.axios.defaults.headers.common = {
   'X-CSRF-TOKEN': window.App.csrfToken,
@@ -36968,7 +36969,7 @@ window.axios.defaults.headers.common = {
 
 
 
-window.Pusher = __webpack_require__(153);
+window.Pusher = __webpack_require__(154);
 
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
   broadcaster: 'pusher',
@@ -37010,7 +37011,7 @@ window.flash = function (message) {
 }; //flash my new message
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -54102,7 +54103,7 @@ window.flash = function (message) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(5)(module)))
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports) {
 
 /*!
@@ -56485,19 +56486,29 @@ if (typeof jQuery === 'undefined') {
 
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports) {
 
 var user = window.App.user;
 
 module.exports = {
-	updateReply: function updateReply(reply) {
-		return reply.user_id == user.id;
+	/*updateReply(reply){
+ 	return reply.user_id == user.id;
+ },
+ 
+ updateThread(thread){
+ 	return thread.user_id ===user.id
+ },
+ */
+	owns: function owns(model) {
+		var prop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'user_id';
+
+		return model[prop] === user.id;
 	}
 };
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -56746,16 +56757,16 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 132;
-
-/***/ }),
-/* 133 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(134);
+webpackContext.id = 133;
 
 /***/ }),
 /* 134 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(135);
+
+/***/ }),
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56763,7 +56774,7 @@ module.exports = __webpack_require__(134);
 
 var utils = __webpack_require__(1);
 var bind = __webpack_require__(121);
-var Axios = __webpack_require__(135);
+var Axios = __webpack_require__(136);
 var defaults = __webpack_require__(3);
 
 /**
@@ -56798,14 +56809,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(125);
-axios.CancelToken = __webpack_require__(150);
+axios.CancelToken = __webpack_require__(151);
 axios.isCancel = __webpack_require__(124);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(151);
+axios.spread = __webpack_require__(152);
 
 module.exports = axios;
 
@@ -56814,7 +56825,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 135 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56822,10 +56833,10 @@ module.exports.default = axios;
 
 var defaults = __webpack_require__(3);
 var utils = __webpack_require__(1);
-var InterceptorManager = __webpack_require__(145);
-var dispatchRequest = __webpack_require__(146);
-var isAbsoluteURL = __webpack_require__(148);
-var combineURLs = __webpack_require__(149);
+var InterceptorManager = __webpack_require__(146);
+var dispatchRequest = __webpack_require__(147);
+var isAbsoluteURL = __webpack_require__(149);
+var combineURLs = __webpack_require__(150);
 
 /**
  * Create a new instance of Axios
@@ -56906,7 +56917,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 136 */
+/* 137 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -57096,7 +57107,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 137 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57115,7 +57126,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 138 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57147,7 +57158,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 139 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57173,7 +57184,7 @@ module.exports = function enhanceError(error, config, code, response) {
 
 
 /***/ }),
-/* 140 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57248,7 +57259,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 141 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57292,7 +57303,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 142 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57367,7 +57378,7 @@ module.exports = (
 
 
 /***/ }),
-/* 143 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57410,7 +57421,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 144 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57470,7 +57481,7 @@ module.exports = (
 
 
 /***/ }),
-/* 145 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57529,14 +57540,14 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 146 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(1);
-var transformData = __webpack_require__(147);
+var transformData = __webpack_require__(148);
 var isCancel = __webpack_require__(124);
 var defaults = __webpack_require__(3);
 
@@ -57615,7 +57626,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 147 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57642,7 +57653,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 148 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57663,7 +57674,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57682,7 +57693,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 150 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57746,7 +57757,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57780,7 +57791,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(module, exports) {
 
 var asyncGenerator = function () {
@@ -58566,7 +58577,7 @@ var Echo = function () {
 module.exports = Echo;
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -62704,221 +62715,7 @@ return /******/ (function(modules) { // webpackBootstrap
 ;
 
 /***/ }),
-/* 154 */,
 /* 155 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var Component = __webpack_require__(2)(
-  /* script */
-  __webpack_require__(172),
-  /* template */
-  __webpack_require__(173),
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm\\resources\\assets\\js\\components\\Favorite.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Favorite.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2e1a9d45", Component.options)
-  } else {
-    hotAPI.reload("data-v-2e1a9d45", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 156 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(157);
-module.exports = __webpack_require__(206);
-
-
-/***/ }),
-/* 157 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
-__webpack_require__(128);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-Vue.component('flash', __webpack_require__(158));
-//Vue.component('reply', require('./components/Reply.vue'));
-
-//Vue.component('replies', require('./components/Replies.vue'));
-Vue.component('thread-view', __webpack_require__(166));
-
-Vue.component('user-notifications', __webpack_require__(185));
-Vue.component('Paginator', __webpack_require__(191));
-
-Vue.component('favorite', __webpack_require__(155));
-Vue.component('avatar-form', __webpack_require__(194));
-
-Vue.component('chatMessages', __webpack_require__(200));
-Vue.component('chatForm', __webpack_require__(203));
-
-var app = new Vue({
-    el: '#app',
-
-    data: {
-        messages: []
-    },
-
-    store: store,
-    /*
-    computed:{
-        todos(){
-            return this.$store.state.todos;
-        }
-    },*/
-    computed: mapState(['todos']),
-    created: function created() {
-        this.fetchMessages();
-        /*
-        Echo.private('chat')
-            .listen('MessageSent', (e) => {
-                this.messages.push({
-                message: e.message.message,
-                user: e.user
-            });
-        });
-        */
-    },
-
-
-    methods: {
-        fetchMessages: function fetchMessages() {
-            var _this = this;
-
-            axios.get('/messages').then(function (response) {
-                _this.messages = response.data;
-            });
-        },
-        addMessage: function addMessage(message) {
-            this.messages.push(message);
-
-            axios.post('/messages', message).then(function (response) {
-                console.log(response.data);
-            });
-        }
-    }
-});
-
-/***/ }),
-/* 158 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(159)
-}
-var Component = __webpack_require__(2)(
-  /* script */
-  __webpack_require__(164),
-  /* template */
-  __webpack_require__(165),
-  /* styles */
-  injectStyle,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm\\resources\\assets\\js\\components\\Flash.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Flash.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5ee89d17", Component.options)
-  } else {
-    hotAPI.reload("data-v-5ee89d17", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 159 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(160);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(162)("fcb7e450", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5ee89d17\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5ee89d17\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 160 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(161)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "\n.alert-flash{\n    position: fixed;\n    right:25px;\n    bottom: 25px;\n}\n\n\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 161 */
 /***/ (function(module, exports) {
 
 /*
@@ -63000,7 +62797,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 162 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -63019,7 +62816,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(163)
+var listToStyles = __webpack_require__(157)
 
 /*
 type StyleObject = {
@@ -63221,7 +63018,7 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 163 */
+/* 157 */
 /***/ (function(module, exports) {
 
 /**
@@ -63251,6 +63048,219 @@ module.exports = function listToStyles (parentId, list) {
   }
   return styles
 }
+
+
+/***/ }),
+/* 158 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(172),
+  /* template */
+  __webpack_require__(173),
+  /* styles */
+  null,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm\\resources\\assets\\js\\components\\Favorite.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Favorite.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2e1a9d45", Component.options)
+  } else {
+    hotAPI.reload("data-v-2e1a9d45", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 159 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(160);
+module.exports = __webpack_require__(206);
+
+
+/***/ }),
+/* 160 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
+
+__webpack_require__(129);
+
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
+
+Vue.component('flash', __webpack_require__(161));
+//Vue.component('reply', require('./components/Reply.vue'));
+
+//Vue.component('replies', require('./components/Replies.vue'));
+Vue.component('thread-view', __webpack_require__(166));
+
+Vue.component('user-notifications', __webpack_require__(185));
+Vue.component('Paginator', __webpack_require__(191));
+
+Vue.component('favorite', __webpack_require__(158));
+Vue.component('avatar-form', __webpack_require__(194));
+
+Vue.component('chatMessages', __webpack_require__(200));
+Vue.component('chatForm', __webpack_require__(203));
+
+var app = new Vue({
+    el: '#app',
+
+    data: {
+        messages: []
+    },
+
+    store: store,
+    /*
+    computed:{
+        todos(){
+            return this.$store.state.todos;
+        }
+    },*/
+    computed: mapState(['todos']),
+    created: function created() {
+        this.fetchMessages();
+        /*
+        Echo.private('chat')
+            .listen('MessageSent', (e) => {
+                this.messages.push({
+                message: e.message.message,
+                user: e.user
+            });
+        });
+        */
+    },
+
+
+    methods: {
+        fetchMessages: function fetchMessages() {
+            var _this = this;
+
+            axios.get('/messages').then(function (response) {
+                _this.messages = response.data;
+            });
+        },
+        addMessage: function addMessage(message) {
+            this.messages.push(message);
+
+            axios.post('/messages', message).then(function (response) {
+                console.log(response.data);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 161 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(162)
+}
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(164),
+  /* template */
+  __webpack_require__(165),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm\\resources\\assets\\js\\components\\Flash.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Flash.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5ee89d17", Component.options)
+  } else {
+    hotAPI.reload("data-v-5ee89d17", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 162 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(163);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(156)("fcb7e450", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5ee89d17\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5ee89d17\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 163 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(155)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "\n.alert-flash{\n    position: fixed;\n    right:25px;\n    bottom: 25px;\n}\n\n\n", ""]);
+
+// exports
 
 
 /***/ }),
@@ -63604,8 +63614,10 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Favorite_vue__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Favorite_vue__ = __webpack_require__(158);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Favorite_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Favorite_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_moment__);
 //
 //
 //
@@ -63652,20 +63664,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ['data'],
+	props: ['data-reply'],
 	components: {
 		Favorite: __WEBPACK_IMPORTED_MODULE_0__Favorite_vue___default.a
 	},
 	data: function data() {
 		return {
-			id: this.data.id,
+			id: this.data - reply.id,
 			editing: false,
-			body: this.data.body,
-			isBest: this.data.isBest,
-			reply: this.data
+			body: this.data - reply.body,
+			isBest: this.data - reply.isBest,
+			reply: this.data - reply
 		};
 	},
 
@@ -63679,11 +63699,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   	//return this.data.user_id== window.App.user.id;
   },*/
 		ago: function ago() {
-			return moment(this.data.created_at).fromNow() + ' ...';
+			return __WEBPACK_IMPORTED_MODULE_1_moment___default()(this.data - reply.created_at).fromNow() + ' ...';
 		}
 	},
 	mounted: function mounted() {
-		console.log(moment(this.data.created_at).fromNow());
+		console.log(__WEBPACK_IMPORTED_MODULE_1_moment___default()(this.data - reply.created_at).fromNow());
 	},
 	created: function created() {
 		var _this = this;
@@ -63721,9 +63741,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			//this.isBest = true;
 
-			axios.post('/replies/' + this.data.id + '/best');
+			axios.post('/replies/' + this.id + '/best');
 
-			window.events.$emit('best-reply-selected', this.data.id);
+			window.events.$emit('best-reply-selected', this.id);
 		}
 	}
 });
@@ -63832,10 +63852,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "flex"
   }, [_c('a', {
     attrs: {
-      "href": '/profiles/' + _vm.data.owner.name
+      "href": '/profiles/' + _vm.data - _vm.reply.owner.name
     },
     domProps: {
-      "textContent": _vm._s(_vm.data.owner.name)
+      "textContent": _vm._s(_vm.data - _vm.reply.owner.name)
     }
   }), _vm._v("\n                    said \n                    "), _c('span', {
     domProps: {
@@ -63843,7 +63863,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), (_vm.signedIn) ? _c('div', [_c('favorite', {
     attrs: {
-      "reply": _vm.data
+      "reply": _vm.data - _vm.reply
     }
   })], 1) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
@@ -63893,9 +63913,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "innerHTML": _vm._s(_vm.body)
     }
-  }), _vm._v(" "), _c('hr')]), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c('hr')]), _vm._v(" "), (_vm.authorize('owns', _vm.reply) || _vm.authorize('owns', _vm.reply.thread)) ? _c('div', {
     staticClass: "panel-footer level"
-  }, [(_vm.authorize('updateReply', _vm.reply)) ? _c('div', [_c('button', {
+  }, [(_vm.authorize('owns', _vm.reply)) ? _c('div', [_c('button', {
     staticClass: "btn btn-xs btn-default mr-1",
     on: {
       "click": function($event) {
@@ -63907,18 +63927,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.destroy
     }
-  }, [_vm._v("Delete")])]) : _vm._e(), _vm._v(" "), _c('div', [_c('button', {
+  }, [_vm._v("Delete")])]) : _vm._e(), _vm._v(" "), _c('div', [(_vm.authorize('owns', _vm.reply.thread)) ? _c('button', {
     directives: [{
       name: "show",
       rawName: "v-show",
       value: (!_vm.isBest),
-      expression: "! isBest"
+      expression: "!isBest"
     }],
     staticClass: "btn btn-xs btn-default ml-a",
     on: {
       "click": _vm.markBestReply
     }
-  }, [_vm._v("Best Reply")])])])])
+  }, [_vm._v("\n                \t\tBest Reply\n                \t")]) : _vm._e()])]) : _vm._e()])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -65808,7 +65828,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       key: reply.id
     }, [_c('reply', {
       attrs: {
-        "data": reply
+        "data-reply": reply
       },
       on: {
         "deleted": function($event) {

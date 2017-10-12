@@ -6,6 +6,7 @@ namespace App;
 use App\Favoritable;
 use App\ForumChannel;
 use App\Events\ThreadHasNewReply;
+use App\Exceptions\ThreadIsLocked;
 use App\Events\ThreadReceivedNewReply;
 use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Model;
@@ -20,14 +21,14 @@ class Thread extends Model
 
     /**
      * The relationship to always eager-load
-     * 
+     *
      * @var array
      */
     protected $with=['creator','channel'];
 
     /**
      * The attribute to always appends
-     * 
+     *
      * @var array
      */
     protected $appends=['isSubscribedTo'];
@@ -39,14 +40,14 @@ class Thread extends Model
         static::addGlobalScope('replyCount', function($builder){
             $builder->withCount('replies');
         });
-       
+
         static::addGlobalScope('creator', function($builder){
             $builder->with('creator');
         });
         //in code you can add  App\Thread::withoutGlobalScopes()->first()//to disable it
         */
-      
-        
+
+
         static::deleting(function($thread){
             $thread->replies()->each(function($reply){
                 $reply->delete();
@@ -62,8 +63,8 @@ class Thread extends Model
             $thread->recordActivity('create');
         });
         */
-    } 
-  
+    }
+
 
     public function path()
     {
@@ -75,7 +76,7 @@ class Thread extends Model
         //return $this->hasMany(Reply::class)->withCount('favorites');
 
         //load the reply with the favorites count
-    	return $this->hasMany(Reply::class); 
+    	return $this->hasMany(Reply::class);
            // ->withCount('favorites')
             //->with('owner');
     }
@@ -87,15 +88,18 @@ class Thread extends Model
 
     public function scropReplyCount($query)
     {
-            
+
     }
 
     public function addReply($reply)
     {
+        if($this->locked){
+            throw new ThreadIsLocked('Thread is Lock');
+        }
         $reply =  $this->replies()->create($reply);
 
         //$this->increment('replies_count');
-        
+
         //prepare all notification to all subscribers.
 
         event(new ThreadReceivedNewReply($reply));
@@ -134,6 +138,12 @@ class Thread extends Model
 
     }
 
+    public function lock()
+    {
+        $this->update( ['locked' => true]);
+        return $this;
+    }
+
     public function notifySubscribers($reply)
     {
         $this->subscriptions
@@ -165,9 +175,9 @@ class Thread extends Model
      * @return [type] [description]
      */
     public function scopefilter($query,$filters)
-    {   
+    {
         return $filters->apply($query);
-            
+
     }
 
     public function subscribe($userId = null)
@@ -205,7 +215,7 @@ class Thread extends Model
     {
         //Look in the cache for the proper key.
         //compare that carbon instance with the $thread->updated_at
-        
+
         //$key = sprintf("user.%s.visit.%s",auth()->id(),$this->id);
         $user = $user ?: auth()->user();
         $key = $user->visitedThreadCacheKey($this);
@@ -227,7 +237,7 @@ class Thread extends Model
 
     /**
      * Set the proper slug Attribute //mutator
-     * @param $string $value 
+     * @param $string $value
      */
     public function setSlugAttribute($value)
     {
@@ -247,5 +257,5 @@ class Thread extends Model
         $this->best_reply_id = $reply->id;
         $this->save();
     }
-   
+
 }

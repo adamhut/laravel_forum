@@ -48,7 +48,7 @@ $factory->define(App\Thread::class, function (Faker\Generator $faker) {
             return factory('App\User')->create()->id;
         },
         'slug' => str_slug($title),
-
+        'locked' => false,
      ];
 });
 

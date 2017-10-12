@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Reply;
 use App\Thread;
 use Illuminate\Http\Request;
+use App\Exceptions\ThreadIsLocked;
 use App\Http\Requests\CreatePostRequest;
 
 
@@ -42,25 +43,30 @@ class RepliesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  string $cahnnelId 
+     * @param  string $cahnnelId
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store($channelId, Thread $thread,CreatePostRequest $form)
-    { 
-        
-        $reply = $thread->addReply([
-            'body' => request('body'),
-            'user_id' => auth()->id()
-        ]);
-        
+    {
+
+        //try{
+            $reply = $thread->addReply([
+                'body' => request('body'),
+                'user_id' => auth()->id()
+            ]);
+
+        //}catch(ThreadIsLocked $e){
+        //    return response('Thread is Locked',422);
+        //}
+
 
         if (request()->expectsJson()) {
             return $reply->load('owner');
         }
 
         return back()->with('flash','your reply has been left!!!');
-        
+
     }
 
     /**
@@ -100,20 +106,20 @@ class RepliesController extends Controller
     public function update(Reply $reply)
     {
         $this->authorize('update',$reply);
-        
+
         //try{
             $this->validate(request(),[
                 'body' => 'required|spamfree',
-            ]);         
-            // check ,spam       
+            ]);
+            // check ,spam
             $reply->update(['body'=>request('body')]);
-        
+
         /*
         }catch(\Exception $e)
         {
             return response('Sorry your reply could not be save at this time', 422 );
         }
-        */      
+        */
     }
 
     /**
@@ -125,7 +131,7 @@ class RepliesController extends Controller
     public function destroy(Reply $reply)
     {
         //change to use policy
-        /* 
+        /*
         if($reply->user_id != auth()->id())
         {
             if(request()->expectsJson())
@@ -134,9 +140,9 @@ class RepliesController extends Controller
             }
         }*/
 
-       
+
         $this->authorize('update',$reply);
-        
+
         $reply->delete();
 
 
@@ -158,5 +164,5 @@ class RepliesController extends Controller
         //$spam->check(request('body'));
         //resolve(Spam::class)->detect(request('body'));
     }
-    
+
 }

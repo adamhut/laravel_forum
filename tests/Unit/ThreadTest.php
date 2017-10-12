@@ -15,7 +15,7 @@ class ThreadTest extends TestCase
 	use DatabaseMigrations;
 
     protected $thread;
-    
+
     public function setUp()
     {
         parent::setUp();
@@ -89,21 +89,21 @@ class ThreadTest extends TestCase
     {
         //Give  we have a thread
         $thread = create('App\Thread');
-        
+
         //and  a authenticated user
-       // $this->signIn(); 
-        
+       // $this->signIn();
+
         //wehen the suer subscribes to the thread
-        
+
         $thread->subscribe($userId = 1);
 
 
-        //then we shoudl be able to fetch all thread that the user has subscribed to 
+        //then we shoudl be able to fetch all thread that the user has subscribed to
         $this->assertEquals(
-            1, 
+            1,
             $thread->subscriptions()->where('user_id',$userId)->count()
         );
-        
+
     }
 
     /** @test */
@@ -111,25 +111,25 @@ class ThreadTest extends TestCase
     {
         //Give  we have a thread
         $thread = create('App\Thread');
-        
+
         //and  a authenticated user
-       // $this->signIn(); 
-        
+       // $this->signIn();
+
         //wehen the suer subscribes to the thread
-        
+
         $thread->subscribe($userId = 1);
 
-        //then we shoudl be able to fetch all thread that the user has subscribed to 
+        //then we shoudl be able to fetch all thread that the user has subscribed to
         $this->assertEquals(
-            1, 
+            1,
             $thread->subscriptions()->where('user_id',$userId)->count()
         );
 
         $thread->unsubscribe($userId = 1);
-        
-        //then we shoudl be able to fetch all thread that the user has subscribed to 
+
+        //then we shoudl be able to fetch all thread that the user has subscribed to
         $this->assertEquals(
-            0, 
+            0,
             $thread->subscriptions()->where('user_id',$userId)->count()
         );
 
@@ -140,15 +140,15 @@ class ThreadTest extends TestCase
     {
         //Give  we have a thread
         $thread = create('App\Thread');
-        
-        //and  a authenticated user
-        $this->signIn(); 
 
-        
-        $this->assertFalse($thread->isSubscribedTo); 
+        //and  a authenticated user
+        $this->signIn();
+
+
+        $this->assertFalse($thread->isSubscribedTo);
 
         //wehen the suer subscribes to the thread
-        $thread->subscribe();  
+        $thread->subscribe();
 
         $this->assertTrue($thread->isSubscribedTo);
 
@@ -158,8 +158,8 @@ class ThreadTest extends TestCase
     public function a_thread_can_check_if_the_authenticated_user_has_read_all_replies()
     {
         //Give a authenticated user
-        $this->signIn(); 
-        
+        $this->signIn();
+
         //  we have a thread
         $thread = create('App\Thread');
        // dd($thread->id);
@@ -171,7 +171,7 @@ class ThreadTest extends TestCase
         //Record the timestamp when they do so.
         //simulate that the user visited the thread
         $user->read($thread);
-        
+
         $this->assertFalse($thread->hasUpdatesFor($user));
     }
 
@@ -179,20 +179,20 @@ class ThreadTest extends TestCase
     public function a_thread_record_each_visit()
     {
         //Give a authenticated user
-        $this->signIn(); 
-        
+        $this->signIn();
+
         //  we have a thread
         $thread = make('App\Thread',['id'=>1]);
         $thread->visits()->reset();
         $this->assertSame(0, $thread->visits()->count());
-        
+
         $thread->visits()->record(); //incr 100 to 101
         $this->assertEquals(1, $thread->visits()->count());
-        
+
         $thread->visits()->record(); //incr 100 to 101
         $this->assertEquals(2, $thread->visits()->count());
         return;
-       
+
         $this->assertSame(0, $thread->visits());
 
         $thread->recordVisit(); //incr 100 to 101
@@ -201,5 +201,14 @@ class ThreadTest extends TestCase
         $thread->recordVisit(); //incr 100 to 101
         $this->assertEquals(2, $thread->visits());
     }
-   
+
+    /** @test */
+    public function a_thread_may_be_locked()
+    {
+        $this->assertFalse($this->thread->locked);
+
+        $this->thread->lock();
+
+        $this->assertTrue(!!$this->thread->fresh()->locked);
+    }
 }

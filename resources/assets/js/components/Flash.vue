@@ -9,9 +9,10 @@
 </template>
 
 <script>
-const defaultType=[
-    'success','danger','warning','info'
-];
+    const defaultType=[
+        'success','danger','warning','info'
+    ];
+    
     export default {
         props:{
             message:{
@@ -33,7 +34,7 @@ const defaultType=[
             //this.calcLevel(this.cate)
             if(this.message){
                 this.body = this.message;
-                this.flash(this.message);
+                this.flash();
             };
             window.events.$on('flash',data=>{
                 this.flash(data);

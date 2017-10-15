@@ -12,7 +12,7 @@ use App\Filters\ThreadFilters;
 
 class ThreadsController extends Controller
 {
-    protected static $countPerPage=20;   
+    protected static $countPerPage=20;
 
     /**
      *  create a new ThreadsContrtoller instance.
@@ -32,9 +32,9 @@ class ThreadsController extends Controller
     {
         //dd($channel);
         //Move it to App serviceprovider as View Composer
-        
+
         $threads = $this->getThreads($channel,$filters);
-      
+
         if(request()->wantsJson())
         {
             return $threads;
@@ -52,7 +52,7 @@ class ThreadsController extends Controller
         ]);
     }
 
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -127,17 +127,17 @@ class ThreadsController extends Controller
         return view('threads.show',compact('thread'))->with([
             'thread'=> $thread,
             'replies' =>   $thread->replies()->paginate(static::$countPerPage),
-           
+
         ]);*/
         //return $thread;
-        
+
         //Record that the user visited this page.
         if(auth()->check())
         {
             auth()->user()->read($thread);
         }
 
-       
+
         $trending->push($thread);
         $thread->visits()->record();
         //$key = auth()->user()->visitedThreadCacheKey($thread);
@@ -165,9 +165,22 @@ class ThreadsController extends Controller
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Thread $thread)
+    public function update($channel , Thread $thread)
     {
-       
+        /*
+        if(request()->has('locked')){
+
+            if(! auth()->user()->isAdmin()){
+
+                return response([],403);
+            }
+            $thread->lock();
+
+            // /dd(2);
+        }
+        */
+        //extra code here
+
     }
 
     /**
@@ -179,7 +192,7 @@ class ThreadsController extends Controller
      */
     public function destroy($channel,Thread $thread)
     {
-         //Change to Policy  
+         //Change to Policy
        /*
         if($thread->user_id != auth()->id() )
         {
@@ -191,7 +204,7 @@ class ThreadsController extends Controller
             return redirect('/login');
         }
          */
-      
+
         $this->authorize('update',$thread);
         //Move to model Event
         //$thread->replies()->delete();
@@ -223,6 +236,6 @@ class ThreadsController extends Controller
         return $threads->paginate(25);
     }
 
-   
-   
+
+
 }

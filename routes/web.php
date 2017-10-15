@@ -100,6 +100,9 @@ Route::get('/threads/create', 'ThreadsController@create');
 Route::get('/threads/{channel}', 'ThreadsController@index');
 
 Route::get('/threads/{channel}/{thread}', 'ThreadsController@show');
+
+Route::post('locked-threads/{thread}', 'LockedThreadsController@store')->name('locked-threads.store')->middleware('admin');
+
 Route::post('/threads/{channel}/{thread}/favorites', 'FavoriteThreadsController@store');
 Route::delete('/threads/{channel}/{thread}/favorites', 'FavoriteThreadsController@destroy');
 

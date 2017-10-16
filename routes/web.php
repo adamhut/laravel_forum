@@ -102,6 +102,7 @@ Route::get('/threads/{channel}', 'ThreadsController@index');
 Route::get('/threads/{channel}/{thread}', 'ThreadsController@show');
 
 Route::post('locked-threads/{thread}', 'LockedThreadsController@store')->name('locked-threads.store')->middleware('admin');
+Route::delete('locked-threads/{thread}', 'LockedThreadsController@destroy')->name('locked-threads.destroy')->middleware('admin');
 
 Route::post('/threads/{channel}/{thread}/favorites', 'FavoriteThreadsController@store');
 Route::delete('/threads/{channel}/{thread}/favorites', 'FavoriteThreadsController@destroy');

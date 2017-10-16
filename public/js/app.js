@@ -56504,6 +56504,10 @@ module.exports = {
 		var prop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'user_id';
 
 		return model[prop] === user.id;
+	},
+	isAdmin: function isAdmin() {
+		//console.log(user.name);
+		return ['adamtest'].includes(user.name);
 	}
 };
 
@@ -63067,7 +63071,7 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm2\\resources\\assets\\js\\components\\Favorite.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm\\resources\\assets\\js\\components\\Favorite.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Favorite.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -63078,9 +63082,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0a21517e", Component.options)
+    hotAPI.createRecord("data-v-2e1a9d45", Component.options)
   } else {
-    hotAPI.reload("data-v-0a21517e", Component.options)
+    hotAPI.reload("data-v-2e1a9d45", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -63139,14 +63143,14 @@ var app = new Vue({
         messages: []
     },
 
-    store: store,
+    //store,
     /*
     computed:{
         todos(){
             return this.$store.state.todos;
         }
     },*/
-    computed: mapState(['todos']),
+    //computed:mapState(['todos']),
     created: function created() {
         this.fetchMessages();
         /*
@@ -63200,7 +63204,7 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm2\\resources\\assets\\js\\components\\Flash.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm\\resources\\assets\\js\\components\\Flash.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Flash.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -63211,9 +63215,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7ab2849b", Component.options)
+    hotAPI.createRecord("data-v-5ee89d17", Component.options)
   } else {
-    hotAPI.reload("data-v-7ab2849b", Component.options)
+    hotAPI.reload("data-v-5ee89d17", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -63234,13 +63238,13 @@ var content = __webpack_require__(163);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(156)("e53cc4fa", content, false);
+var update = __webpack_require__(156)("fcb7e450", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7ab2849b\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7ab2849b\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5ee89d17\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5ee89d17\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Flash.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -63368,7 +63372,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-7ab2849b", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-5ee89d17", module.exports)
   }
 }
 
@@ -63389,7 +63393,7 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm2\\resources\\assets\\js\\Pages\\Thread.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm\\resources\\assets\\js\\Pages\\Thread.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
@@ -63399,9 +63403,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-43e316f9", Component.options)
+    hotAPI.createRecord("data-v-7b10cd75", Component.options)
   } else {
-    hotAPI.reload("data-v-43e316f9", Component.options)
+    hotAPI.reload("data-v-7b10cd75", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -63426,12 +63430,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ['initialRepliesCount'],
+	props: ['thread'],
 	components: { Replies: __WEBPACK_IMPORTED_MODULE_0__components_replies_vue___default.a, SubscribeButton: __WEBPACK_IMPORTED_MODULE_1__components_SubscribeButton_vue___default.a },
 	data: function data() {
 		return {
-			repliesCount: this.initialRepliesCount
+			repliesCount: this.thread.replies_count,
+			locked: this.thread.locked
 		};
+	},
+
+
+	methods: {
+		toggleLock: function toggleLock() {
+			// /locked-threads/{thread}
+			axios[this.locked ? 'delete' : 'post']('/locked-threads/' + this.thread.slug);
+			this.locked = !this.locked;
+		}
 	}
 });
 
@@ -63452,7 +63466,7 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm2\\resources\\assets\\js\\components\\replies.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm\\resources\\assets\\js\\components\\replies.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] replies.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -63463,9 +63477,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-267d8dda", Component.options)
+    hotAPI.createRecord("data-v-c859bae2", Component.options)
   } else {
-    hotAPI.reload("data-v-267d8dda", Component.options)
+    hotAPI.reload("data-v-c859bae2", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -63486,6 +63500,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewReply_vue__ = __webpack_require__(175);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewReply_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__NewReply_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixin_Collection_js__ = __webpack_require__(180);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -63586,7 +63605,7 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm2\\resources\\assets\\js\\components\\Reply.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm\\resources\\assets\\js\\components\\Reply.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Reply.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -63597,9 +63616,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-b58acad6", Component.options)
+    hotAPI.createRecord("data-v-ed1e99de", Component.options)
   } else {
-    hotAPI.reload("data-v-b58acad6", Component.options)
+    hotAPI.reload("data-v-ed1e99de", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -63735,9 +63754,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
    	flash('Your Reply Has been Delete','success');	
    });
    */
-			this.$emit('deleted', this.id
+			this.$emit('deleted', this.id);
 			//this.editing = false;
-			);
 		},
 		markBestReply: function markBestReply() {
 
@@ -63831,7 +63849,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-0a21517e", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-2e1a9d45", module.exports)
   }
 }
 
@@ -63946,7 +63964,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-b58acad6", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-ed1e99de", module.exports)
   }
 }
 
@@ -63967,7 +63985,7 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm2\\resources\\assets\\js\\components\\NewReply.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm\\resources\\assets\\js\\components\\NewReply.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] NewReply.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -63978,9 +63996,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5830d862", Component.options)
+    hotAPI.createRecord("data-v-0712d9d3", Component.options)
   } else {
-    hotAPI.reload("data-v-5830d862", Component.options)
+    hotAPI.reload("data-v-0712d9d3", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -65791,7 +65809,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-5830d862", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-0712d9d3", module.exports)
   }
 }
 
@@ -65845,7 +65863,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "changed": _vm.fetch
     }
-  }), _vm._v(" "), _c('new-reply', {
+  }), _vm._v(" "), (_vm.$parent.locked) ? _c('p', [_vm._v("\n\t\tThis thread has been locked . No more replies are allowed\n\t")]) : _c('new-reply', {
     attrs: {
       "endpoint": _vm.endpoint
     },
@@ -65858,7 +65876,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-267d8dda", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-c859bae2", module.exports)
   }
 }
 
@@ -65879,7 +65897,7 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm2\\resources\\assets\\js\\components\\SubscribeButton.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm\\resources\\assets\\js\\components\\SubscribeButton.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] SubscribeButton.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -65890,9 +65908,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1d313407", Component.options)
+    hotAPI.createRecord("data-v-456fe183", Component.options)
   } else {
-    hotAPI.reload("data-v-1d313407", Component.options)
+    hotAPI.reload("data-v-456fe183", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -65956,7 +65974,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-1d313407", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-456fe183", module.exports)
   }
 }
 
@@ -65977,7 +65995,7 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm2\\resources\\assets\\js\\components\\UserNotifications.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm\\resources\\assets\\js\\components\\UserNotifications.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] UserNotifications.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -65988,9 +66006,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-030126f0", Component.options)
+    hotAPI.createRecord("data-v-11c8ab04", Component.options)
   } else {
-    hotAPI.reload("data-v-030126f0", Component.options)
+    hotAPI.reload("data-v-11c8ab04", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -66101,7 +66119,7 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm2\\resources\\assets\\js\\components\\NotificationItem.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm\\resources\\assets\\js\\components\\NotificationItem.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] NotificationItem.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -66112,9 +66130,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-d16a2b7a", Component.options)
+    hotAPI.createRecord("data-v-76e1ec47", Component.options)
   } else {
-    hotAPI.reload("data-v-d16a2b7a", Component.options)
+    hotAPI.reload("data-v-76e1ec47", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -66174,7 +66192,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-d16a2b7a", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-76e1ec47", module.exports)
   }
 }
 
@@ -66218,7 +66236,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-030126f0", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-11c8ab04", module.exports)
   }
 }
 
@@ -66239,7 +66257,7 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm2\\resources\\assets\\js\\components\\Paginator.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm\\resources\\assets\\js\\components\\Paginator.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Paginator.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -66250,9 +66268,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-74e4e288", Component.options)
+    hotAPI.createRecord("data-v-1069ed90", Component.options)
   } else {
-    hotAPI.reload("data-v-74e4e288", Component.options)
+    hotAPI.reload("data-v-1069ed90", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -66383,7 +66401,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-74e4e288", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-1069ed90", module.exports)
   }
 }
 
@@ -66404,7 +66422,7 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm2\\resources\\assets\\js\\components\\AvatarForm.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm\\resources\\assets\\js\\components\\AvatarForm.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] AvatarForm.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -66415,9 +66433,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-424073a2", Component.options)
+    hotAPI.createRecord("data-v-57b248a6", Component.options)
   } else {
-    hotAPI.reload("data-v-424073a2", Component.options)
+    hotAPI.reload("data-v-57b248a6", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -66512,7 +66530,7 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm2\\resources\\assets\\js\\components\\ImageUpload.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm\\resources\\assets\\js\\components\\ImageUpload.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ImageUpload.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -66523,9 +66541,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-db4a30b2", Component.options)
+    hotAPI.createRecord("data-v-2b23b323", Component.options)
   } else {
-    hotAPI.reload("data-v-db4a30b2", Component.options)
+    hotAPI.reload("data-v-2b23b323", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -66589,7 +66607,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-db4a30b2", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-2b23b323", module.exports)
   }
 }
 
@@ -66630,7 +66648,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-424073a2", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-57b248a6", module.exports)
   }
 }
 
@@ -66651,7 +66669,7 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm2\\resources\\assets\\js\\components\\ChatMessages.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm\\resources\\assets\\js\\components\\ChatMessages.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ChatMessages.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -66662,9 +66680,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-406ce82e", Component.options)
+    hotAPI.createRecord("data-v-601a2fed", Component.options)
   } else {
-    hotAPI.reload("data-v-406ce82e", Component.options)
+    hotAPI.reload("data-v-601a2fed", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -66725,7 +66743,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-406ce82e", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-601a2fed", module.exports)
   }
 }
 
@@ -66746,7 +66764,7 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm2\\resources\\assets\\js\\components\\ChatForm.vue"
+Component.options.__file = "C:\\xampp\\htdocs\\laravel_fourm\\resources\\assets\\js\\components\\ChatForm.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ChatForm.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -66757,9 +66775,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3123e5e1", Component.options)
+    hotAPI.createRecord("data-v-644f2be5", Component.options)
   } else {
-    hotAPI.reload("data-v-3123e5e1", Component.options)
+    hotAPI.reload("data-v-644f2be5", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -66868,7 +66886,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-3123e5e1", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-644f2be5", module.exports)
   }
 }
 

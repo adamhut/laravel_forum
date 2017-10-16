@@ -26,7 +26,6 @@ Vue.component('Paginator', require('./components/Paginator.vue'));
 Vue.component('favorite', require('./components/Favorite.vue'));
 Vue.component('avatar-form', require('./components/AvatarForm.vue'));
 
-
 Vue.component('chatMessages', require('./components/ChatMessages.vue'));
 Vue.component('chatForm', require('./components/ChatForm.vue'));
 
@@ -37,14 +36,14 @@ const app = new Vue({
         messages: []
     },
 
-    store,
+    //store,
     /*
     computed:{
         todos(){
             return this.$store.state.todos;
         }
     },*/
-    computed:mapState(['todos']),
+    //computed:mapState(['todos']),
     created() {
         this.fetchMessages();
         /*

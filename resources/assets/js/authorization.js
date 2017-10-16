@@ -12,5 +12,10 @@ module.exports = {
 	*/
 	owns(model, prop='user_id'){
 		return model[prop] === user.id;
+	},
+
+	isAdmin(){
+		//console.log(user.name);
+		return ['adamtest'].includes(user.name);
 	}
 }

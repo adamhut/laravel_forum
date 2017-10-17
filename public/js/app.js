@@ -63442,9 +63442,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	methods: {
 		toggleLock: function toggleLock() {
-			// /locked-threads/{thread}
+
 			axios[this.locked ? 'delete' : 'post']('/locked-threads/' + this.thread.slug);
+
 			this.locked = !this.locked;
+
+			var level = this.locked ? 'danger' : 'success';
+
+			flash('Thread is ' + (this.locked ? 'Locked' : 'Unlocked'), level);
 		}
 	}
 });

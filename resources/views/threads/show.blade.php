@@ -97,7 +97,7 @@
                         <button class="btn btn-default" 
                             v-if="authorize('isAdmin')"
                             @click="toggleLock"
-                            v-text="locked? 'Unlock':'Lock"
+                            v-text="locked? 'Unlock':'Lock'"
                         >
                         </button>
                     </p>

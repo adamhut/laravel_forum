@@ -63834,7 +63834,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('button', {
+  return _c('button', {
     class: _vm.classes,
     attrs: {
       "type": "button"
@@ -63848,7 +63848,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.count)
     }
-  })])])
+  })])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -65968,12 +65968,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('button', {
+  return _c('button', {
     class: _vm.classes,
     on: {
       "click": _vm.subscribe
     }
-  }, [_vm._v("Subscribe")])])
+  }, [_vm._v("Subscribe")])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

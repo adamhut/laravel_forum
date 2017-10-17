@@ -1,10 +1,10 @@
 <template>
-	<div>
+	
 		<button type="button" :class="classes" @click="toggle">
 			<span class="glyphicon glyphicon-heart"></span>
 			<span v-text="count" ></span>
 		</button>
-	</div>
+
 </template>
 
 <script>

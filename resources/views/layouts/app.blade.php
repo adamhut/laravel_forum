@@ -12,8 +12,8 @@
 
     <!-- Styles -->
 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">   
-    
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 
     <style type="text/css">
     .list-group-item >  .label{
@@ -63,7 +63,7 @@
 
 
         <flash message="{{ session('falsh') }}" cate="success"></flash>
-        
+
     </div>
 
     <!-- Scripts -->

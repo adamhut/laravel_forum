@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('head')
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -22,24 +26,27 @@
                         </div>
                         <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="text" 
-                                class="form-control" 
-                                name="title" 
-                                id="title" 
-                                value="{{old('title')}}" 
+                            <input type="text"
+                                class="form-control"
+                                name="title"
+                                id="title"
+                                value="{{old('title')}}"
                                 required
                             >
                         </div>
                         <div class="form-group">
                             <label for="title">Body </label>
                             <textarea class="form-control"
-                                name="body" 
-                                id="body"  
-                                rows="5" 
-                                
+                                name="body"
+                                id="body"
+                                rows="5"
+
                             >
                                 {{old('body')}}
                             </textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="g-recaptcha" data-sitekey="6LcwwzUUAAAAAOYsH1VOvUHI1UhLH692N3ukzL7f"></div>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Publish</button>
@@ -50,13 +57,13 @@
                                     @foreach($errors->all() as $error)
                                         <li>
                                             {{$error}}
-                                        </li>   
+                                        </li>
                                     @endforeach
                                 </ul>
                             @endif
                         </div>
                     </form>
-                   
+
                 </div>
             </div>
         </div>

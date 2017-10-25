@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a0cb801a3f30756f6de5d273d0ed5e87",
-    "content-hash": "5ddb0ecc413089d766a2fde6d91c2fe9",
+    "hash": "f4959592653f24e9706bab2c3a83907d",
+    "content-hash": "677943b5ca8344cab7222624f320c666",
     "packages": [
         {
             "name": "albertcht/invisible-recaptcha",
@@ -705,6 +705,52 @@
                 }
             ],
             "time": "2015-04-20 18:58:01"
+        },
+        {
+            "name": "kitetail/zttp",
+            "version": "v0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kitetail/zttp.git",
+                "reference": "e788ab8fc5c0259f691e2960d17e0ddbab761c6a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kitetail/zttp/zipball/e788ab8fc5c0259f691e2960d17e0ddbab761c6a",
+                "reference": "e788ab8fc5c0259f691e2960d17e0ddbab761c6a",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.0",
+                "php": ">=7.0",
+                "tightenco/collect": "^5.4"
+            },
+            "require-dev": {
+                "laravel/lumen-framework": "^5.4",
+                "phpunit/phpunit": "^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Zttp.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Adam Wathan",
+                    "email": "adam.wathan@gmail.com"
+                }
+            ],
+            "description": "A developer-experience focused HTTP client, optimized for most common use cases.",
+            "keywords": [
+                "Guzzle",
+                "http"
+            ],
+            "time": "2017-08-09 15:31:26"
         },
         {
             "name": "laracasts/flash",

@@ -85,8 +85,21 @@ class ThreadsController extends Controller
         $this->validate($request,[
             'title' => 'required|spamfree',
             'body' => 'required|spamfree',
-            'channel_id' => 'required|exists:forum_channels,id'
+            'channel_id' => 'required|exists:forum_channels,id',
+            'g-recaptcha-response' => 'required' ,
+
         ]);
+
+        $response = Zttp::asFormParams()->post('https://www.google.com/recaptcha/api/siteverify',[
+            'secret'=> config('services.recaptcha.secret'),
+            'response'  => $request->input('g-recaptcha-response'),
+            'remoteip'  => $_SERVER['REMOTE_ADDR'],
+        ]);
+
+        if(!$response->json()['success'])
+        {
+            throw new \Exception('Recaptcha failed');
+        }
 
         $thread =Thread::create([
             'user_id' => auth()->id(),

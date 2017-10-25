@@ -21,7 +21,7 @@ class RegistrationTest extends TestCase
 
         event(new Registered(create('App\User')));
 
-        Mail::assertSent(PleaseConfirmYourEmail::class);
+        Mail::assertQueued(PleaseConfirmYourEmail::class);
 
     }
 
@@ -49,7 +49,7 @@ class RegistrationTest extends TestCase
             $this->assertTrue($user->confirmed);
             $this->assertNull($user->confirmation_token);
         });
-        
+
         $response->assertRedirect(route('threads'));
     }
 

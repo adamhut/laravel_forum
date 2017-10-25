@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Filters;
 
@@ -10,7 +10,7 @@ abstract class Filters
 
 	protected $builder;
 
-	protected $filters = [];	
+	protected $filters = [];
 
 	public function __construct(Request $request)
 	{
@@ -26,11 +26,11 @@ abstract class Filters
 			->filter(function($value,$filter){
 
 				return method_exists($this, $filter);
-			})			
+			})
 			->each(function($value,$filter){
 				$this->$filter($value);
 			});
-		*/	
+		*/
 
 		//dd($this->getFilters());
 		//we apply our filter to the builder
@@ -41,15 +41,16 @@ abstract class Filters
 				$this->$filter($value);
 			}
 		}
-		
-		
-		return $this->builder;        
+
+
+		return $this->builder;
 	}
 
 	public function getFilters()
 	{
 		//return $this->request->only($this->filters);
-		return $this->request->intersect($this->filters);
+		//return $this->request->intersect($this->filters);
+		return array_filter($this->request->only($this->filter));
 	}
 
 

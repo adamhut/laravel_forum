@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Filters;
 
@@ -6,10 +6,10 @@ use App\User;
 use Illuminate\Http\Request;
 
 class ThreadFilters extends Filters{
-	
-	protected $filters = ['by','popular','unanswered'];	
 
-	
+	protected $filters = ['by','popular','unanswered'];
+
+
 	/**
 	 * Filter a query by a username
 	 * @param  $username
@@ -29,7 +29,7 @@ class ThreadFilters extends Filters{
 	{
 		//To clear out any existing order by ;
 		$this->builder->getQuery()->orders = [];
-		return $this->builder->orderBy('replies_count','desc');	
+		return $this->builder->orderBy('replies_count','desc');
 	}
 
 	/**
@@ -39,7 +39,7 @@ class ThreadFilters extends Filters{
 	public function unanswered()
 	{
 		//To clear out any existing order by ;
-		
+
 		return $this->builder->where('replies_count',0);
 	}
 }

@@ -70,10 +70,9 @@ class ThreadsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request ,Recaptcha $recaptcha)
+    public function store(Recaptcha $recaptcha)
     {
         /*
         if(!auth()->user()->confirmed){
@@ -82,7 +81,7 @@ class ThreadsController extends Controller
         */
         // $request->all();
         //dd(request()->all());
-        $this->validate($request,[
+        request()->validate([
             'title' => 'required|spamfree',
             'body' => 'required|spamfree',
             'channel_id' => 'required|exists:forum_channels,id',

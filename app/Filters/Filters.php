@@ -50,7 +50,7 @@ abstract class Filters
 	{
 		//return $this->request->only($this->filters);
 		//return $this->request->intersect($this->filters);
-		return array_filter($this->request->only($this->filter));
+		return array_filter($this->request->only($this->filters));
 	}
 
 

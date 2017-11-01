@@ -9,9 +9,14 @@ use App\Http\Controllers\Controller;
 class UserAvatarController extends Controller
 {
 
+	/**
+	 * store a  new user avatar
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
     public function store()
     {
-    	$this->validate(request(),[
+    	request()->validate([
     		'avatar' => ['required','image']
     	]);
     	

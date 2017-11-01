@@ -8,50 +8,8 @@
 <thread-view inline-template :thread="{{ $thread }}">
 <div class="container">
     <div class="row">
-        <div class="col-md-8">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="level">
-                        <span class="flex">
-                            
-                            <img src="{{ $thread->creator->avatar_path}}" 
-                                alt="{{$thread->creator->name}}" 
-                                width="25" 
-                                height="25" 
-                                class="mr-1"
-                            />
-
-                            <a href="/profiles/{{$thread->creator->name}}">
-                                {{$thread->creator->name}}
-                            </a> posted:
-                            {{$thread->title}}
-                        </span>
-                        @can('update', $thread)
-                            <form action="{{$thread->path()}}" method="POST">
-                                {{csrf_field()}}
-                                {{method_field('DELETE')}}
-                                <button type="submit" class="btn btn-danger btn-xs">Delete Thread</button> 
-                            </form>
-                        @endcan
-                        {{--
-                        @if(auth()->check())
-                            <form action="{{$thread->path()}}/favorites" method="POST">
-                                {{csrf_field()}}
-                                {{method_field('PATCH')}}
-                                <button type="button" class="btn btn-default" onclick="favorite">
-                                    <span class="glyphicon glyphicon-heart"></span>
-                                    <span v-text="count"></span>
-                                </button>
-                            </form>
-                        @endif
-                        --}}
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <div class="body">{!!$thread->body!!}</div>
-                    <hr>
-                </div>
-            </div>
+        <div class="col-md-8" v-cloak>
+            @include('threads._question')
           
             <replies @removed="repliesCount--"
                 @added="repliesCount++"

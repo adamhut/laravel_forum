@@ -53,8 +53,6 @@ class ThreadPolicy
     public function update(User $user, Thread $thread)
     {
         //
-        
-
         //dd($thread->user_id , $user->id);
         return $thread->user_id == $user->id;
     }

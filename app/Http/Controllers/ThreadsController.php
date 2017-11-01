@@ -169,6 +169,19 @@ class ThreadsController extends Controller
      */
     public function update($channel , Thread $thread)
     {
+        //authorization
+        $this->authorize('update',$thread);
+        
+        //validation
+        $data=request()->validate([
+            'title' => 'required|spamfree',
+            'body' => 'required|spamfree',
+        ]);
+
+        //update the thread
+        $thread->update($data);
+
+        return $thread;
         /*
         if(request()->has('locked')){
 

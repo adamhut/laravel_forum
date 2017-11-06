@@ -97,7 +97,7 @@ class ThreadsController extends Controller
             //'slug' =>request('title'),//create a customer mutator
         ]);
 
-        if($request->wantsJson())
+        if(request()->wantsJson())
         {
             return response($thread,201);
         }

@@ -54,7 +54,7 @@
             align-items: center;
         }
     </style>
-    @yield('header')
+    @yield('head')
 </head>
 <body>
     <div id="app">

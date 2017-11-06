@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('head')
+@section ('head')
     <script src='https://www.google.com/recaptcha/api.js'></script>
 @endsection
 

@@ -3,9 +3,8 @@
     <div class="panel-heading">
         <div class="level">
             <div class="form-group">
-                <input type="text" v-model="{{form.title}}" class="form-control" >
+                <input type="text" v-model="form.title" class="form-control" >
             </div>
-            
             {{--
             @if(auth()->check())
             <form action="{{$thread->path()}}/favorites" method="POST">
@@ -24,7 +23,7 @@
             <textarea class="form-control" row="10" name="body" v-model="form.body"></textarea>
         </div>
     </div>
-    <div class="pannel-footer">
+    <div class="panel-footer">
         <div class="level">
 
             <button class="btn btn-xs btn-primary level-item" @click="update">Update</button>
@@ -74,7 +73,7 @@
         <div class="body" v-html="body"></div>
         <hr>
     </div>
-    <div class="pannel-footer" v-if="authorize('own',thread)">
+    <div class="panel-footer" v-if="authorize('owns', thread)">
         <button class="btn btn-xs btn-default" @click="editing=true">Edit</button>
     </div>
 </div>

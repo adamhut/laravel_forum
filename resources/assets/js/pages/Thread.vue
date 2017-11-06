@@ -12,8 +12,8 @@
 				repliesCount:this.thread.replies_count,
 				locked:this.thread.locked,
 				editing:false,
-				title:thread.title,
-				body:thread.body,
+				title:this.thread.title,
+				body:this.thread.body,
 				form:{},
 			};
 		},

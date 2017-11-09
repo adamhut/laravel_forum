@@ -5,6 +5,7 @@ namespace App;
 
 use App\Favoritable;
 use App\ForumChannel;
+use Laravel\Scout\Searchable;
 use App\Events\ThreadHasNewReply;
 use App\Exceptions\ThreadIsLocked;
 use App\Events\ThreadReceivedNewReply;
@@ -14,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 class Thread extends Model
 {
     //
-    use RecordActivity,Favoritable;
+    use RecordActivity,Favoritable,Searchable;
 
 
     protected $guarded =[];

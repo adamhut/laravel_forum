@@ -1,6 +1,6 @@
 <template>
     <ul class="chat">
-        <li class="left clearfix" v-for="message in messages">
+        <li class="left clearfix" v-for="(message,index) in messages" :key="index">
             <div class="chat-body clearfix">
                 <div class="header">
                     <strong class="primary-font">

@@ -18,7 +18,7 @@ use App\Notifications\YouWereMentioned;
 | contains the "web" middleware group. Now create something great!
 |
 */
-auth()->loginUsingId(1);
+//auth()->loginUsingId(1);
 //auth()->logout();
 //
 Route::get('notifytest',function(){
@@ -97,6 +97,7 @@ Route::get('/threads', 'ThreadsController@index')->name('threads');
 Route::post('/threads', 'ThreadsController@store')->middleware('must-be-confirmed');
 
 Route::get('/threads/create', 'ThreadsController@create');
+Route::get('/threads/search', 'SearchController@show');
 Route::get('/threads/{channel}', 'ThreadsController@index');
 
 Route::get('/threads/{channel}/{thread}', 'ThreadsController@show');

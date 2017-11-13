@@ -12,13 +12,14 @@
 					Search
 				</div>
 				<div class="panel-body">
-					<form action="threads/search" METHOD="GET">
+					<form action="/threads/search" METHOD="GET">
 						<div class="form-group">
 							<input type="text" placeholder="Search For Something..." name="q" class="form-control">
 						</div>
-						<div class="form-control">
+						<div class="form-group">
 							<button class="btn btn-primary" type="submit">Search
 							</button>
+							<img src="/images/algolia-logo-light.svg" alt="" style="width:100px; height:20px;">
 						</div>
 					</form>
 				</div>

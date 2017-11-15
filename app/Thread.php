@@ -263,5 +263,22 @@ class Thread extends Model
         $this->best_reply_id = $reply->id;
         $this->save();
     }
+    
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        /*
+        return [
+            'title' =>  $this->title,
+            'path'  => $
+        ];
+        */
+        return $this->toArray()+['path'=>$this->path()];
+    }
 
 }

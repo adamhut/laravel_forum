@@ -73,6 +73,9 @@ Route::get('/vuex',function(){
   return view('vuex');
 });
 
+Route::view('scan','scan');
+
+
 //
 Route::get('/', function () {
 

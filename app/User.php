@@ -46,7 +46,6 @@ class User extends Authenticatable
         return 'name';
     }
 
-
     public function isTrusted()
     {
         return !! $this->trusted;

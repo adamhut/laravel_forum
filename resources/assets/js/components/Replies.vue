@@ -14,10 +14,10 @@
 	</div>
 </template>
 <script>
- 	import Reply from './Reply.vue';
- 	import NewReply from './NewReply.vue';
- 	import collection from '../mixin/Collection.js';
- 	/**import Collection from '../Collection';
+	import Reply from './Reply.vue';
+	import NewReply from './NewReply.vue';
+	import collection from '../mixin/Collection.js';
+	/**import Collection from '../Collection';
  	
  	export default Collection.extend({
 		components:{Reply,NewReply},
@@ -64,7 +64,7 @@
 		},
 		methods:{
 			fetch(page){
-				axios.get(this.url(page))
+				window.axios.get(this.url(page))
 					.then(this.refresh);
 			},
 			refresh({data}){

@@ -24,7 +24,7 @@
         data(){
             return {
                 now:new Date(),
-                timer:null,
+                interval:null,
             };
         },
         computed:{
@@ -50,13 +50,17 @@
             }
         },
         created(){
-            let interval = setInterval(()=>{
+            this.interval = setInterval(()=>{
                 this.now = new Date();
             },1000);
 
             this.$on('finished',() => {
-                clearInterval(interval);
+                clearInterval(this.interval);
             });
         },
+        destroyed(){
+             clearInterval(this.interval);
+            
+        }
     }
 </script>

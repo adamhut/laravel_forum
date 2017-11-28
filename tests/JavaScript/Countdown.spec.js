@@ -13,7 +13,7 @@ describe('Counter', () => {
         wrapper = mount(Countdown,{
             propsData:{
                 until: moment().add(10, 'seconds')
-            };
+            },
         });
     });
 
@@ -39,16 +39,22 @@ describe('Counter', () => {
         //<countdonw until ="December 5 2016>" 
     });
 
-    it('reduces the countdown every second',(done)=>{
+    it('reduces the countdown every second',async()=>{
        // wrapper.setProps({ until: moment().add(10, 'seconds') });
 
         see('10 Seconds');   
         
         clock.tick(1000);
 
+        await wrapper.vm.$nextTick();
+        
+        see('9 Seconds');
+
+        /*
         assertOnNextTick(()=>{
             see('9 Seconds');  
         },done);
+        */
         /*wrapper.vm.$nextTick(()=>{
             try{
                 see('9 Seconds');  
@@ -62,30 +68,39 @@ describe('Counter', () => {
         */
     });
 
-    it('shows an expired message when the countdown has completed', (done)=>{
+    it('shows an expired message when the countdown has completed', async()=>{
         //wrapper.setProps({ until: moment().add(10, 'seconds') });
 
         clock.tick(10000);
 
+        await wrapper.vm.$nextTick();
+        see('Now Expired');
+        
+        /*
         assertOnNextTick(() => {
             see('Now Expired');
         }, done);
-
+        */ 
 
     });
 
-    it('broadcasts when the countdown expired',(done)=>{
+    it('broadcasts when the countdown expired',async()=>{
         //wrapper.setProps({ until: moment().add(10, 'seconds') });
 
         clock.tick(10000);
 
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.emitted().finished).toBeTruthy();
+        /*
         assertOnNextTick(() => {
             expect(wrapper.emitted().finished).toBeTruthy();
         }, done);
+        */
 
     });
 
-    it.only('show a custom expired message when the countdown has completed', (done) => {
+    it('show a custom expired message when the countdown has completed', async() => {
         wrapper.setProps({ 
             //until: moment().add(10, 'seconds'), 
             expiredText :'I am done',
@@ -93,32 +108,54 @@ describe('Counter', () => {
 
         clock.tick(10000);
 
+        await wrapper.vm.$nextTick();
+        see('I am done');
+        /*
         assertOnNextTick(() => {
             see('I am done');
         }, done);
+        */
 
     });
 
     //<countdown @finished="method"
 
-    it('clear the interval once completed', (done) => {
+    it.only('clear the interval once completed', async() => {
         /*wrapper.setProps({
             until: moment().add(10, 'seconds'),
         });
         */
        
-
-        //console.log(wrapper.vm.now.getSeconds());
-        
         clock.tick(10000);
 
-        //expect(wrapper.vm.now.getSeconds()).toBe(10);
+        expect(wrapper.vm.now.getSeconds()).toBe(10);
+
+        await wrapper.vm.$nextTick();
+
+        clock.tick(5000);
+
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.vm.now.getSeconds()).toBe(10);
+
+        //console.log(wrapper.vm.now.getSeconds());
+        /*
+        clock.tick(10000);
+
+        await wrapper.vm.$nextTick();
+
+        clock.tick(5000);
+
+        await wrapper.vm.$nextTick();
         
-        assertOnNextTick(() => {
+        expect(wrapper.vm.now.getSeconds()).toBe(0);
+        */
+        /*assertOnNextTick(() => {
             clock.tick(5000);
             expect(wrapper.vm.now.getSeconds()).toBe(0);
             // expect(wrapper.vm.now.getSeconds()).toBe(0);
         }, done);
+        */
     });
 
     let see = (text, selector) => {
@@ -139,10 +176,10 @@ describe('Counter', () => {
 
 
     let assertOnNextTick = (callback,done)=>{
-        wrapper.vm.$nextTick(() => {
-           
+        wrapper.vm.$nextTick(() => {           
             try {
                 callback();
+
                 done();
             } catch (e) {
                 done(e);

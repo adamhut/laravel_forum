@@ -25,6 +25,7 @@ class SearchTest extends TestCase
         do{
             sleep(.25);
             $results= $this->getJson("/threads/search?q={$search}")->json()['data'];
+            
         }while(empty($results));
 
         $this->assertCount(2,$results);

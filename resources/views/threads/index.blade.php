@@ -4,7 +4,8 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-8">
-			@include('threads._list') {{$threads->render()}}
+			@include('threads._list') 
+			{{$threads->render()}}
 		</div>
 		<div class="col-md-4">
 			<div class="panel panel-default">

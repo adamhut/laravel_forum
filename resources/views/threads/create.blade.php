@@ -36,6 +36,8 @@
                         </div>
                         <div class="form-group">
                             <label for="title">Body </label>
+                            <wysiwyg name="body"></wysiwyg>
+                            {{--
                             <textarea class="form-control"
                                 name="body"
                                 id="body"
@@ -44,6 +46,7 @@
                             >
                                 {{old('body')}}
                             </textarea>
+                            --}}
                         </div>
                         <div class="form-group">
                             <div class="g-recaptcha" data-sitekey="6LcwwzUUAAAAAOYsH1VOvUHI1UhLH692N3ukzL7f"></div>
@@ -74,6 +77,8 @@
 
 @section('footerScript')
 
+
+{{--
 <script src="/js/tinymce/tinymce.min.js"></script>
 <script>
      var editor_config = {
@@ -109,5 +114,6 @@
     }
   };
     tinymce.init(editor_config);
-  </script>﻿
+  </script>
+--}}
 @endsection

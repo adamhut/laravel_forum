@@ -20,12 +20,13 @@
     </div>
     <div class="panel-body">
         <div class="form-group">
-            <textarea class="form-control" row="10" name="body" v-model="form.body"></textarea>
+
+            {{--<textarea class="form-control" row="10" name="body" v-model="form.body"></textarea>--}}
+            <wysiwyg name="body" v-model="form.body" :value="form.body"></wysiwyg>
         </div>
     </div>
     <div class="panel-footer">
         <div class="level">
-
             <button class="btn btn-xs btn-primary level-item" @click="update">Update</button>
             <button class="btn btn-xs btn-default level-item" @click="resetForm">Cancel</button>
             {{--<button class="btn btn-xs btn-default level-item" @click="editing=false">Cancel</button>--}}

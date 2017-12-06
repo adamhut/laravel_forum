@@ -1,9 +1,9 @@
 <template>
     <div class="container">
        {{ count }}  (The square rott of this number is {{sqrt}})
-       <p>
-                <button @click="increment">+1</button>
-            </p>  
+        <p>
+           <button @click="increment">+1</button>
+        </p>  
     </div>
 </template>
 

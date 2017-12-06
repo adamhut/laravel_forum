@@ -25,6 +25,7 @@ Vue.component('Paginator', require('./components/Paginator.vue'));
 
 Vue.component('favorite', require('./components/Favorite.vue'));
 Vue.component('avatar-form', require('./components/AvatarForm.vue'));
+Vue.component('wysiwyg', require('./components/Wysiwyg.vue'));
 
 Vue.component('chatMessages', require('./components/ChatMessages.vue'));
 Vue.component('chatForm', require('./components/ChatForm.vue'));

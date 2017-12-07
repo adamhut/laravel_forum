@@ -87658,7 +87658,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 	methods: {
 		fetch: function fetch(page) {
-			window.axios.get(this.url(page)).then(this.refresh);
+			axios.get(this.url(page)).then(this.refresh);
 		},
 		refresh: function refresh(_ref) {
 			var data = _ref.data;
@@ -87783,21 +87783,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ['data-reply'],
+	props: ['dataReply'],
 	components: {
 		Favorite: __WEBPACK_IMPORTED_MODULE_0__Favorite_vue___default.a
 	},
 	data: function data() {
 		return {
-			id: this.data - reply.id,
+			id: this.dataReply.id,
 			editing: false,
-			body: this.data - reply.body,
-			isBest: this.data - reply.isBest,
-			reply: this.data - reply
+			body: this.dataReply.body,
+			isBest: this.dataReply.isBest,
+			reply: this.dataReply
 		};
 	},
 
@@ -87811,11 +87812,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   	//return this.data.user_id== window.App.user.id;
   },*/
 		ago: function ago() {
-			return __WEBPACK_IMPORTED_MODULE_1_moment___default()(this.data - reply.created_at).fromNow() + ' ...';
+			return __WEBPACK_IMPORTED_MODULE_1_moment___default()(this.dataReply.created_at).fromNow() + ' ...';
 		}
 	},
 	mounted: function mounted() {
-		console.log(__WEBPACK_IMPORTED_MODULE_1_moment___default()(this.data - reply.created_at).fromNow());
+		console.log(__WEBPACK_IMPORTED_MODULE_1_moment___default()(this.dataReply.created_at).fromNow());
 	},
 	created: function created() {
 		var _this = this;
@@ -87964,10 +87965,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "flex"
   }, [_c('a', {
     attrs: {
-      "href": '/profiles/' + _vm.data - _vm.reply.owner.name
+      "href": '/profiles/' + _vm.reply.owner.name
     },
     domProps: {
-      "textContent": _vm._s(_vm.data - _vm.reply.owner.name)
+      "textContent": _vm._s(_vm.reply.owner.name)
     }
   }), _vm._v("\n                    said \n                    "), _c('span', {
     domProps: {
@@ -87975,7 +87976,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), (_vm.signedIn) ? _c('div', [_c('favorite', {
     attrs: {
-      "reply": _vm.data - _vm.reply
+      "reply": _vm.reply
     }
   })], 1) : _vm._e()])]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
@@ -87985,27 +87986,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "form-group"
-  }, [_c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.body),
-      expression: "body"
-    }],
-    staticClass: "form-control",
+  }, [_c('wysiwyg', {
     attrs: {
-      "required": ""
+      "name": "body"
     },
-    domProps: {
-      "value": (_vm.body)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.body = $event.target.value
-      }
+    model: {
+      value: (_vm.body),
+      callback: function($$v) {
+        _vm.body = $$v
+      },
+      expression: "body"
     }
-  })]), _vm._v(" "), _c('button', {
+  })], 1), _vm._v(" "), _c('button', {
     staticClass: "btn btn-xs btn-primary",
     attrs: {
       "type": "submit"
@@ -88134,21 +88126,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
-			body: ''
-
+			body: '',
+			completed: false
 		};
 	},
 
@@ -88182,6 +88167,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				body: this.body
 			}).then(function (response) {
 				_this.body = '';
+				_this.completed = true;
 				flash('Your reply Has been Post');
 				_this.$emit('created', response.data);
 			}).catch(function (error) {
@@ -89857,31 +89843,21 @@ $.fn.atwho.debug = false;
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [(_vm.signedIn) ? _c('div', [_c('div', {
     staticClass: "form-group"
-  }, [_c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.body),
-      expression: "body"
-    }],
-    staticClass: "form-control",
+  }, [_c('wysiwyg', {
     attrs: {
       "name": "body",
-      "id": "body",
-      "placeholder": "Have something to say",
-      "rows": "5",
-      "required": ""
+      "value": _vm.body,
+      "placeholder": "Have something to say?",
+      "shouldClear": _vm.completed
     },
-    domProps: {
-      "value": (_vm.body)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.body = $event.target.value
-      }
+    model: {
+      value: (_vm.body),
+      callback: function($$v) {
+        _vm.body = $$v
+      },
+      expression: "body"
     }
-  })]), _vm._v(" "), _c('button', {
+  })], 1), _vm._v(" "), _c('button', {
     staticClass: "btn btn-default",
     attrs: {
       "type": "submit"
@@ -89955,7 +89931,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "changed": _vm.fetch
     }
-  }), _vm._v(" "), (_vm.$parent.locked) ? _c('p', [_vm._v("\n\t\tThis thread has been locked . No more replies are allowed\n\t")]) : _c('new-reply', {
+  }), _vm._v(" "), (_vm.$parent.locked) ? _c('p', [_vm._v("\n\t\t\tThis thread has been locked . No more replies are allowed\n\t\t")]) : _c('new-reply', {
     attrs: {
       "endpoint": _vm.endpoint
     },
@@ -90803,16 +90779,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['name', 'value'],
-    data: function data() {
-        return {};
-    },
+    props: ['name', 'value', 'placeholder', 'shouldClear'],
+
     mounted: function mounted() {
         var _this = this;
 
         this.$refs.trix.addEventListener('trix-change', function (e) {
+            //console.log(e.target.innerHtml);
+            _this.$emit('input', e.target.innerHTML);
+        });
 
-            _this.$emit('input', e.target.innerHtml);
+        this.$watch('shouldClear', function () {
+            console.log('it changed');
+            _this.$refs.trix.value = '';
         });
     }
 });
@@ -90874,7 +90853,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('trix-editor', {
     ref: "trix",
     attrs: {
-      "input": "trix"
+      "input": "trix",
+      "placeholder": _vm.placeholder
     }
   })], 1)
 },staticRenderFns: []}

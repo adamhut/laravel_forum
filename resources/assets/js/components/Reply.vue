@@ -3,8 +3,8 @@
         <div class="panel-heading">
             <div class="level">
                 <h5 class="flex">
-                    <a :href="'/profiles/'+data-reply.owner.name"
-                        v-text="data-reply.owner.name"
+                    <a :href="'/profiles/'+reply.owner.name"
+                        v-text="reply.owner.name"
                     >
                     </a>
                     said 
@@ -12,7 +12,7 @@
                 </h5>
 
                 <div v-if="signedIn">
-                    <favorite :reply="data-reply"></favorite>
+                    <favorite :reply="reply"></favorite>
                 </div>
             </div>
         </div>
@@ -20,7 +20,8 @@
             <div v-if="editing">
             	<form @submit="update">
 	                <div class="form-group">
-	                    <textarea  class="form-control" v-model="body" required></textarea>
+	                    <!-- <textarea  class="form-control" v-model="body" required></textarea>-->
+						<wysiwyg name="body" v-model="body"></wysiwyg>
 	                </div>
 	                <button class="btn btn-xs btn-primary" type="submit">Update</button>
 	                <button class="btn btn-xs btn-link" @click="editing = false" type="button">Cancel</button>
@@ -56,18 +57,18 @@
 	import moment from 'moment';
 	export default{
 		props:[
-			'data-reply'
+			'dataReply'
 		],
 		components:{
 			Favorite
 		},
 		data(){
 			return {
-				id 		: this.data-reply.id,
+				id 		: this.dataReply.id,
 				editing	: false,
-				body 	: this.data-reply.body,
-				isBest 	: this.data-reply.isBest,
-				reply 	: this.data-reply,
+				body 	: this.dataReply.body,
+				isBest 	: this.dataReply.isBest,
+				reply 	: this.dataReply,
 			};
 		},
 		computed:{
@@ -80,11 +81,11 @@
 				//return this.data.user_id== window.App.user.id;
 			},*/
 			ago(){
-				return moment(this.data-reply.created_at).fromNow() +' ...';
+				return moment(this.dataReply.created_at).fromNow() +' ...';
 			}
 		},
 		mounted(){
-			console.log(moment(this.data-reply.created_at).fromNow());
+			console.log(moment(this.dataReply.created_at).fromNow());
 		},
 		created(){
 			window.events.$on('best-reply-selected',id=>{

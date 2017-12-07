@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<div v-for="( reply , index ) in items" :key="reply.id">
-			<reply :data-reply="reply" @deleted="remove(index)"></reply>
-		</div>
+		<div v-for="(reply, index) in items" :key="reply.id">
+            <reply :data-reply="reply" @deleted="remove(index)"></reply>
+        </div>
 
 		<paginator :dataSet="dataSet" @changed="fetch"></paginator>
 		
@@ -64,7 +64,7 @@
 		},
 		methods:{
 			fetch(page){
-				window.axios.get(this.url(page))
+				axios.get(this.url(page))
 					.then(this.refresh);
 			},
 			refresh({data}){

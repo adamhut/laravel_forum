@@ -2,15 +2,8 @@
 	<div>
 		<div v-if="signedIn">
             <div class="form-group">    
-      	    	<textarea name="body" 
-      	    		class="form-control" 
-      	    		id="body" 
-      	    		placeholder="Have something to say" 
-      	    		rows=5
-      	    		required 
-      	    		v-model="body"
-      	    	>	
-      	    	</textarea>
+				<wysiwyg name="body" v-model="body" :value="body" placeholder="Have something to say?" :shouldClear="completed"></wysiwyg>
+      	    	
             </div>
             <button class="btn btn-default" 
             	type="submit" 
@@ -37,7 +30,7 @@
 		data(){
 			return {
 				body:'',
-			
+				completed:false,
 			};
 		},
 		computed:{
@@ -68,6 +61,7 @@
 				})
 				.then(response=>{
 					this.body ='';
+					this.completed= true;
 					flash('Your reply Has been Post');
 					this.$emit('created',response.data);
 				}).catch(error=>{

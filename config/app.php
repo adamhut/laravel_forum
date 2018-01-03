@@ -187,6 +187,7 @@ return [
 
         Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Stevebauman\Purify\PurifyServiceProvider::class,
 
         //AlbertCht\InvisibleReCaptcha\InvisibleReCaptchaServiceProvider::class,
     
@@ -240,6 +241,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Image' => Intervention\Image\Facades\Image::class,
+        'Purify' => Stevebauman\Purify\Facades\Purify::class,
     ],
 
 ];

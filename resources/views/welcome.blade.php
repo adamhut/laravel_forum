@@ -89,6 +89,11 @@
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
+                @php
+                    $body = '<script>alert("gotcha")</script><h3>Hearding three is allowed</h3>';
+                @endphp
+
+                {!!Purify::clean($body)!!}
             </div>
         </div>
     </body>

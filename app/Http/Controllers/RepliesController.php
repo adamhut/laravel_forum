@@ -51,10 +51,10 @@ class RepliesController extends Controller
     {
 
         //try{
-            $reply = $thread->addReply([
-                'body' => request('body'),
-                'user_id' => auth()->id()
-            ]);
+        $reply = $thread->addReply([
+            'body' => request('body'),
+            'user_id' => auth()->id()
+        ]);
 
         //}catch(ThreadIsLocked $e){
         //    return response('Thread is Locked',422);
@@ -82,6 +82,7 @@ class RepliesController extends Controller
             'body' => request('body'),
             'user_id' => auth()->id(),
         ]);
+
         return back();
     }
 
@@ -112,7 +113,7 @@ class RepliesController extends Controller
            'body' => 'required|spamfree',
         ]);
             // check ,spam
-            $reply->update(['body'=>request('body')]);
+        $reply->update(['body'=>request('body')]);
 
         /*
         }catch(\Exception $e)
@@ -144,7 +145,6 @@ class RepliesController extends Controller
         $this->authorize('update',$reply);
 
         $reply->delete();
-
 
         if(request()->expectsJson())
         {

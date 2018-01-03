@@ -83,8 +83,19 @@ class Reply extends Model
         return $this->thread->best_reply_id==$this->id;
     }
 
+    /**
+     * Determind the current reply is the best Reply
+     *
+     * @return void
+     */
     public function getIsBestAttribute()
     {
         return $this->isBest();
+    }
+
+
+    public function getBodyAttribute($body)
+    {
+        return \Purify::clean($body);
     }
 }

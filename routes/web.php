@@ -99,7 +99,7 @@ Auth::routes();
 Route::get('/threads', 'ThreadsController@index')->name('threads');
 Route::post('/threads', 'ThreadsController@store')->middleware('must-be-confirmed');
 
-Route::get('/threads/create', 'ThreadsController@create');
+Route::get('/threads/create', 'ThreadsController@create')->middleware ('must-be-confirmed');
 Route::get('/threads/search', 'SearchController@show');
 Route::get('/threads/{channel}', 'ThreadsController@index');
 

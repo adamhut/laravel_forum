@@ -49,7 +49,7 @@
                             --}}
                         </div>
                         <div class="form-group">
-                            <div class="g-recaptcha" data-sitekey="6LcwwzUUAAAAAOYsH1VOvUHI1UhLH692N3ukzL7f"></div>
+                            <div class="g-recaptcha" data-sitekey="{{config('council.recaptcha.key')}}"></div>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Publish</button>

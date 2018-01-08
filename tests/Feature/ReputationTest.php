@@ -23,10 +23,12 @@ class ReputationTest extends TestCase
     public function a_user_earns_points_when_they_reply_to_a_thread()
     {
         $thread = create('App\Thread');
+
         $reply = $thread->addReply([
-            'user_id'   =>  create('App\User'),
+            'user_id'   =>  create('App\User')->id,
             'body'      =>  'Here is the Reply',
         ]);
+       
 
         $this->assertEquals(2, $reply->owner->reputation);
     }
@@ -35,12 +37,13 @@ class ReputationTest extends TestCase
     public function a_user_earns_points_when_their_reply_is_marked_as_best()
     {
         $thread = create('App\Thread');
+        
         $reply = $thread->addReply([
-            'user_id' => create('App\User'),
+            'user_id' => create('App\User')->id,
             'body' => 'Here is the Reply',
         ]);
 
-        $thread->markBestReply($reply);
+        $thread->markAsBestReply($reply);
 
         $this->assertEquals(2+50, $reply->owner->reputation);
     }

@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         //$this->call(CommunityLinksSeeder::class);
         //$this->call(ThreadAndReplyTableSeeder::class);
         $this
-            ->call(UsersSeeder::class)
+            ->call(UserTableSeeder::class)
             ->call(SampleDataSeeder::class);
     }
 }

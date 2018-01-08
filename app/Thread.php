@@ -11,11 +11,14 @@ use App\Exceptions\ThreadIsLocked;
 use App\Events\ThreadReceivedNewReply;
 use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Model;
+//use Facades\App\Reputation;
+
 
 class Thread extends Model
 {
     //
     use RecordActivity,Favoritable,Searchable;
+
 
 
     protected $guarded =[];
@@ -66,7 +69,10 @@ class Thread extends Model
 
         static::created(function($thread){
             $thread->update(['slug'=> $thread->title]);
-            $thread->creator->increment('reputation',10);
+
+            Reputation::award($thread->creator, Reputation::THREAD_WAS_PUBLISHED);
+            //$thread->creator->increment('reputation',Reputation::THREAD_WAS_PUBLISHED);
+
         });
 
         /* move to RecordActivity trait
@@ -265,7 +271,8 @@ class Thread extends Model
         //$this->save();
 
 
-        $reply->owner->increment('reputation',50);
+        //$reply->owner->increment('reputation',50);
+        Reputation::award($reply->owner, Reputation::BEST_REPLY_AWARDED);
     }
     
 

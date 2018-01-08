@@ -53,7 +53,7 @@
             />
             <span class="flex">
                 <a href="/profiles/{{$thread->creator->name}}">
-                    {{$thread->creator->name}}
+                    {{$thread->creator->name}} ({{$thread->creator->reputation}} XP)
                 </a> posted: <span v-text="title"></span>
             </span>
             

@@ -90540,6 +90540,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -90561,6 +90564,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			return this.authorize(function (user) {
 				return user.id === _this.user.id;
 			});
+		},
+		reputation: function reputation() {
+			return this.user.reputation + 'XP';
 		}
 	},
 
@@ -90694,11 +90700,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "width": "50",
       "height": "50"
     }
-  }), _vm._v(" "), _c('h1', {
-    domProps: {
-      "textContent": _vm._s(_vm.user.name)
-    }
-  })]), _vm._v(" "), (_vm.canUpdate) ? _c('form', {
+  }), _vm._v(" "), _c('h1', [_vm._v("\n\t\t\t" + _vm._s(_vm.user.name) + "\n\t\t\t"), _c('small', [_vm._v(_vm._s(_vm.reputation))])])]), _vm._v(" "), (_vm.canUpdate) ? _c('form', {
     attrs: {
       "method": "POST",
       "enctype": "multipart/form-data"

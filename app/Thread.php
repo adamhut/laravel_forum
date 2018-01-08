@@ -66,6 +66,7 @@ class Thread extends Model
 
         static::created(function($thread){
             $thread->update(['slug'=> $thread->title]);
+            $thread->creator->increment('reputation',10);
         });
 
         /* move to RecordActivity trait
@@ -259,9 +260,12 @@ class Thread extends Model
 
     public function markAsBestReply(Reply $reply)
     {
-        //$this->update(['best_reply_id'=>$reply->id]);
-        $this->best_reply_id = $reply->id;
-        $this->save();
+        $this->update(['best_reply_id'=>$reply->id]);
+        //$this->best_reply_id = $reply->id;
+        //$this->save();
+
+
+        $reply->owner->increment('reputation',50);
     }
     
 

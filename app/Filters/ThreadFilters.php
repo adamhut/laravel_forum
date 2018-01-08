@@ -39,7 +39,6 @@ class ThreadFilters extends Filters{
 	public function unanswered()
 	{
 		//To clear out any existing order by ;
-
 		return $this->builder->where('replies_count',0);
 	}
 }

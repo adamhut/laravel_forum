@@ -18,7 +18,7 @@ use App\Notifications\YouWereMentioned;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//auth()->loginUsingId(1);
+auth()->loginUsingId(1);
 //auth()->logout();
 //
 Route::get('notifytest',function(){

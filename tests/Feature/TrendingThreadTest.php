@@ -23,6 +23,8 @@ class TrendingThreadTest extends TestCase
     /** @test */
     public function it_increments_a_threads_score_each_time_it_is_read()
     {
+        app()->instance(App\Trending::class,new FakeTrending);
+        
         $this->assertEmpty(0,$this->trending->get());
     	
     	$thread = create('App\Thread');
@@ -36,4 +38,9 @@ class TrendingThreadTest extends TestCase
     }
 
     
+}
+
+class FakeTrending
+{
+
 }

@@ -138,7 +138,7 @@ class ThreadsController extends Controller
             auth()->user()->read($thread);
         }
 
-
+        //dd($trending);
         $trending->push($thread);
         $thread->visits()->record();
         //$key = auth()->user()->visitedThreadCacheKey($thread);

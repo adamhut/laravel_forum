@@ -126,7 +126,7 @@ Route::post('/replies/{reply}/best','BestReplyController@store')->name('best-rep
 Route::patch('/replies/{reply}', 'RepliesController@update');
 Route::delete('/replies/{reply}', 'RepliesController@destroy')->name('replies.destory');
 
-Route::post('/replies/{reply}/favorites', 'FavoritesController@store');
+Route::post('/replies/{reply}/favorites', 'FavoritesController@store')->name('replies.favorite');
 Route::delete('/replies/{reply}/favorites', 'FavoritesController@destroy');
 
 

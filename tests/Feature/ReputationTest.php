@@ -96,47 +96,62 @@ class ReputationTest extends TestCase
 
 
     /** @test */
-    public function a_user_earns_points_when_their_reply_is_favorite()
+    public function a_user_gains_points_when_their_reply_is_favorited()
     {
-        $this->signIn();
+        //given we have a a signed in user John
+        $this->signIn($john = create('App\User'));
 
         $thread = create('App\Thread');
+        //and also Jane..
+        $jane = create('App\User');
 
+        //If Jane adds a new reply to a thread
         $reply = $thread->addReply([
-            'user_id' =>auth()->id(),
+            'user_id' => $jane->id,
             'body' => 'Here is the Reply',
         ]);
-        
-        $this->post("/replies/{$reply->id}/favorites");
+        $this->assertEquals(Reputation::REPLY_POSTED , $reply->owner->fresh()->reputation);
+        //return ;
+
+        //and John favorite that reply
+        $this->post(route('replies.favorite',$reply->id));
 
         $total = Reputation::REPLY_POSTED + Reputation::REPLY_FAVORITED;
 
-        $this->assertEquals($total , $reply->owner->fresh()->reputation);
+        //then Jane's Reputation should grow, accordingly
+        $this->assertEquals($total , $jane->fresh()->reputation);
+
+        //while John's should remain unaffected
+        $this->assertEquals(0, $john->fresh()->reputation);
     }
 
     /** @test */
-    public function a_user_loses_points_when_their_favorite_reply_is_unfavorited()
+    public function a_user_loses_points_when_their_favorited_reply_is_unfavorited()
     {
-        $this->signIn();
+        //Given we have a a signed in user, John
+        $this->signIn($john = create('App\User'));
+        
+        //And also Jane..
+        $jane = create('App\User');
 
-        $reply = create('App\Reply',['user_id'=>auth()->id()]);
+        //If Jane add reply to that thread
+        $reply = create('App\Reply',['user_id'=> $jane->id]);
 
-        $this->post("replies/{$reply->id}/favorites");
+        //And John favorite that reply
+        $this->post(route('replies.favorite', $reply->id));
 
+        //then Jane's Reputation should grow, accordingly
         $total = Reputation::REPLY_POSTED + Reputation::REPLY_FAVORITED;
+        $this->assertEquals($total, $jane->fresh()->reputation);
 
-        $this->assertEquals($total, $reply->owner->fresh()->reputation);
+        //But ,if John unfavorite that reply
+        $this->delete(route('replies.favorite', $reply->id));
 
-        $this->delete("replies/{$reply->id}/favorites");
-
+        //then Jane's Reputation should reduce accordingly
         $total = Reputation::REPLY_POSTED + Reputation::REPLY_FAVORITED - Reputation::REPLY_FAVORITED;
-
         $this->assertEquals($total, $reply->owner->fresh()->reputation);
-    }
 
-   
-
-    
-
-    
+        //while John's should remain unaffected
+        $this->assertEquals(0, $john->fresh()->reputation);
+    }    
 }

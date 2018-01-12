@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+//use App\Trending;
 use App\Trending;
+
 use Tests\TestCase;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -23,13 +25,13 @@ class TrendingThreadTest extends TestCase
     /** @test */
     public function it_increments_a_threads_score_each_time_it_is_read()
     {
-        app()->instance(App\Trending::class,new FakeTrending);
-        
+    
+       
         $this->assertEmpty(0,$this->trending->get());
     	
     	$thread = create('App\Thread');
         $this->call('GET',$thread->path());
-
+ 
         $trending = $this->trending->get();
         $this->assertCount(1, $trending);
         //dd($trending);
@@ -37,10 +39,43 @@ class TrendingThreadTest extends TestCase
     	
     }
 
+    /** @test */
+    public function it_increments_a_threads_score_each_time_it_is_read_by_homemade_fake()
+    {
+        app()->instance(Trending::class, new FakeTrending);
+
+        $trending = app(Trending::class);
+        $trending->assertEmpty();
+        //dd($trending);
+
+        $thread = create('App\Thread');
+
+        $this->call('GET', $thread->path());
+
+        $trending->assertCount(1);
+
+        $this->assertEquals($thread->title, $trending->thread[0]->title);
+    }
+
     
 }
 
-class FakeTrending
+class FakeTrending extends Trending
 {
+    public $thread = [];
 
+    public function push($thread)
+    {
+        $this->thread[] = $thread;
+    }
+
+    public function assertEmpty()
+    {
+        \PHPUnit\Framework\Assert::assertEmpty($this->thread);
+    }
+
+    public function assertCount($count)
+    {
+        \PHPUnit\Framework\Assert::assertCount($count,$this->thread);
+    }
 }

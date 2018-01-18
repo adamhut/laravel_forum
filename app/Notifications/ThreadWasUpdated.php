@@ -4,7 +4,6 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
 class ThreadWasUpdated extends Notification
@@ -20,7 +19,7 @@ class ThreadWasUpdated extends Notification
      *
      * @return void
      */
-    public function __construct($thread,$reply)
+    public function __construct($thread, $reply)
     {
         $this->thread = $thread;
         $this->reply = $reply;
@@ -64,7 +63,4 @@ class ThreadWasUpdated extends Notification
             'link' => $this->reply->path(),
         ];
     }
-
-
-
 }

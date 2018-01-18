@@ -20,24 +20,23 @@ class AppServiceProvider extends ServiceProvider
             $view->with('channels',\App\ForumChannel::all());
         });
         */
-       //if you want to share it on every single page. you can do * or change the function to share, pass an array
-      
-        \View::composer('*', function($view){
-            $channels = Cache::rememberForever('channels', function(){
+        //if you want to share it on every single page. you can do * or change the function to share, pass an array
+
+        \View::composer('*', function ($view) {
+            $channels = Cache::rememberForever('channels', function () {
                 return \App\ForumChannel::all();
             });
-            $view->with('channels',$channels);
+            $view->with('channels', $channels);
         });
-         /**/
-        \View::share('signIn',auth()->check());
-        \View::share('user',auth()->user()?: new \App\User);
-       //Move it to dedicate service provider ==>ViewServiceProvider
-       /*
-       \View::share('channels',\App\ForumChannel::all());
-       */
-        
-       \Validator::extend('spamfree','App\Rules\SpamFree@passes');
+        /**/
+        \View::share('signIn', auth()->check());
+        \View::share('user', auth()->user() ?: new \App\User);
+        //Move it to dedicate service provider ==>ViewServiceProvider
+        /*
+        \View::share('channels',\App\ForumChannel::all());
+        */
 
+        \Validator::extend('spamfree', 'App\Rules\SpamFree@passes');
     }
 
     /**
@@ -47,11 +46,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        
-        if($this->app->isLocal())
-        {
-           $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
-            
+        if ($this->app->isLocal()) {
+            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
         }
     }
 }

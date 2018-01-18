@@ -21,10 +21,8 @@ class ReplyPolicy
     }
 
     public function before(User $user)
-    {   
-        
-        if($user->isAdmin())
-        {
+    {
+        if ($user->isAdmin()) {
             return true;
         }
         /**/
@@ -39,7 +37,7 @@ class ReplyPolicy
      */
     public function update(User $user, Reply $reply)
     {
-        
+
         // dd($thread->user_id , $user->id);
         return $reply->user_id == $user->id;
     }
@@ -48,10 +46,10 @@ class ReplyPolicy
     {
         $lastReply = $user->fresh()->lastReply;
 
-        if(!$lastReply)
-        {
+        if (! $lastReply) {
             return true;
         }
-        return !$lastReply->wasJustPublished();
+
+        return ! $lastReply->wasJustPublished();
     }
 }

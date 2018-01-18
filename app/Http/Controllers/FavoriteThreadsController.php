@@ -34,9 +34,10 @@ class FavoriteThreadsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ForumChannel $channel,Thread $thread)
+    public function store(ForumChannel $channel, Thread $thread)
     {
-        $thread->favorite();    
+        $thread->favorite();
+
         return back();
     }
 
@@ -74,13 +75,13 @@ class FavoriteThreadsController extends Controller
         //
     }
 
-     /**
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ForumChannel $channel,Thread $thread)
+    public function destroy(ForumChannel $channel, Thread $thread)
     {
         $thread->unfavorite();
     }

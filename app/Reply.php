@@ -2,9 +2,7 @@
 
 namespace App;
 
-use App\User;
 use Carbon\Carbon;
-use App\Favoritable;
 use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
@@ -12,44 +10,39 @@ class Reply extends Model
     //
 
     use Favoritable, RecordActivity;
-    
-    protected $fillable=[
-    	'body',
-    	'user_id'
+
+    protected $fillable = [
+        'body',
+        'user_id',
     ];
 
-    protected $with=['owner', 'favorites'];
+    protected $with = ['owner', 'favorites'];
 
-    protected $appends=['isFavorited', 'favoritesCount','isBest'];
-    
+    protected $appends = ['isFavorited', 'favoritesCount', 'isBest'];
 
     protected static function boot()
     {
         parent::boot();
 
-        static::created(function($reply){
-           
+        static::created(function ($reply) {
             $reply->thread->increment('replies_count');
 
-           // $reply->owner->increment('reputation', 2);
+            // $reply->owner->increment('reputation', 2);
             Reputation::award($reply->owner, Reputation::REPLY_POSTED);
-
-            
         });
 
-        static::deleted(function($reply){
-            if($reply->isBest()){
-               //$reply->thread->update(['best_reply_id'=>null]);
+        static::deleted(function ($reply) {
+            if ($reply->isBest()) {
+                //$reply->thread->update(['best_reply_id'=>null]);
             }
             $reply->thread->decrement('replies_count');
             Reputation::reduce($reply->owner, Reputation::REPLY_POSTED);
         });
     }
 
-
     public function owner()
     {
-    	return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function thread()
@@ -61,37 +54,35 @@ class Reply extends Model
     {
         return $this->thread->path()."#reply-{$this->id}";
     }
- 
+
     public function wasJustPublished()
     {
         return $this->created_at->gt(Carbon::now()->subMinute());
     }
 
-
     public function mentionedUsers()
     {
         preg_match_all('/@([\w\-]+)/', $this->body, $matches);
+
         return $matches[1];
     }
 
-
     public function setBodyAttribute($body)
     {
-        $this->attributes['body']=preg_replace(
+        $this->attributes['body'] = preg_replace(
             '/@([\w\-]+)/',
             '<a href="/profiles/$1">$0</a>',
              $body
         ); //hello @JaneDoe
     }
 
-
     public function isBest()
     {
-        return $this->thread->best_reply_id==$this->id;
+        return $this->thread->best_reply_id == $this->id;
     }
 
     /**
-     * Determind the current reply is the best Reply
+     * Determind the current reply is the best Reply.
      *
      * @return void
      */
@@ -99,7 +90,6 @@ class Reply extends Model
     {
         return $this->isBest();
     }
-
 
     public function getBodyAttribute($body)
     {

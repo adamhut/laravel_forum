@@ -24,8 +24,8 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\NotifyThreadSubScribers',
         ],
         Registered::class=>[
-            'App\Listeners\SendEmailConfirmationRequest'
-        ]
+            'App\Listeners\SendEmailConfirmationRequest',
+        ],
     ];
 
     /**

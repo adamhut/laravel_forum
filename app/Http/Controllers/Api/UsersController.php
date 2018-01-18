@@ -11,11 +11,11 @@ class UsersController extends Controller
     //
     public function index()
     {
-    	$search = request('name');
+        $search = request('name');
 
-    	//You could move to User's model as a query scope
-	   	return User::where('name','like',"{$search}%")
-    		->take(5)
-    		->pluck('name');  
-     }
+        //You could move to User's model as a query scope
+        return User::where('name', 'like', "{$search}%")
+            ->take(5)
+            ->pluck('name');
+    }
 }

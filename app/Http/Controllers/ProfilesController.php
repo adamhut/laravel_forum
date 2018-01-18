@@ -48,9 +48,8 @@ class ProfilesController extends Controller
     public function show(User $user)
     {
         //$activities = $this->getActivity($user);
-        
-  
-        return view('profiles.show',[
+
+        return view('profiles.show', [
             'profileUser' => $user,
             'activities' => Activity::feed($user),
         ]);
@@ -65,7 +64,6 @@ class ProfilesController extends Controller
     public function edit($id)
     {
         //
-       
     }
 
     /**
@@ -91,11 +89,9 @@ class ProfilesController extends Controller
         //
     }
 
-
-
     public function getActivity(User $user)
     {
-        return $user->activity()->with('subject')->latest()->take(50)->get()->groupBy(function($activity){
+        return $user->activity()->with('subject')->latest()->take(50)->get()->groupBy(function ($activity) {
             return $activity->created_at->format('Y-m-d');
         });
     }

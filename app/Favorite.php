@@ -4,17 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-
 class Favorite extends Model
 {
-	use RecordActivity;
+    use RecordActivity;
     //
-    protected $guarded=[
+    protected $guarded = [
 
     ];
 
     public function favorited()
     {
-    	return $this->morphTo();	
+        return $this->morphTo();
     }
 }

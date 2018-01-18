@@ -12,12 +12,10 @@ use App\Exceptions\CommunityLinkAlreadySubmitted;
 class CommunityLinksController extends Controller
 {
     //
-    public function index(Channel $channel =null)
+    public function index(Channel $channel = null)
     {
-       
-
-        $links= (new CommunityLinksQuery)->get(
-            request()->exists('popular'),$channel
+        $links = (new CommunityLinksQuery)->get(
+            request()->exists('popular'), $channel
         );
         /*
         $links = CommunityLink::with('votes','creator','channel')//eager loading the vote
@@ -26,31 +24,29 @@ class CommunityLinksController extends Controller
             ->latest('updated_At')
             ->get();
             //->paginate(2);
-       
+
         $links = $links->sortByDesc(function($link){
             return $link->votes()->count();
         });
         */
-       /*
-        $links = CommunityLink::with('votes','creator','channel')//eager loading the vote
-            ->forChannel($channel)
-            ->where('approved',1)
-            ->leftJoin('community_links_votes','community_links_votes.community_link_id','=','community_links.id')
-            ->selectRaw(
-                'community_links.* ,count(community_links_votes.id) as vote_count'
-            )
-            ->groupBy('community_links.id')
-            ->orderBy($orderBy,'desc')
-            ->paginate(5);
-            */
-       // / dd($links);
+        /*
+         $links = CommunityLink::with('votes','creator','channel')//eager loading the vote
+             ->forChannel($channel)
+             ->where('approved',1)
+             ->leftJoin('community_links_votes','community_links_votes.community_link_id','=','community_links.id')
+             ->selectRaw(
+                 'community_links.* ,count(community_links_votes.id) as vote_count'
+             )
+             ->groupBy('community_links.id')
+             ->orderBy($orderBy,'desc')
+             ->paginate(5);
+             */
+        // / dd($links);
 
-    	$channels = Channel::orderBy('title','asc')->get();
+        $channels = Channel::orderBy('title', 'asc')->get();
 
-
-    	return view('community.index',compact('channels','links','channel'));
+        return view('community.index', compact('channels', 'links', 'channel'));
     }
-
 
     public function store(CommunityLinkForm $form)
     {
@@ -61,9 +57,9 @@ class CommunityLinksController extends Controller
     		'url'	=>	'required|active_url',
     	]);
     	*/
-         //$user_id = auth()->user()->id;
-    	//CommunityLink::create($request->all());
-    	   
+        //$user_id = auth()->user()->id;
+        //CommunityLink::create($request->all());
+
         $form->persist();
         //Move it to the form object
         /*try{
@@ -78,14 +74,11 @@ class CommunityLinksController extends Controller
         }catch(CommunityLinkAlreadySubmitted $e){
             flash()->overlay('we will instead bump the timestamps and bring that link back to the top',
                 'That link has already been submitted');
-           
+
         }*/
 
+        //flash('Thank for the contribution');
 
-        
-
-    	//flash('Thank for the contribution');
-
-    	return back();
+        return back();
     }
 }

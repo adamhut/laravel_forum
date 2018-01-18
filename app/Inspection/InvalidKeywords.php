@@ -1,26 +1,21 @@
-<?php 
+<?php
+
 namespace App\Inspection;
 
 use Exception;
 
-class InvalidKeywords 
+class InvalidKeywords
 {
+    protected $keywords = [
+            'Yahoo Customer Support',
+    ];
 
-	protected $keywords =[
-			'Yahoo Customer Support'
-	];
-
-	public function detect($body)
-	{
-		
-
-		foreach($this->keywords as $keyword)
-		{
-			 if(stripos($body,$keyword)!==false) 
-        	{
-            	throw new Exception('Your Replay contain spam');
-        	}
-
-		}
-	}
+    public function detect($body)
+    {
+        foreach ($this->keywords as $keyword) {
+            if (stripos($body, $keyword) !== false) {
+                throw new Exception('Your Replay contain spam');
+            }
+        }
+    }
 }

@@ -4,30 +4,32 @@ namespace App;
 
 use Illuminate\Support\Facades\Redis;
 
-class Visits 
+class Visits
 {
-	//TODO:make it more generic
-	protected $thread;
+    //TODO:make it more generic
+    protected $thread;
 
-	public function __construct($thread)
-	{
-		$this->thread = $thread;
-	}
+    public function __construct($thread)
+    {
+        $this->thread = $thread;
+    }
 
     public function reset()
     {
-    	Redis::del($this->cacheKey());
-        return $this;	
+        Redis::del($this->cacheKey());
+
+        return $this;
     }
 
     public function count()
     {
-    	return Redis::get($this->cacheKey()) ?:0;    
+        return Redis::get($this->cacheKey()) ?: 0;
     }
 
     public function record()
     {
         Redis::incr($this->cacheKey());
+
         return $this;
     }
 

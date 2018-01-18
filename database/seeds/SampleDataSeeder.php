@@ -22,6 +22,7 @@ class SampleDataSeeder extends Seeder
         $this->channels()->content();
         Schema::enableForeignKeyConstraints();
     }
+
     /**
      * Seed the channels table.
      */
@@ -29,8 +30,10 @@ class SampleDataSeeder extends Seeder
     {
         Channel::truncate();
         factory(Channel::class, 10)->create();
+
         return $this;
     }
+
     /**
      * Seed the thread-related tables.
      */

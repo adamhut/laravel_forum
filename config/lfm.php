@@ -12,7 +12,7 @@ return [
 
     // Middlewares which should be applied to all package routes.
     // For laravel 5.1 and before, remove 'web' from the array.
-    'middlewares' => ['web','auth'],
+    'middlewares' => ['web', 'auth'],
 
     // The url to this package. Change it if necessary.
     'prefix' => 'laravel-filemanager',
@@ -30,7 +30,7 @@ return [
 
     // Flexibla way to customize client folders accessibility
     // Ex: The private folder of user will be named as the user id.
-    'user_field' => function() {
+    'user_field' => function () {
         return auth()->user()->id;
     },
 
@@ -159,7 +159,7 @@ return [
     // These values override your php.ini settings before uploading files
     // Set these to false to ingnore and apply your php.ini settings
     'php_ini_overrides' => [
-        'memory_limit'        => '256M'
-    ]
+        'memory_limit'        => '256M',
+    ],
 
 ];

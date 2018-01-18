@@ -7,12 +7,10 @@ use Illuminate\Http\Request;
 
 class UserNotificationsController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
     }
-
 
     /**
      * Display a listing of the resource.
@@ -85,7 +83,7 @@ class UserNotificationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user,$notificationId)
+    public function destroy(User $user, $notificationId)
     {
         auth()->user()
             ->notifications()

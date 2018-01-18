@@ -43,7 +43,7 @@ class SendChatMessage extends Command
         $user = User::first();
         $message = ChatMessage::create([
             'user_id' => $user->id,
-            'message' => $this->argument('message')
+            'message' => $this->argument('message'),
         ]);
 
         event(new ChatMessageWasReceived($message, $user));

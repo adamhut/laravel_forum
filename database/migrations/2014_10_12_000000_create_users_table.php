@@ -21,9 +21,9 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('reputation')->default(0);
             $table->string('avatar_path')->nullable();
             $table->boolean('trusted')->default(0);
-            $table->enum('type',['member','admin'])->default('member');
+            $table->enum('type', ['member', 'admin'])->default('member');
             $table->boolean('confirmed')->default(false);
-            $table->string('confirmation_token',25)->nullable()->unique();
+            $table->string('confirmation_token', 25)->nullable()->unique();
 
             $table->rememberToken();
             $table->timestamps();

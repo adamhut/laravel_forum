@@ -8,23 +8,22 @@ use App\Http\Controllers\Controller;
 
 class UserAvatarController extends Controller
 {
-
-	/**
-	 * store a  new user avatar
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
+    /**
+     * store a  new user avatar.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function store()
     {
-    	request()->validate([
-    		'avatar' => ['required','image']
-    	]);
-    	
-    	auth()->user()->update([
-    		'avatar_path'=> request()->file('avatar')->store('avatars','public')
-    	]);
-    	
-        return response([],204);
-    	//return back();
+        request()->validate([
+            'avatar' => ['required', 'image'],
+        ]);
+
+        auth()->user()->update([
+            'avatar_path'=> request()->file('avatar')->store('avatars', 'public'),
+        ]);
+
+        return response([], 204);
+        //return back();
     }
 }

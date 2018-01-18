@@ -7,13 +7,10 @@ use Illuminate\Http\Request;
 
 class VotesController extends Controller
 {
-    
-
     public function __construct()
     {
         $this->middleware('auth');
     }
-
 
     /**
      * Display a listing of the resource.
@@ -52,9 +49,9 @@ class VotesController extends Controller
 
         $vote->toggle();
         */
-        
+
         auth()->user()->votes()->toggle($link);
-        
+
         return back();
     }
 

@@ -9,12 +9,10 @@ use Illuminate\Http\Request;
 
 class FavoritesController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
     }
-
 
     /**
      * Display a listing of the resource.
@@ -46,6 +44,7 @@ class FavoritesController extends Controller
     {
         $reply->favorite();
         Reputation::award($reply->owner(), Reputation::REPLY_FAVORITED);
+
         return back();
         /*
         Favorite::create([
@@ -55,7 +54,7 @@ class FavoritesController extends Controller
         ]);
         */
        //if(method_exists($this,$property))
-       //{ 
+       //{
        //   return call_user_func([$this,$property]);
        //}
        //$message = '%s does not respond to the "%s" property or method';

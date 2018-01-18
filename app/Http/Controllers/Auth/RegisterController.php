@@ -65,15 +65,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        do{
+        do {
             $token = str_random(25);
-        }while(User::where('confirmation_token',$token)->exists());
+        } while (User::where('confirmation_token', $token)->exists());
 
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'confirmation_token' => str_limit(md5($data['email']).str_random(1) ,25,''),
+            'confirmation_token' => str_limit(md5($data['email']).str_random(1), 25, ''),
         ]);
     }
 

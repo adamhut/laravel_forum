@@ -1,18 +1,13 @@
-<?php 
+<?php
+
 namespace App\Inspection;
 
-use Exception;
-
-class KeyHeldDown 
+class DetectKeyHeldDown
 {
-
-	
-
-	public function detect($body)
-	{
-		if(preg_match('/(.)\\1{4,}/',$body ,$matches))
-		{
-			throw new \Exception('Your Replay contain spam');
-		}
-	}
+    public function detect($body)
+    {
+        if (preg_match('/(.)\\1{4,}/', $body, $matches)) {
+            throw new \Exception('Your Replay contain spam');
+        }
+    }
 }

@@ -1,7 +1,8 @@
 <?php
-namespace App\Http\Controllers;
-use App\User;
 
+namespace App\Http\Controllers;
+
+use App\User;
 
 class ImpersonationController extends Controller
 {
@@ -13,8 +14,9 @@ class ImpersonationController extends Controller
      */
     public function __invoke(User $user)
     {
-    	//dd($user);
+        //dd($user);
         auth()->login($user);
+
         return redirect('/login');
     }
 }

@@ -15,12 +15,11 @@ class Administrator
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->check() && auth()->user()->isAdmin())
-        {
+        if (auth()->check() && auth()->user()->isAdmin()) {
             return $next($request);
         }
         //return redirect(route('threads'))->with('flash','You are not an Administrator');
 
-        abort(403,'You Are Not Allowed');
+        abort(403, 'You Are Not Allowed');
     }
 }

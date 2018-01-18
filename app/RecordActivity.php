@@ -1,32 +1,34 @@
-<?php 
+<?php
+
 namespace App;
 
-trait RecordActivity{
+trait RecordActivity
+{
+    protected static function getActivitiesToRecord()
+    {
+        return ['created'];
+    }
 
-	protected static function getActivitiesToRecord()
-	{
-		return ['created'];
-	}
+    protected static function bootRecordActivity()
+    {
+        if (auth()->guest()) {
+            return;
+        }
 
-	protected static function bootRecordActivity()
-	{
-		if(auth()->guest()) return;
+        foreach (static::getActivitiesToRecord() as $event) {
+            static::$event(function ($model) use ($event) {
+                $model->recordActivity($event);
+            });
+        }
 
-		foreach(static::getActivitiesToRecord() as $event){
-			static::$event(function($model) use($event){
-	            $model->recordActivity($event);
-	        });
-		}
-
-        static::deleting(function($model){
+        static::deleting(function ($model) {
             $model->activity()->delete();
         });
+    }
 
-	}
-
-	protected  function recordActivity($event)
+    protected function recordActivity($event)
     {
-    	$this->activity()->create([
+        $this->activity()->create([
             'user_id' => auth()->id(),
             'type'  => $this->getActivityType($event),
         ]);
@@ -39,15 +41,14 @@ trait RecordActivity{
         //]);
     }
 
-
     public function activity()
     {
-    	return $this->morphMany('App\Activity','subject');
+        return $this->morphMany('App\Activity', 'subject');
     }
 
     public function getActivityType($event)
     {
-    	$type = strtolower((new \ReflectionClass($this))->getShortName());// App/Thread =>Thread
-        return $event.'_'.$type; 
+        $type = strtolower((new \ReflectionClass($this))->getShortName()); // App/Thread =>Thread
+        return $event.'_'.$type;
     }
 }

@@ -14,10 +14,9 @@ class ChannelsTableSeeder extends Seeder
         Channel::truncate();
         //
         factory('App\Channel')->create([
-        	'title' => 'php',
-        	'slug'  => '',
-        	'color' => '#FF0000'
+            'title' => 'php',
+            'slug'  => '',
+            'color' => '#FF0000',
         ]);
-       
     }
 }

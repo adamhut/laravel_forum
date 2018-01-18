@@ -48,8 +48,7 @@ class SearchController extends Controller
     {
         $search = request('q');
 
-     
-        if (request()->expectsJson() ) {
+        if (request()->expectsJson()) {
             return Thread::search($search)->paginate(25);
         }
 
@@ -63,7 +62,6 @@ class SearchController extends Controller
             'trending' =>$trending->get(),
         ]);
         */
-
     }
 
     /**

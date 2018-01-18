@@ -2,79 +2,73 @@
 
 namespace App;
 
-
-use App\Favoritable;
-use App\ForumChannel;
 use Laravel\Scout\Searchable;
 use App\Events\ThreadHasNewReply;
 use App\Exceptions\ThreadIsLocked;
 use App\Events\ThreadReceivedNewReply;
 use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Model;
-//use Facades\App\Reputation;
 
+//use Facades\App\Reputation;
 
 class Thread extends Model
 {
     //
     use RecordActivity,Favoritable,Searchable;
 
-
-
-    protected $guarded =[];
+    protected $guarded = [];
 
     /**
-     * The relationship to always eager-load
+     * The relationship to always eager-load.
      *
      * @var array
      */
-    protected $with=['creator','channel'];
+    protected $with = ['creator', 'channel'];
 
     /**
-     * The attribute to always appends
+     * The attribute to always appends.
      *
      * @var array
      */
-    protected $appends=['isSubscribedTo'];
+    protected $appends = ['isSubscribedTo'];
 
     /**
-     * The attribute to always casts
+     * The attribute to always casts.
      *
      * @var array
      */
-    protected $casts=[
+    protected $casts = [
         'locked' =>'boolean',
     ];
 
-    protected static function boot(){
+    protected static function boot()
+    {
         parent::boot();
 
-         /*
+        /*
         static::addGlobalScope('replyCount', function($builder){
-            $builder->withCount('replies');
+           $builder->withCount('replies');
         });
 
         static::addGlobalScope('creator', function($builder){
-            $builder->with('creator');
+           $builder->with('creator');
         });
         //in code you can add  App\Thread::withoutGlobalScopes()->first()//to disable it
         */
 
-
-        static::deleting(function($thread){
-            $thread->replies()->each(function($reply){
+        static::deleting(function ($thread) {
+            $thread->replies()->each(function ($reply) {
                 $reply->delete();
             });
 
             Reputation::reduce($thread->creator, Reputation::THREAD_WAS_PUBLISHED);
         });
 
-        static::created(function($thread){
+        static::created(function ($thread) {
             $thread->update(['slug'=> $thread->title]);
 
             Reputation::award($thread->creator, Reputation::THREAD_WAS_PUBLISHED);
             //$thread->creator->increment('reputation',Reputation::THREAD_WAS_PUBLISHED);
-
         });
 
         /* move to RecordActivity trait
@@ -84,10 +78,9 @@ class Thread extends Model
         */
     }
 
-
     public function path()
     {
-    	return "/threads/{$this->channel->slug}/{$this->slug}";
+        return "/threads/{$this->channel->slug}/{$this->slug}";
     }
 
     public function replies()
@@ -95,8 +88,8 @@ class Thread extends Model
         //return $this->hasMany(Reply::class)->withCount('favorites');
 
         //load the reply with the favorites count
-    	return $this->hasMany(Reply::class);
-           // ->withCount('favorites')
+        return $this->hasMany(Reply::class);
+        // ->withCount('favorites')
             //->with('owner');
     }
 
@@ -107,15 +100,14 @@ class Thread extends Model
 
     public function scropReplyCount($query)
     {
-
     }
 
     public function addReply($reply)
     {
-        if($this->locked){
+        if ($this->locked) {
             throw new ThreadIsLocked('Thread is Lock');
         }
-        $reply =  $this->replies()->create($reply);
+        $reply = $this->replies()->create($reply);
 
         //$this->increment('replies_count');
 
@@ -138,12 +130,12 @@ class Thread extends Model
             })
             ->each->notify($reply);
         */
-            /*
-            ->each(function($subscription)use ($reply){
-                //$subscription->user->notify(new ThreadWasUpdated($this,$reply));
-                $subscription->notify($reply);
-            });
-            */
+        /*
+        ->each(function($subscription)use ($reply){
+            //$subscription->user->notify(new ThreadWasUpdated($this,$reply));
+            $subscription->notify($reply);
+        });
+        */
         /*
         foreach($this->subscriptions as $subscription){
             if($subscription->user_id != $reply->user_id)
@@ -154,30 +146,27 @@ class Thread extends Model
         */
 
         return $reply;
-
     }
-
-   
 
     public function notifySubscribers($reply)
     {
         $this->subscriptions
-            ->where('user_id','!=',$reply->user_id)
+            ->where('user_id', '!=', $reply->user_id)
             ->each
             ->notify($reply);
     }
 
     /**
-     * A thread belongs to a creator
+     * A thread belongs to a creator.
      * @return [type] [description]
      */
     public function creator()
     {
-    	return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
-     * A thread belongs to a channel
+     * A thread belongs to a channel.
      * @return [type] [description]
      */
     public function channel()
@@ -186,21 +175,21 @@ class Thread extends Model
     }
 
     /**
-     * [filter description]
+     * [filter description].
      * @return [type] [description]
      */
-    public function scopefilter($query,$filters)
+    public function scopefilter($query, $filters)
     {
         return $filters->apply($query);
-
     }
 
     public function subscribe($userId = null)
     {
         $this->subscriptions()
             ->create([
-                'user_id'=>$userId?: auth()->id()
+                'user_id'=>$userId ?: auth()->id(),
             ]);
+
         return $this;
     }
 
@@ -208,7 +197,7 @@ class Thread extends Model
     {
         $this->subscriptions()
             ->where([
-                'user_id'=>$userId?: auth()->id()
+                'user_id'=>$userId ?: auth()->id(),
             ])
             ->delete();
     }
@@ -221,10 +210,9 @@ class Thread extends Model
     public function getIsSubscribedToAttribute()
     {
         return $this->subscriptions()
-            ->where('user_id',auth()->id())
+            ->where('user_id', auth()->id())
             ->exists();
     }
-
 
     public function hasUpdatesFor($user = null)
     {
@@ -244,14 +232,13 @@ class Thread extends Model
         return new Visits($this);
     }
 
-
-    public  function getRouteKeyName()
+    public function getRouteKeyName()
     {
         return 'slug';
     }
 
     /**
-     * Set the proper slug Attribute //mutator
+     * Set the proper slug Attribute //mutator.
      * @param $string $value
      */
     public function setSlugAttribute($value)
@@ -259,7 +246,7 @@ class Thread extends Model
         $slug = str_slug($value);
         //$original = $slug;
 
-        if(static::whereSlug($slug)->exists()) {
+        if (static::whereSlug($slug)->exists()) {
             $slug = "{$slug}-".$this->id;
         }
 
@@ -272,11 +259,9 @@ class Thread extends Model
         //$this->best_reply_id = $reply->id;
         //$this->save();
 
-
         //$reply->owner->increment('reputation',50);
         Reputation::award($reply->owner, Reputation::BEST_REPLY_AWARDED);
     }
-    
 
     /**
      * Get the indexable data array for the model.
@@ -291,12 +276,11 @@ class Thread extends Model
             'path'  => $
         ];
         */
-        return $this->toArray()+['path'=>$this->path()];
+        return $this->toArray() + ['path'=>$this->path()];
     }
 
     public function getBodyAttribute($body)
     {
         return \Purify::clean($body);
     }
-    
 }

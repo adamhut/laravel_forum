@@ -2,23 +2,18 @@
 
 namespace App\Http\Controllers;
 
-
-
 use App\Reply;
 use App\Thread;
 use Illuminate\Http\Request;
 use App\Exceptions\ThreadIsLocked;
 use App\Http\Requests\CreatePostRequest;
 
-
 class RepliesController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth')->except('index');
     }
-
 
     /**
      * Display a listing of the resource.
@@ -47,26 +42,24 @@ class RepliesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($channelId, Thread $thread,CreatePostRequest $form)
+    public function store($channelId, Thread $thread, CreatePostRequest $form)
     {
 
         //try{
         $reply = $thread->addReply([
             'body' => request('body'),
-            'user_id' => auth()->id()
+            'user_id' => auth()->id(),
         ]);
 
         //}catch(ThreadIsLocked $e){
         //    return response('Thread is Locked',422);
         //}
 
-
         if (request()->expectsJson()) {
             return $reply->load('owner');
         }
 
-        return back()->with('flash','your reply has been left!!!');
-
+        return back()->with('flash', 'your reply has been left!!!');
     }
 
     /**
@@ -106,13 +99,13 @@ class RepliesController extends Controller
      */
     public function update(Reply $reply)
     {
-        $this->authorize('update',$reply);
+        $this->authorize('update', $reply);
 
         //try{
         request()->validate([
            'body' => 'required|spamfree',
         ]);
-            // check ,spam
+        // check ,spam
         $reply->update(['body'=>request('body')]);
 
         /*
@@ -141,28 +134,24 @@ class RepliesController extends Controller
             }
         }*/
 
-
-        $this->authorize('update',$reply);
+        $this->authorize('update', $reply);
 
         $reply->delete();
 
-        if(request()->expectsJson())
-        {
+        if (request()->expectsJson()) {
             return response(['status'=>'Your Reply has been deleted']);
         }
 
         return back();
     }
 
-
     protected function validateReply()
     {
-        $this->validate(request(),[
+        $this->validate(request(), [
             'body' => 'required',
         ]);
 
         //$spam->check(request('body'));
         //resolve(Spam::class)->detect(request('body'));
     }
-
 }

@@ -10,17 +10,16 @@ use App\Rules\Recaptcha;
 use Illuminate\Http\Request;
 use App\Filters\ThreadFilters;
 
-
 class ThreadsController extends Controller
 {
-    protected static $countPerPage=20;
+    protected static $countPerPage = 20;
 
     /**
      *  create a new ThreadsContrtoller instance.
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['index','show']);
+        $this->middleware('auth')->except(['index', 'show']);
     }
 
     /**
@@ -28,15 +27,14 @@ class ThreadsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ForumChannel $channel,ThreadFilters $filters,Trending $trending)
+    public function index(ForumChannel $channel, ThreadFilters $filters, Trending $trending)
     {
         //dd($channel);
         //Move it to App serviceprovider as View Composer
 
-        $threads = $this->getThreads($channel,$filters);
+        $threads = $this->getThreads($channel, $filters);
 
-        if(request()->wantsJson())
-        {
+        if (request()->wantsJson()) {
             return $threads;
         }
 
@@ -46,13 +44,11 @@ class ThreadsController extends Controller
         //    return json_decode($thread);
         //});
 
-        return view('threads.index',[
+        return view('threads.index', [
             'threads' =>$threads,
             'trending' =>$trending->get(),
         ]);
     }
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -85,11 +81,11 @@ class ThreadsController extends Controller
             'title' => 'required|spamfree',
             'body' => 'required|spamfree',
             'channel_id' => 'required|exists:forum_channels,id',
-            'g-recaptcha-response' => ['required', $recaptcha] ,
+            'g-recaptcha-response' => ['required', $recaptcha],
 
         ]);
 
-        $thread =Thread::create([
+        $thread = Thread::create([
             'user_id' => auth()->id(),
             'title'=>request('title'),
             'channel_id'=>request('channel_id'),
@@ -97,26 +93,25 @@ class ThreadsController extends Controller
             //'slug' =>request('title'),//create a customer mutator
         ]);
 
-        if(request()->wantsJson())
-        {
-            return response($thread,201);
+        if (request()->wantsJson()) {
+            return response($thread, 201);
         }
 
         //$spam->detect(request('body'));
         //$spam->detect(request('title'));
 
         return redirect($thread->path())
-            ->with('flash','Your thread has been publish');
+            ->with('flash', 'Your thread has been publish');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  Integer  $channel
+     * @param  int  $channel
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function show($channel,Thread $thread ,Trending $trending)
+    public function show($channel, Thread $thread, Trending $trending)
     {
         //return $thread->load('replies.favorites')->load('replies.owner');//eager loading to prevent n+1 issues
         //$thread = Thread::find($id);
@@ -133,8 +128,7 @@ class ThreadsController extends Controller
         //return $thread;
 
         //Record that the user visited this page.
-        if(auth()->check())
-        {
+        if (auth()->check()) {
             auth()->user()->read($thread);
         }
 
@@ -145,7 +139,7 @@ class ThreadsController extends Controller
         //Record the timestamp when they do so.
         //cache()->forever($key,Carbon::now());
 
-        return view('threads.show',compact('thread'));
+        return view('threads.show', compact('thread'));
     }
 
     /**
@@ -166,13 +160,13 @@ class ThreadsController extends Controller
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function update($channel , Thread $thread)
+    public function update($channel, Thread $thread)
     {
         //authorization
-        $this->authorize('update',$thread);
-        
+        $this->authorize('update', $thread);
+
         //validation
-        $data=request()->validate([
+        $data = request()->validate([
             'title' => 'required|spamfree',
             'body' => 'required|spamfree',
         ]);
@@ -194,41 +188,40 @@ class ThreadsController extends Controller
         }
         */
         //extra code here
-
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Integer  $channel
+     * @param  int  $channel
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function destroy($channel,Thread $thread)
+    public function destroy($channel, Thread $thread)
     {
-         //Change to Policy
-       /*
-        if($thread->user_id != auth()->id() )
-        {
-            //abort(403,'You do not have permission to delete this thread');
-            if(request()->wantsJson())
-            {
-                return response(['status'=>'Permission Denied'],403);
-            }
-            return redirect('/login');
-        }
-         */
+        //Change to Policy
+        /*
+         if($thread->user_id != auth()->id() )
+         {
+             //abort(403,'You do not have permission to delete this thread');
+             if(request()->wantsJson())
+             {
+                 return response(['status'=>'Permission Denied'],403);
+             }
+             return redirect('/login');
+         }
+          */
 
-        $this->authorize('update',$thread);
+        $this->authorize('update', $thread);
         //Move to model Event
         //$thread->replies()->delete();
-       // echo 'I am delee';
+        // echo 'I am delee';
         $thread->delete();
 
-        if(request()->wantsJson())
-        {
-            return response([],204);
+        if (request()->wantsJson()) {
+            return response([], 204);
         }
+
         return redirect('threads');
     }
 
@@ -249,5 +242,4 @@ class ThreadsController extends Controller
         //return $threads->get();
         return $threads->paginate(25);
     }
-    
 }

@@ -3,8 +3,6 @@
 namespace App\Listeners;
 
 use App\Events\ThreadReceivedNewReply;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class NotifyThreadSubScribers
 {
@@ -29,7 +27,7 @@ class NotifyThreadSubScribers
         $thread = $event->reply->thread;
         //prepare all notification to all subscribers.
         $thread->subscriptions
-            ->where('user_id','!=',$event->reply->user_id)
+            ->where('user_id', '!=', $event->reply->user_id)
             ->each
             ->notify($event->reply);
     }

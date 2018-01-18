@@ -19,7 +19,7 @@ class UserPolicy
         //
     }
 
-     /**
+    /**
      * Determine whether the user can update the give profile.
      *
      * @param  \App\User  $user

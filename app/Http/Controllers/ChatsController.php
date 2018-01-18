@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 
 class ChatsController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-         return view('chat');
+        return view('chat');
     }
 
     /**
@@ -25,7 +25,6 @@ class ChatsController extends Controller
      */
     public function create()
     {
-
     }
 
     /**
@@ -36,7 +35,7 @@ class ChatsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'message'=>'required',
         ]);
 
@@ -59,8 +58,7 @@ class ChatsController extends Controller
      */
     public function show()
     {
-
-        return Message::with('user')->get();;
+        return Message::with('user')->get();
     }
 
     /**

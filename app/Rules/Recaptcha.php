@@ -28,14 +28,13 @@ class Recaptcha implements Rule
     {
         //if(app()->runningUnitTests()) return true;
 
-        $response = Zttp::asFormParams()->post('https://www.google.com/recaptcha/api/siteverify',[
+        $response = Zttp::asFormParams()->post('https://www.google.com/recaptcha/api/siteverify', [
             'secret'=> config('services.recaptcha.secret'),
             'response'  => $value,
             'remoteip'  => request()->ip(),
         ]);
 
         return $response->json()['success'];
-
     }
 
     /**

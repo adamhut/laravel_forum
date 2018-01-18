@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 
 return [
     'recaptcha' => [
@@ -12,3 +13,4 @@ return [
         'reply_favorited' => 5,
     ],
 ];
+

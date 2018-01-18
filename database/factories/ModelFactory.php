@@ -25,26 +25,27 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->state(App\User::class,'admin', function (Faker\Generator $faker) {
-   return ['type'=>'admin'];
+$factory->state(App\User::class, 'admin', function (Faker\Generator $faker) {
+    return ['type'=>'admin'];
 });
 
-$factory->state(App\User::class,'unconfirmed', function (Faker\Generator $faker) {
+$factory->state(App\User::class, 'unconfirmed', function (Faker\Generator $faker) {
     return [
-        'confirmed'=>false
+        'confirmed'=>false,
     ];
 });
 
 $factory->define(App\Thread::class, function (Faker\Generator $faker) {
     // /static $password;
-    $title =$faker->sentence;
+    $title = $faker->sentence;
+
     return [
         'title' => $title,
         'body' => $faker->paragraph,
-        'channel_id' =>function(){
+        'channel_id' =>function () {
             return factory('App\ForumChannel')->create()->id;
         },
-        'user_id' => function(){
+        'user_id' => function () {
             return factory('App\User')->create()->id;
         },
         'slug' => str_slug($title),
@@ -56,25 +57,24 @@ $factory->define(App\Reply::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
-        'thread_id' => function(){
-        	return factory('App\Thread')->create()->id;
+        'thread_id' => function () {
+            return factory('App\Thread')->create()->id;
         },
-        'user_id' => function(){
-        	return factory('App\User')->create()->id;
+        'user_id' => function () {
+            return factory('App\User')->create()->id;
         },
         'body' => $faker->paragraph,
      ];
 });
 
-
 $factory->define(App\CommunityLink::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
-        'user_id'=>function(){
+        'user_id'=>function () {
             return factory('App\User')->create()->id;
         },
-        'channel_id'=> 1 ,
+        'channel_id'=> 1,
         'title'=>$faker->sentence,
         'url'=>$faker->url,
         'approved'=>0,
@@ -83,16 +83,18 @@ $factory->define(App\CommunityLink::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Channel::class, function (Faker\Generator $faker) {
     $name = $faker->sentence;
-     return [
+
+    return [
         'title'=>$name,
-        'slug'=> strtolower($name) ,
+        'slug'=> strtolower($name),
         'color'=>'red',
     ];
 });
 
 $factory->define(App\ForumChannel::class, function (Faker\Generator $faker) {
-      $name = $faker->word;
-     return [
+    $name = $faker->word;
+
+    return [
         'name'=> $name,
         'slug'=> $name,
     ];
@@ -106,10 +108,9 @@ $factory->define(\Illuminate\Notifications\DatabaseNotification::class, function
             return auth()->id() ?: factory('App\User')->create()->id;
         },
         'notifiable_type' => 'App\User',
-        'data' => ['foo' => 'bar']
+        'data' => ['foo' => 'bar'],
     ];
 });
-
 
 $factory->define(App\Message::class, function (Faker\Generator $faker) {
     return [

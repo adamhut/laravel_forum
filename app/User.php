@@ -2,12 +2,7 @@
 
 namespace App;
 
-use App\Thread;
-use App\Message;
-use App\Activity;
 use Carbon\Carbon;
-use App\CommunityLink;
-use App\CommunityLinkVote;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -21,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','avatar_path','confirmation_token','confirmed','reputation'
+        'name', 'email', 'password', 'avatar_path', 'confirmation_token', 'confirmed', 'reputation',
     ];
 
     /**
@@ -30,15 +25,15 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token','email'
+        'password', 'remember_token', 'email',
     ];
 
     protected $casts = [
         'confirmed' => 'boolean',
     ];
 
-     /**
-     * get route key name for Laravel
+    /**
+     * get route key name for Laravel.
      * @return string
      */
     public function getRouteKeyName()
@@ -48,14 +43,15 @@ class User extends Authenticatable
 
     public function isTrusted()
     {
-        return !! $this->trusted;
+        return (bool) $this->trusted;
     }
 
     public function votes()
     {
-        return $this->belongsToMany(CommunityLink::class,'community_links_votes')
+        return $this->belongsToMany(CommunityLink::class, 'community_links_votes')
                     ->withTimestamps();
     }
+
     /*
     public function voteFor(CommunityLink $link)
     {
@@ -65,11 +61,11 @@ class User extends Authenticatable
     */
     public function votedFor(CommunityLink $link)
     {
-        return $link->contains('user_id',$this->id);
+        return $link->contains('user_id', $this->id);
     }
 
     /**
-     * get User threads
+     * get User threads.
      * @return [type] [description]
      */
     public function threads()
@@ -77,12 +73,10 @@ class User extends Authenticatable
         return $this->hasMany(Thread::class)->latest();
     }
 
-
     public function isAdmin()
     {
         return  $this->type == 'admin';
     }
-
 
     public function activity()
     {
@@ -92,9 +86,8 @@ class User extends Authenticatable
     public function visitedThreadCacheKey($thread)
     {
         //dd($thread->id);
-        return sprintf("user.%s.visit.%s",$this->id,$thread->id);
+        return sprintf('user.%s.visit.%s', $this->id, $thread->id);
     }
-
 
     public function read($thread)
     {
@@ -109,33 +102,32 @@ class User extends Authenticatable
         return $this->hasOne(Reply::class)->latest();
     }
 
-
-     public function avatar()
+    public function avatar()
     {
-        if(!$this->avatar_path)
-        {
+        if (! $this->avatar_path) {
             return asset('/images/avatars/default.png');
         }
+
         return asset('/storage/'.$this->avatar_path);
     }
 
     /**
-      * Get the path to the user's avatar.
-      *
-      * @param  string $avatar
-      * @return string
-      */
+     * Get the path to the user's avatar.
+     *
+     * @param  string $avatar
+     * @return string
+     */
     public function getAvatarPathAttribute($avatar)
     {
-        return asset($avatar ? '/storage/'.$avatar: 'images/avatars/default.png');
+        return asset($avatar ? '/storage/'.$avatar : 'images/avatars/default.png');
     }
-
 
     public function confirm()
     {
-        $this->confirmed= true;
-        $this->confirmation_token=null;
+        $this->confirmed = true;
+        $this->confirmation_token = null;
         $this->save();
+
         return $this;
     }
 

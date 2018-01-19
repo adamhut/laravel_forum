@@ -95,15 +95,9 @@ Auth::routes();
 Route::get('/threads', 'ThreadsController@index')->name('threads');
 Route::post('/threads', 'ThreadsController@store')->middleware('must-be-confirmed')->name('threads.store');
 
-<<<<<<< HEAD
 Route::get('/threads/create', 'ThreadsController@create')->middleware ('must-be-confirmed')->name('threads.create');
 Route::get('/threads/search', 'SearchController@show')->name('search.show');
 Route::get('/threads/{channel}', 'ThreadsController@index')->name('channels');
-=======
-Route::get('/threads/create', 'ThreadsController@create')->middleware('must-be-confirmed');
-Route::get('/threads/search', 'SearchController@show');
-Route::get('/threads/{channel}', 'ThreadsController@index');
->>>>>>> 8c4a7579b71aea673c31c7451b0076ee3153129f
 
 Route::get('/threads/{channel}/{thread}', 'ThreadsController@show');
 Route::patch('/threads/{channel}/{thread}', 'ThreadsController@update');
@@ -182,5 +176,24 @@ Route::group(['middleware'=>'auth'], function () {
      $data['message'] = 'hello world';
      $pusher->trigger('my-channel', 'my-event', $data);
     */
+    });
+});
+
+
+Route::group(['prefix' => 'wesbos'], function () {
+    Route::get('grid02', function(){
+        return view('wesbos.02');
+    });
+    Route::get('grid03', function () {
+        return view('wesbos.03');
+    });
+    Route::get('grid04', function () {
+        return view('wesbos.04');
+    });
+    Route::get('grid05', function () {
+        return view('wesbos.05');
+    });
+    Route::get('grid06', function () {
+        return view('wesbos.06');
     });
 });

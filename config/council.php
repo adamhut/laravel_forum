@@ -12,4 +12,3 @@ return [
         'reply_favorited' => 5,
     ],
 ];
-

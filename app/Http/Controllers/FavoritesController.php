@@ -45,6 +45,7 @@ class FavoritesController extends Controller
         $reply->favorite();
         //Reputation::award($reply->owner(), Reputation::REPLY_FAVORITED);
         $reply->owner->gainReputation('reply_favorited');
+
         return back();
         /*
         Favorite::create([

@@ -2,34 +2,17 @@
 
 namespace App;
 
-class Reputation
+use App\User;
+use Illuminate\Database\Eloquent\Model;
+
+class Reputation extends Model
 {
-    const THREAD_WAS_PUBLISHED = 10;
-    const REPLY_POSTED = 2;
-    const BEST_REPLY_AWARDED = 50;
-    const REPLY_FAVORITED = 5;
+    protected $guarded = [];
 
-    /**
-     * Award reputation points to the given user.
-     *
-     * @param User $user
-     * @param int $points
-     * @return void
-     */
-    public static function award($user, $points)
-    {
-        $user->increment('reputation', $points);
-    }
+    protected $table = 'reputation';
 
-    /**
-     * Demote reputation points for the given user.
-     *
-     * @param User $user
-     * @param int $points
-     * @return void
-     */
-    public static function reduce($user, $points)
+    public function user()
     {
-        $user->decrement('reputation', $points);
+        return $this->belongsTo(User::class);
     }
 }

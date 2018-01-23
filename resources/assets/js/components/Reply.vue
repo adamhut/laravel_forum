@@ -27,8 +27,8 @@
 	                <button class="btn btn-xs btn-link" @click="editing = false" type="button">Cancel</button>
                 </form>
             </div>
-            <div v-else class="body" v-html="body">
-               
+            <div  class="body" v-else v-html="body">
+				<highlight :content="body"></highlight>
             </div>
             <hr>
         </div>
@@ -54,13 +54,14 @@
 </template>
 <script>
 	import Favorite from './Favorite.vue'; 
+	import Highlight from './Highlight.vue';
 	import moment from 'moment';
 	export default{
 		props:[
 			'dataReply'
 		],
 		components:{
-			Favorite
+			Favorite,Highlight
 		},
 		data(){
 			return {

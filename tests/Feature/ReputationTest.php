@@ -11,12 +11,22 @@ class ReputationTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $points;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->points = config('council.reputation');
+    }
+
     /** @test */
     public function a_user_earn_points_when_they_craete_a_thread()
     {
         $thread = create('App\Thread');
 
-        $this->assertEquals(Reputation::THREAD_WAS_PUBLISHED,$thread->creator->reputation);
+        $this->assertEquals($this->points['thread_published'],$thread->creator->points);
+        //dd($thread->creator->reputation);
     }
 
     /** @test */
@@ -26,13 +36,13 @@ class ReputationTest extends TestCase
 
         $thread = create('App\Thread',['user_id'=>auth()->id()]);
 
-        $this->assertEquals(Reputation::THREAD_WAS_PUBLISHED, $thread->creator->reputation);
+        $this->assertEquals($this->points['thread_published'], $thread->creator->points);
 
         $this->delete($thread->path());
 
         //you should lost the point
-        self::assertEquals(0, $thread->creator->fresh()->reputation);
-        $this->assertEquals(0, $thread->creator->fresh()->reputation);
+        self::assertEquals(0, $thread->creator->fresh()->points);
+        $this->assertEquals(0, $thread->creator->fresh()->points);
     }
 
 
@@ -47,7 +57,7 @@ class ReputationTest extends TestCase
         ]);
        
 
-        $this->assertEquals(Reputation::REPLY_POSTED, $reply->owner->reputation);
+        $this->assertEquals($this->points['reply_posted'], $reply->owner->points);
     }
 
     /** @test */
@@ -57,11 +67,11 @@ class ReputationTest extends TestCase
 
         $reply=create('App\Reply',['user_id'=>auth()->id()]);
 
-        $this->assertEquals(Reputation::REPLY_POSTED, $reply->owner->reputation);
+        $this->assertEquals($this->points['reply_posted'], $reply->owner->points);
 
         $this->delete("replies/{$reply->id}");
 
-        $this->assertEquals(0, $reply->owner->fresh()->reputation);
+        $this->assertEquals(0, $reply->owner->fresh()->points);
     }
 
     /** @test */
@@ -76,7 +86,7 @@ class ReputationTest extends TestCase
 
         $thread->markAsBestReply($reply);
 
-        $this->assertEquals(Reputation::REPLY_POSTED + Reputation::BEST_REPLY_AWARDED, $reply->owner->reputation);
+        $this->assertEquals($this->points['reply_posted'] + $this->points['best_reply_awarded'] , $reply->owner->points);
     }
 
     /** @test */
@@ -91,7 +101,7 @@ class ReputationTest extends TestCase
 
         $thread->markAsBestReply($reply);
 
-        $this->assertEquals(Reputation::REPLY_POSTED + Reputation::BEST_REPLY_AWARDED, $reply->owner->reputation);
+        $this->assertEquals($this->points['reply_posted'] + $this->points['best_reply_awarded'], $reply->owner->points);
     }
 
 
@@ -110,19 +120,19 @@ class ReputationTest extends TestCase
             'user_id' => $jane->id,
             'body' => 'Here is the Reply',
         ]);
-        $this->assertEquals(Reputation::REPLY_POSTED , $reply->owner->fresh()->reputation);
+        $this->assertEquals($this->points['reply_posted'] , $reply->owner->fresh()->points);
         //return ;
 
         //and John favorite that reply
         $this->post(route('replies.favorite',$reply->id));
 
-        $total = Reputation::REPLY_POSTED + Reputation::REPLY_FAVORITED;
+        $total = $this->points['reply_posted'] + $this->points['reply_favorited'];
 
         //then Jane's Reputation should grow, accordingly
-        $this->assertEquals($total , $jane->fresh()->reputation);
+        $this->assertEquals($total , $jane->fresh()->points);
 
         //while John's should remain unaffected
-        $this->assertEquals(0, $john->fresh()->reputation);
+        $this->assertEquals(0, $john->fresh()->points);
     }
 
     /** @test */
@@ -141,17 +151,17 @@ class ReputationTest extends TestCase
         $this->post(route('replies.favorite', $reply->id));
 
         //then Jane's Reputation should grow, accordingly
-        $total = Reputation::REPLY_POSTED + Reputation::REPLY_FAVORITED;
-        $this->assertEquals($total, $jane->fresh()->reputation);
+        $total = $this->points['reply_posted'] + $this->points['reply_favorited'];
+        $this->assertEquals($total, $jane->fresh()->points);
 
         //But ,if John unfavorite that reply
         $this->delete(route('replies.favorite', $reply->id));
 
         //then Jane's Reputation should reduce accordingly
-        $total = Reputation::REPLY_POSTED + Reputation::REPLY_FAVORITED - Reputation::REPLY_FAVORITED;
-        $this->assertEquals($total, $reply->owner->fresh()->reputation);
+        $total = $this->points['reply_posted'] + $this->points['reply_favorited'] - $this->points['reply_favorited'];
+        $this->assertEquals($total, $reply->owner->fresh()->points);
 
         //while John's should remain unaffected
-        $this->assertEquals(0, $john->fresh()->reputation);
+        $this->assertEquals(0, $john->fresh()->points);
     }    
 }

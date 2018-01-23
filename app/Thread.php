@@ -2,19 +2,22 @@
 
 namespace App;
 
+use App\HasReputation;
 use Laravel\Scout\Searchable;
 use App\Events\ThreadHasNewReply;
 use App\Exceptions\ThreadIsLocked;
 use App\Events\ThreadReceivedNewReply;
 use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Model;
+use App\Events\ThreadWasPublished;
+use Facades\App\Reputation;
 
 //use Facades\App\Reputation;
 
 class Thread extends Model
 {
     //
-    use RecordActivity,Favoritable,Searchable;
+    use RecordActivity,Favoritable,Searchable,HasReputation;
 
     protected $guarded = [];
 
@@ -41,6 +44,10 @@ class Thread extends Model
         'locked' =>'boolean',
     ];
 
+    protected $dispatchesEvents=[
+        //'created' => ThreadWasPublished::class,
+    ];
+
     protected static function boot()
     {
         parent::boot();
@@ -60,14 +67,35 @@ class Thread extends Model
             $thread->replies()->each(function ($reply) {
                 $reply->delete();
             });
+            $thread->creator->loseReputation('thread_published');
+            /*Reputation::create([
+                'user_id' => $thread->creator->id,
+                'type' => 'delete_thread',
+                'points' => config('council.reputation.thread_published')* -1,
+            ]);
+            */
 
-            Reputation::reduce($thread->creator, Reputation::THREAD_WAS_PUBLISHED);
+            //Reputation::reduce($thread->creator, Reputation::THREAD_WAS_PUBLISHED);
         });
 
         static::created(function ($thread) {
             $thread->update(['slug'=> $thread->title]);
+            
+            //event(new ThreadWasPublished($thread));
 
-            Reputation::award($thread->creator, Reputation::THREAD_WAS_PUBLISHED);
+            // /dd($thread->creator);  
+            $thread->creator->gainReputation('thread_published');     
+            
+            /*
+            Reputation::create([
+                'user_id'  => $thread->creator->id,
+                'type'  => 'create_thread',
+                'points' => config('council.reputation.thread_published')
+
+            ]);
+            */
+
+            //Reputation::award($thread->creator, Reputation::THREAD_WAS_PUBLISHED);
             //$thread->creator->increment('reputation',Reputation::THREAD_WAS_PUBLISHED);
         });
 
@@ -260,7 +288,8 @@ class Thread extends Model
         //$this->save();
 
         //$reply->owner->increment('reputation',50);
-        Reputation::award($reply->owner, Reputation::BEST_REPLY_AWARDED);
+        $reply->owner->gainReputation('best_reply_awarded');
+        //Reputation::award($reply->owner, Reputation::BEST_REPLY_AWARDED);
     }
 
     /**

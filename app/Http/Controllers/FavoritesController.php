@@ -43,8 +43,8 @@ class FavoritesController extends Controller
     public function store(Reply $reply)
     {
         $reply->favorite();
-        Reputation::award($reply->owner(), Reputation::REPLY_FAVORITED);
-
+        //Reputation::award($reply->owner(), Reputation::REPLY_FAVORITED);
+        $reply->owner->gainReputation('reply_favorited');
         return back();
         /*
         Favorite::create([
@@ -104,6 +104,7 @@ class FavoritesController extends Controller
     public function destroy(Reply $reply)
     {
         $reply->unfavorite();
-        Reputation::reduce($reply->owner(), Reputation::REPLY_FAVORITED);
+        $reply->owner->loseReputation('reply_favorited');
+        //Reputation::reduce($reply->owner(), Reputation::REPLY_FAVORITED);
     }
 }

@@ -3,12 +3,13 @@
 namespace App;
 
 use Carbon\Carbon;
+use App\HasReputation;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable , HasReputation;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar_path', 'confirmation_token', 'confirmed', 'reputation',
+        'name', 'email', 'password', 'avatar_path', 'confirmation_token', 'confirmed',
     ];
 
     /**

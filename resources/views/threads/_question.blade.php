@@ -53,7 +53,7 @@
             />
             <span class="flex">
                 <a href="/profiles/{{$thread->creator->name}}">
-                    {{$thread->creator->name}} ({{$thread->creator->reputation}} XP)
+                    {{$thread->creator->name}} ( {{$thread->creator->points}} XP)
                 </a> posted: <span v-text="title"></span>
             </span>
             
@@ -71,7 +71,9 @@
         </div>
     </div>
     <div class="panel-body">
-        <div class="body" v-html="body"></div>
+        <div class="body">
+            <highlight :content="body"></highlight>
+        </div>
         <hr>
     </div>
     <div class="panel-footer" v-if="authorize('owns', thread)">

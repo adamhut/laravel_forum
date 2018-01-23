@@ -27,8 +27,10 @@ class Reply extends Model
         static::created(function ($reply) {
             $reply->thread->increment('replies_count');
 
+
+            $reply->owner->gainReputation('reply_posted');
             // $reply->owner->increment('reputation', 2);
-            Reputation::award($reply->owner, Reputation::REPLY_POSTED);
+            //Reputation::award($reply->owner, Reputation::REPLY_POSTED);
         });
 
         static::deleted(function ($reply) {
@@ -36,7 +38,9 @@ class Reply extends Model
                 //$reply->thread->update(['best_reply_id'=>null]);
             }
             $reply->thread->decrement('replies_count');
-            Reputation::reduce($reply->owner, Reputation::REPLY_POSTED);
+
+            $reply->owner->loseReputation('reply_posted');
+            //Reputation::reduce($reply->owner, Reputation::REPLY_POSTED);
         });
     }
 

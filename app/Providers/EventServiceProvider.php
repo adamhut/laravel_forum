@@ -26,6 +26,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class=>[
             'App\Listeners\SendEmailConfirmationRequest',
         ],
+        'App\Events\ThreadWasPublished' => [
+            'App\Listeners\NotifyMentionedUsers'
+        ],
     ];
 
     /**

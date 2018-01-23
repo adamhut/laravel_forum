@@ -46,6 +46,19 @@ window.Vue.prototype.signedIn = window.App.signedIn;
 
 window.moment = require('moment');
 
+/*
+let Highlighter = require('highlight.js');
+require('highlight.js/styles/foundation.css');
+
+Vue.prototype.highlight  = function(block){
+  if(!block) return;
+
+  block.querySelectorAll('pre').forEach(node=>{
+    Highlighter.highlightBlock(node);
+  });
+}
+*/
+
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

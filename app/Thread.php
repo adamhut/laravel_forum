@@ -2,15 +2,14 @@
 
 namespace App;
 
-use App\HasReputation;
+use Facades\App\Reputation;
 use Laravel\Scout\Searchable;
 use App\Events\ThreadHasNewReply;
+use App\Events\ThreadWasPublished;
 use App\Exceptions\ThreadIsLocked;
 use App\Events\ThreadReceivedNewReply;
 use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Model;
-use App\Events\ThreadWasPublished;
-use Facades\App\Reputation;
 
 //use Facades\App\Reputation;
 
@@ -44,7 +43,7 @@ class Thread extends Model
         'locked' =>'boolean',
     ];
 
-    protected $dispatchesEvents=[
+    protected $dispatchesEvents = [
         //'created' => ThreadWasPublished::class,
     ];
 
@@ -80,12 +79,12 @@ class Thread extends Model
 
         static::created(function ($thread) {
             $thread->update(['slug'=> $thread->title]);
-            
+
             //event(new ThreadWasPublished($thread));
 
-            // /dd($thread->creator);  
-            $thread->creator->gainReputation('thread_published');     
-            
+            // /dd($thread->creator);
+            $thread->creator->gainReputation('thread_published');
+
             /*
             Reputation::create([
                 'user_id'  => $thread->creator->id,

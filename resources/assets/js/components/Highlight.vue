@@ -1,7 +1,9 @@
 <template>
     <div>
         <div v-html="content" ref="content"></div>
+      
     </div>
+
 </template>
 
 <script>
@@ -10,17 +12,12 @@
     import 'highlight.js/styles/foundation.css';
 
     export default {
-        props: {
-            content: {
-                type: String,
-                default: ''
-            },
-        },
+        props: ['content'],
 
         mounted(){
             this.highlight(this.$refs.content);
         },
-        
+
         watch:{
             content(){
                 this.$nextTick(()=>{

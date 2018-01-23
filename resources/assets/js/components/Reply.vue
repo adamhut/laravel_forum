@@ -27,7 +27,7 @@
 	                <button class="btn btn-xs btn-link" @click="editing = false" type="button">Cancel</button>
                 </form>
             </div>
-            <div  class="body" v-else v-html="body">
+            <div  class="body" v-else>
 				<highlight :content="body"></highlight>
             </div>
             <hr>

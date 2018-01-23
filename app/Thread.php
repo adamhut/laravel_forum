@@ -310,6 +310,7 @@ class Thread extends Model
 
     public function getBodyAttribute($body)
     {
+       // return $body;
         return \Purify::clean($body);
     }
 }

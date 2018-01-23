@@ -88504,10 +88504,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_vm._v("Cancel")])])]) : _c('div', {
-    staticClass: "body",
-    domProps: {
-      "innerHTML": _vm._s(_vm.body)
-    }
+    staticClass: "body"
   }, [_c('highlight', {
     attrs: {
       "content": _vm.body
@@ -109753,7 +109750,7 @@ exports = module.exports = __webpack_require__(493)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -109774,18 +109771,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        content: {
-            type: String,
-            default: ''
-        }
-    },
+    props: ['content'],
 
     mounted: function mounted() {
         this.highlight(this.$refs.content);

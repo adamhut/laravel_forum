@@ -223,4 +223,3 @@ Route::group(['prefix' => 'wesbos'], function () {
         return view('wesbos.14-2');
     });
 });
-

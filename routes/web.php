@@ -19,7 +19,7 @@ use App\Notifications\YouWereMentioned;
 | contains the "web" middleware group. Now create something great!
 |
 */
-auth()->loginUsingId(1);
+//auth()->loginUsingId(1);
 //auth()->logout();
 //
 Route::get('notifytest', function () {
@@ -215,6 +215,12 @@ Route::group(['prefix' => 'wesbos'], function () {
     });
     Route::get('grid13', function () {
         return view('wesbos.13');
+    });
+    Route::get('grid14', function () {
+        return view('wesbos.14');
+    });
+    Route::get('grid14-2', function () {
+        return view('wesbos.14-2');
     });
 });
 

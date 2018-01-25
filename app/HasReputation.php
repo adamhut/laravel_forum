@@ -1,12 +1,11 @@
-<?php 
-namespace App;
+<?php
 
-use App\Reputation;
+namespace App;
 
 trait HasReputation
 {
     /**
-     * Clear User Reputation
+     * Clear User Reputation.
      *
      * @return void
      */
@@ -18,10 +17,9 @@ trait HasReputation
     }
 
     /**
-     * Award reputtion points to the model
+     * Award reputtion points to the model.
      *
      * @param string $type
-     * 
      */
     public function gainReputation($type)
     {
@@ -49,7 +47,6 @@ trait HasReputation
 
     public function reputation()
     {
-      
         return $this->hasMany(Reputation::class);
     }
 
@@ -57,5 +54,4 @@ trait HasReputation
     {
         return $this->reputation->sum('points');
     }
-
 }

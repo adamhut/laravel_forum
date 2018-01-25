@@ -27,7 +27,7 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\SendEmailConfirmationRequest',
         ],
         'App\Events\ThreadWasPublished' => [
-            'App\Listeners\NotifyMentionedUsers'
+            'App\Listeners\NotifyMentionedUsers',
         ],
     ];
 

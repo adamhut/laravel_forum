@@ -195,4 +195,26 @@ Route::group(['prefix' => 'wesbos'], function () {
     Route::get('grid06', function () {
         return view('wesbos.06');
     });
+    Route::get('grid07', function () {
+        return view('wesbos.07');
+    });
+    Route::get('grid08', function () {
+        return view('wesbos.08');
+    });
+    Route::get('grid09', function () {
+        return view('wesbos.09');
+    });
+    Route::get('grid10', function () {
+        return view('wesbos.10');
+    });
+    Route::get('grid11', function () {
+        return view('wesbos.11');
+    });
+    Route::get('grid12', function () {
+        return view('wesbos.12');
+    });
+    Route::get('grid13', function () {
+        return view('wesbos.13');
+    });
 });
+

@@ -21,8 +21,8 @@
         grid-gap: 20px;
       
         grid-template-columns:400px 200px;
-        grid-auto-flow:cloumns;
-        grip-auto-column
+        grid-auto-flow:columns;
+       
     }
   </style>
 </body>

@@ -222,5 +222,12 @@ Route::group(['prefix' => 'wesbos'], function () {
     Route::get('grid14-2', function () {
         return view('wesbos.14-2');
     });
+    Route::get('grid15', function () {
+        return view('wesbos.15');
+    });
+
+    Route::get('grid16', function () {
+        return view('wesbos.16');
+    });
 });
 

@@ -230,4 +230,3 @@ Route::group(['prefix' => 'wesbos'], function () {
         return view('wesbos.16');
     });
 });
-

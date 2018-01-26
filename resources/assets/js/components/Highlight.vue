@@ -1,14 +1,11 @@
 <template>
     <div>
         <div v-html="content" ref="content"></div>
-      
     </div>
-
 </template>
 
 <script>
     import Highlighter from 'highlight.js'
-    
     import 'highlight.js/styles/foundation.css';
 
     export default {
@@ -17,7 +14,6 @@
         mounted(){
             this.highlight(this.$refs.content);
         },
-
         watch:{
             content(){
                 this.$nextTick(()=>{
@@ -25,7 +21,6 @@
                 })
             }
         },
-
         methods:{
             highlight(block) {
                 if(!block) return;

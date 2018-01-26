@@ -21,6 +21,7 @@ Vue.component('flash', require('./components/Flash.vue'));
 Vue.component('thread-view', require('./Pages/Thread.vue'));
 
 Vue.component('user-notifications', require('./components/UserNotifications.vue'));
+Vue.component('channel-dropdown', require('./components/ChannelDropdown.vue'));
 Vue.component('Paginator', require('./components/Paginator.vue'));
 
 Vue.component('favorite', require('./components/Favorite.vue'));

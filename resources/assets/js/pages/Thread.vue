@@ -7,7 +7,11 @@
 		props:[
 			'thread',
 		],
-		components:{Replies,SubscribeButton,Highlight},
+		components:{
+			Replies,
+			SubscribeButton,
+			Highlight
+		},
 		data(){
 			return {
 				repliesCount:this.thread.replies_count,
@@ -18,11 +22,9 @@
 				form:{},
 			};
 		},
-
 		created(){
 			this.resetForm();
 		},
-
 		methods:{
 			toggleLock(){
 				let uri = `/locked-threads/${this.thread.slug}`;

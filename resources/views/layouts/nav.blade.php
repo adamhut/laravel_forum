@@ -42,6 +42,9 @@
                         <li>
                             <a href="/threads/create">New Thread</a>
                         </li>
+                        
+                        <channel-dropdown :channels="{{ $channels }}"></channel-dropdown>
+
                         <li class="dropdown">
                             <a href="#" 
                                 class="dropdown-toggle" 

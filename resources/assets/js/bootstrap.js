@@ -38,7 +38,7 @@ window.Vue.prototype.authorize= function(...params){
     return authorizations[params[0]](params[1]);
   }
 	//Additional admin privilege.
-	
+
 	return params[0](window.App.user);
 }
 
@@ -79,7 +79,7 @@ window.axios.defaults.headers.common = {
  * allows your team to easily build robust real-time web applications.
  */
 
-import Echo from "laravel-echo" 
+import Echo from "laravel-echo"
 
 window.Pusher = require('pusher-js');
 

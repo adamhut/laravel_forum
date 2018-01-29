@@ -229,4 +229,17 @@ Route::group(['prefix' => 'wesbos'], function () {
     Route::get('grid16', function () {
         return view('wesbos.16');
     });
+    Route::get('grid17', function () {
+        return view('wesbos.17');
+    });
+    Route::get('grid18', function () {
+        return view('wesbos.18');
+    });
+    Route::get('grid19', function () {
+        return view('wesbos.19');
+    });
+
+    Route::get('grid20', function () {
+        return view('wesbos.20');
+    });
 });

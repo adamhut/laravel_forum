@@ -5,7 +5,6 @@ use Pusher\Pusher;
 use App\ChatMessage;
 use App\Events\ChatMessageWasReceived;
 use App\Notifications\YouWereMentioned;
-use App\Jobs\PerformRunningThing;
 
 //use Illuminate\Support\Facades\Auth;
 //use Illuminate\Support\Facades\Redis;

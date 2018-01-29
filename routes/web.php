@@ -5,6 +5,7 @@ use Pusher\Pusher;
 use App\ChatMessage;
 use App\Events\ChatMessageWasReceived;
 use App\Notifications\YouWereMentioned;
+use App\Jobs\PerformRunningThing;
 
 //use Illuminate\Support\Facades\Auth;
 //use Illuminate\Support\Facades\Redis;
@@ -88,6 +89,10 @@ Route::get('test', function () {
 
         return new static($items);
     });
+});
+
+Route::get('jobs', function () {
+    dispatch(new App\Jobs\PerformRunningThing)->delay(now()->addMinutes(3));
 });
 
 Auth::routes();
@@ -241,5 +246,14 @@ Route::group(['prefix' => 'wesbos'], function () {
 
     Route::get('grid20', function () {
         return view('wesbos.20');
+    });
+    Route::get('grid21', function () {
+        return view('wesbos.21');
+    });
+    Route::get('grid22', function () {
+        return view('wesbos.22');
+    });
+    Route::get('grid23', function () {
+        return view('wesbos.23');
     });
 });

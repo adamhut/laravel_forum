@@ -81252,7 +81252,8 @@ module.exports = {
 	},
 	isAdmin: function isAdmin() {
 		//console.log(user.name);
-		return ['adamtest'].includes(user.name);
+		//return ['adamtest'].includes(user.name);
+		return user.isAdmin;
 	}
 };
 
@@ -88032,6 +88033,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		return {
 			repliesCount: this.thread.replies_count,
 			locked: this.thread.locked,
+			pinned: this.thread.pinned,
 			editing: false,
 			title: this.thread.title,
 			body: this.thread.body,
@@ -88054,6 +88056,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 			flash('Thread is ' + (this.locked ? 'Locked' : 'Unlocked'), level);
 		},
+		togglePinned: function togglePinned() {
+			var uri = '/pinned-threads/' + this.thread.slug;
+
+			axios[this.pinned ? 'delete' : 'post'](uri);
+
+			this.pinned = !this.pinned;
+
+			var level = this.pinned ? 'danger' : 'success';
+
+			flash('Thread is ' + (this.pinned ? 'Pinned' : 'Unpinned'), level);
+		},
 		update: function update() {
 			var _this = this;
 
@@ -88073,6 +88086,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				body: this.thread.body
 			};
 			this.editing = false;
+		},
+		classes: function classes(target) {
+			return ['btn', target ? 'btn-primary' : 'btn-default'];
 		}
 	}
 });

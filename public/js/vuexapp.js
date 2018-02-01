@@ -82115,7 +82115,8 @@ module.exports = {
 	},
 	isAdmin: function isAdmin() {
 		//console.log(user.name);
-		return ['adamtest'].includes(user.name);
+		//return ['adamtest'].includes(user.name);
+		return user.isAdmin;
 	}
 };
 

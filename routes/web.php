@@ -75,12 +75,16 @@ Route::get('/vuex', function () {
 Route::view('scan', 'scan');
 
 //
+Route::redirect('/', '/threads', 301);
+/*
 Route::get('/', function () {
 
+    
     //$visit = Redis::incr('visit');
     //return $visit;
     return view('welcome');
 });
+*/
 Route::get('test', function () {
     Collection::marco('trnaspose', function () {
         $items = array_map(function (...$items) {
@@ -91,9 +95,12 @@ Route::get('test', function () {
     });
 });
 
+
 Route::get('jobs', function () {
     dispatch(new App\Jobs\PerformRunningThing)->delay(now()->addMinutes(3));
 });
+
+
 
 Auth::routes();
 
@@ -109,6 +116,10 @@ Route::patch('/threads/{channel}/{thread}', 'ThreadsController@update');
 
 Route::post('locked-threads/{thread}', 'LockedThreadsController@store')->name('locked-threads.store')->middleware('admin');
 Route::delete('locked-threads/{thread}', 'LockedThreadsController@destroy')->name('locked-threads.destroy')->middleware('admin');
+
+Route::post('pinned-threads/{thread}', 'PinnedThreadsController@store')->name('pinned-threads.store')->middleware('admin');
+Route::delete('pinned-threads/{thread}', 'PinnedThreadsController@destroy')->name('pinned-threads.destroy')->middleware('admin');
+
 
 Route::post('/threads/{channel}/{thread}/favorites', 'FavoriteThreadsController@store');
 Route::delete('/threads/{channel}/{thread}/favorites', 'FavoriteThreadsController@destroy');
@@ -146,6 +157,19 @@ Route::get('/register/confirm', 'Auth\RegisterConfirmationController@index')->na
 
 Route::get('api/users', 'Api\UsersController@index');
 Route::post('api/users/{user}/avatar', 'Api\UserAvatarController@store')->middleware('auth')->name('avatar');
+
+
+Route::group([
+    'prefix' => 'admin',
+    'middleware' => 'admin',
+    'namespace' => 'Admin'
+], function () {
+    Route::get('/', 'DashboardController@index')->name('admin.dashboard.index');
+    Route::post('/channels', 'ChannelsController@store')->name('admin.channels.store');
+    Route::get('/channels', 'ChannelsController@index')->name('admin.channels.index');
+    Route::get('/channels/create', 'ChannelsController@create')->name('admin.channels.create');
+    
+});
 
 //Route::get('impersonate/{user}','ImpersonateController@index')
 
@@ -255,5 +279,11 @@ Route::group(['prefix' => 'wesbos'], function () {
     });
     Route::get('grid23', function () {
         return view('wesbos.23');
+    });
+    Route::get('grid24', function () {
+        return view('wesbos.24');
+    });
+    Route::get('grid25', function () {
+        return view('wesbos.25');
     });
 });

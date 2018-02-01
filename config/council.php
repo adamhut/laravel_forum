@@ -6,9 +6,12 @@ return [
         'secret'    => env('RECAPTCHA_SECRET'),
     ],
     'reputation' => [
-        'thread_published'  => 10,
         'reply_posted'=> 2,
-        'best_reply_awarded' => 50,
         'reply_favorited' => 5,
+        'thread_published'  => 10,
+        'best_reply_awarded' => 50,
+    ],
+    'administrators' => [
+        'ahuang@bacera.com'
     ],
 ];

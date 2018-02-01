@@ -16,6 +16,7 @@ module.exports = {
 
 	isAdmin(){
 		//console.log(user.name);
-		return ['adamtest'].includes(user.name);
+		//return ['adamtest'].includes(user.name);
+		return user.isAdmin;
 	}
 }

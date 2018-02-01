@@ -41,6 +41,7 @@ class Thread extends Model
      */
     protected $casts = [
         'locked' =>'boolean',
+        'pinned' => 'boolean',
     ];
 
     protected $dispatchesEvents = [

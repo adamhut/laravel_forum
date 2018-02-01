@@ -35,6 +35,7 @@ $factory->state(App\User::class, 'unconfirmed', function (Faker\Generator $faker
     ];
 });
 
+
 $factory->define(App\Thread::class, function (Faker\Generator $faker) {
     // /static $password;
     $title = $faker->sentence;
@@ -50,6 +51,7 @@ $factory->define(App\Thread::class, function (Faker\Generator $faker) {
         },
         'slug' => str_slug($title),
         'locked' => false,
+        'pinned' => false,
      ];
 });
 
@@ -88,6 +90,7 @@ $factory->define(App\Channel::class, function (Faker\Generator $faker) {
         'title'=>$name,
         'slug'=> strtolower($name),
         'color'=>'red',
+        'description' => $faker->sentence
     ];
 });
 

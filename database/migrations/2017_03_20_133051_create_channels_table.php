@@ -18,6 +18,7 @@ class CreateChannelsTable extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('color');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

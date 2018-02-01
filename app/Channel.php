@@ -11,6 +11,7 @@ class Channel extends Model
         'title',
         'slug',
         'color',
+        'description',
     ];
 
     public function getRouteKeyName()

@@ -16,6 +16,7 @@
 			return {
 				repliesCount:this.thread.replies_count,
 				locked:this.thread.locked,
+				pinned:this.thread.pinned,
 				editing:false,
 				title:this.thread.title,
 				body:this.thread.body,
@@ -37,6 +38,17 @@
 				
 				flash('Thread is '+ (this.locked? 'Locked':'Unlocked'), level);
 			},
+			togglePinned(){
+				let uri = `/pinned-threads/${this.thread.slug}`;
+
+				axios[this.pinned? 'delete' : 'post' ](uri);
+				
+				this.pinned=!this.pinned;
+				
+				let level = this.pinned ? 'danger':'success';
+				
+				flash('Thread is '+ (this.pinned? 'Pinned':'Unpinned'), level);
+			},
 			update(){
 				let uri = `/threads/${this.thread.channel.slug}/${this.thread.slug}`;
 				//axios
@@ -54,7 +66,11 @@
 					body : this.thread.body,
 				}; 
 				this.editing=false;
+			},
+			classes(target){
+				return ['btn',target? 'btn-primary':'btn-default'];
 			}
+			
 		}
 	};
 </script>

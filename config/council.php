@@ -12,6 +12,6 @@ return [
         'best_reply_awarded' => 50,
     ],
     'administrators' => [
-        'ahuang@bacera.com'
+        'ahuang@bacera.com',
     ],
 ];

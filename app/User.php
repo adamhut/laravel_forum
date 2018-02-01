@@ -32,14 +32,13 @@ class User extends Authenticatable
         'confirmed' => 'boolean',
     ];
 
-    
     /**
      * The accessors to append to the model's array form.
      *
      * @var array
      */
     protected $appends = [
-        'isAdmin'
+        'isAdmin',
     ];
 
     /**
@@ -154,9 +153,9 @@ class User extends Authenticatable
      */
     public function isAdmin()
     {
-        return in_array($this->email, config('council.administrators'));   
+        return in_array($this->email, config('council.administrators'));
     }
-            
+
     /**
      * Determine if the user is an administrator.
      *
@@ -166,5 +165,4 @@ class User extends Authenticatable
     {
         return $this->isAdmin();
     }
-
 }

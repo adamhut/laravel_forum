@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Thread;
+use App\Channel;
 use App\Trending;
 use Carbon\Carbon;
-use App\Channel;
 use App\Rules\Recaptcha;
 use Illuminate\Http\Request;
 use App\Filters\ThreadFilters;
@@ -60,8 +60,8 @@ class ThreadsController extends Controller
         $channels = Channel::all();
         //return view('threads.create',compact('channels'));
         //Create a View Composer on App service provider
-        
-        return view('threads.create',compact($channels));
+
+        return view('threads.create', compact($channels));
     }
 
     /**

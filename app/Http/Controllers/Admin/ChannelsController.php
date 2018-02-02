@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Cache;
 
 class ChannelsController extends Controller
 {
-
     /**
      * Show all channels.
      *
@@ -18,11 +17,9 @@ class ChannelsController extends Controller
      */
     public function index()
     {
+        $channels = Channel::withoutGlobalScopes()->orderBy('name', 'asc')->with('threads')->get();
 
-        $channels = Channel::withoutGlobalScopes()->orderBy('name','asc')->with('threads')->get();
-
-        return view('admin.channels.index',compact('channels'));
-    
+        return view('admin.channels.index', compact('channels'));
     }
 
     /**
@@ -32,7 +29,7 @@ class ChannelsController extends Controller
      */
     public function create()
     {
-        return view('admin.channels.create' ,['channel' => new Channel]);
+        return view('admin.channels.create', ['channel' => new Channel]);
     }
 
     /**
@@ -48,20 +45,20 @@ class ChannelsController extends Controller
                 'description' => 'required',
             ])
         );
-        
+
         Cache::forget('channels');
         if (request()->wantsJson()) {
-            return response($channel, 201);  
+            return response($channel, 201);
         }
 
         return redirect(route('admin.channels.index'))
             ->with('flash', 'Your channel has been created!');
-        
     }
 
     public function edit($channel)
     {
-        $channel = Channel::where('slug',$channel)->firstOrFail();
+        $channel = Channel::where('slug', $channel)->firstOrFail();
+
         return view('admin.channels.edit', compact('channel'));
     }
 
@@ -76,13 +73,14 @@ class ChannelsController extends Controller
             request()->validate([
                 'name' => ['required', Rule::unique('channels')->ignore($channel->id)],
                 'description' => 'required',
-                'archived' => 'required|boolean'
+                'archived' => 'required|boolean',
             ])
         );
         cache()->forget('channels');
         if (request()->wantsJson()) {
             return response($channel, 200);
         }
+
         return redirect(route('admin.channels.index'))
             ->with('flash', 'Your channel has been updated!');
     }

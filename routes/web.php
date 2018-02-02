@@ -5,7 +5,6 @@ use Pusher\Pusher;
 use App\ChatMessage;
 use App\Events\ChatMessageWasReceived;
 use App\Notifications\YouWereMentioned;
-use App\Jobs\PerformRunningThing;
 
 //use Illuminate\Support\Facades\Auth;
 //use Illuminate\Support\Facades\Redis;
@@ -79,7 +78,7 @@ Route::redirect('/', '/threads', 301);
 /*
 Route::get('/', function () {
 
-    
+
     //$visit = Redis::incr('visit');
     //return $visit;
     return view('welcome');
@@ -95,12 +94,9 @@ Route::get('test', function () {
     });
 });
 
-
 Route::get('jobs', function () {
     dispatch(new App\Jobs\PerformRunningThing)->delay(now()->addMinutes(3));
 });
-
-
 
 Auth::routes();
 
@@ -119,7 +115,6 @@ Route::delete('locked-threads/{thread}', 'LockedThreadsController@destroy')->nam
 
 Route::post('pinned-threads/{thread}', 'PinnedThreadsController@store')->name('pinned-threads.store')->middleware('admin');
 Route::delete('pinned-threads/{thread}', 'PinnedThreadsController@destroy')->name('pinned-threads.destroy')->middleware('admin');
-
 
 Route::post('/threads/{channel}/{thread}/favorites', 'FavoriteThreadsController@store');
 Route::delete('/threads/{channel}/{thread}/favorites', 'FavoriteThreadsController@destroy');
@@ -162,7 +157,7 @@ Route::get('api/channels', 'Api\ChannelsController@index');
 Route::group([
     'prefix' => 'admin',
     'middleware' => 'admin',
-    'namespace' => 'Admin'
+    'namespace' => 'Admin',
 ], function () {
     Route::get('/', 'DashboardController@index')->name('admin.dashboard.index');
     Route::post('/channels', 'ChannelsController@store')->name('admin.channels.store');

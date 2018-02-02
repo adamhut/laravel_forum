@@ -109132,22 +109132,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['channels'],
-
     data: function data() {
         return {
+            channels: [],
             toggle: false,
             filter: ''
         };
     },
+    created: function created() {
+        var _this = this;
 
+        axios.get('api/channels').then(function (_ref) {
+            var data = _ref.data;
+            return _this.channels = data;
+        });
+    },
 
     computed: {
         filteredThreads: function filteredThreads() {
-            var _this = this;
+            var _this2 = this;
 
             return this.channels.filter(function (channel) {
-                return channel.name.toLowerCase().startsWith(_this.filter.toLocaleLowerCase());
+                return channel.name.toLowerCase().startsWith(_this2.filter.toLocaleLowerCase());
             });
         }
     }

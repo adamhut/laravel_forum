@@ -13,7 +13,7 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //    \View::share('channels',\App\ForumChannel::all());
+        //    \View::share('channels',\App\Channel::all());
     }
 
     /**

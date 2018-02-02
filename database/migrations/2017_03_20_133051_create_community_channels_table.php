@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateForumChannelsTable extends Migration
+class CreateCommunityChannelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateForumChannelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('forum_channels', function (Blueprint $table) {
+        Schema::create('community_channels', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 50);
-            $table->string('slug', 50);
+            $table->string('name', 50)->unique();
+            $table->string('slug', 50)->unique();
+            $table->string('description')->nullable();
+            $table->boolean('archived')->default(false);
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreateForumChannelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('forum_channels');
+        Schema::dropIfExists('community_channels');
     }
 }

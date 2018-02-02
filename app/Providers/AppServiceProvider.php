@@ -17,14 +17,14 @@ class AppServiceProvider extends ServiceProvider
         //
         /*
         \View::composer('threads/create', function($view){
-            $view->with('channels',\App\ForumChannel::all());
+            $view->with('channels',\App\Channel::all());
         });
         */
         //if you want to share it on every single page. you can do * or change the function to share, pass an array
 
         \View::composer('*', function ($view) {
             $channels = Cache::rememberForever('channels', function () {
-                return \App\ForumChannel::all();
+                return \App\Channel::all();
             });
             $view->with('channels', $channels);
         });
@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
         \View::share('user', auth()->user() ?: new \App\User);
         //Move it to dedicate service provider ==>ViewServiceProvider
         /*
-        \View::share('channels',\App\ForumChannel::all());
+        \View::share('channels',\App\Channel::all());
         */
 
         \Validator::extend('spamfree', 'App\Rules\SpamFree@passes');

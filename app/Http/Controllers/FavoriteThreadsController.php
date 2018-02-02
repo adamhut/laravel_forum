@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Thread;
-use App\ForumChannel;
+use App\Channel;
 use Illuminate\Http\Request;
 
 class FavoriteThreadsController extends Controller
@@ -34,7 +34,7 @@ class FavoriteThreadsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ForumChannel $channel, Thread $thread)
+    public function store(Channel $channel, Thread $thread)
     {
         $thread->favorite();
 
@@ -81,7 +81,7 @@ class FavoriteThreadsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ForumChannel $channel, Thread $thread)
+    public function destroy(Channel $channel, Thread $thread)
     {
         $thread->unfavorite();
     }

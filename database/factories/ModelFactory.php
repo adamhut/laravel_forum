@@ -44,7 +44,7 @@ $factory->define(App\Thread::class, function (Faker\Generator $faker) {
         'title' => $title,
         'body' => $faker->paragraph,
         'channel_id' =>function () {
-            return factory('App\ForumChannel')->create()->id;
+            return factory('App\Channel')->create()->id;
         },
         'user_id' => function () {
             return factory('App\User')->create()->id;
@@ -83,23 +83,19 @@ $factory->define(App\CommunityLink::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Channel::class, function (Faker\Generator $faker) {
-    $name = $faker->sentence;
-
+$factory->define(App\CommunityChannel::class, function ($faker) {
     return [
-        'title'=>$name,
-        'slug'=> strtolower($name),
-        'color'=>'red',
-        'description' => $faker->sentence
+        'name' => $faker->unique()->word,
+        'description' => $faker->sentence,
+        'archived' => false
     ];
 });
 
-$factory->define(App\ForumChannel::class, function (Faker\Generator $faker) {
-    $name = $faker->word;
-
+$factory->define(App\Channel::class, function ($faker) {
     return [
-        'name'=> $name,
-        'slug'=> $name,
+        'name' => $faker->unique()->word,
+        'description' => $faker->sentence,
+        'archived' => false
     ];
 });
 

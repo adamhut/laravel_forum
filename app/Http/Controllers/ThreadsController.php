@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Thread;
 use App\Trending;
 use Carbon\Carbon;
-use App\ForumChannel;
+use App\Channel;
 use App\Rules\Recaptcha;
 use Illuminate\Http\Request;
 use App\Filters\ThreadFilters;
@@ -27,7 +27,7 @@ class ThreadsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ForumChannel $channel, ThreadFilters $filters, Trending $trending)
+    public function index(Channel $channel, ThreadFilters $filters, Trending $trending)
     {
         //dd($channel);
         //Move it to App serviceprovider as View Composer
@@ -57,10 +57,11 @@ class ThreadsController extends Controller
      */
     public function create()
     {
-        //$channels = ForumChannel::all();
+        $channels = Channel::all();
         //return view('threads.create',compact('channels'));
         //Create a View Composer on App service provider
-        return view('threads.create');
+        
+        return view('threads.create',compact($channels));
     }
 
     /**
@@ -232,7 +233,7 @@ class ThreadsController extends Controller
      * @param ThreadFilters $filters
      * @return mixed
      */
-    protected function getThreads(ForumChannel $channel, ThreadFilters $filters)
+    protected function getThreads(Channel $channel, ThreadFilters $filters)
     {
         $threads = Thread::latest()->filter($filters);
         if ($channel->exists) {

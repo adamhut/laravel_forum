@@ -46,7 +46,7 @@ class ReadThreadsTest extends TestCase
     /** @test */
     function a_user_can_filter_threads_accoutding_to_a_channel()
     {
-        $channel = create('App\ForumChannel');
+        $channel = create('App\Channel');
         $threadInChannel =  create('App\Thread',['channel_id'=>$channel->id]);
         $threadNotInChannel =  create('App\Thread');
 

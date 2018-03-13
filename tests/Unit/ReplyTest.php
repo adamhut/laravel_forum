@@ -94,7 +94,18 @@ class ReplyTest extends TestCase
 
         //it shuld includ ?page -3 in the path
         $this->assertEquals(
-            $thread->path().'?page=3#reply-3',
+            $thread->path().'?page=1#reply-3',
+            $replies->faist()->path()
+        );
+
+
+        $this->assertEquals(
+            $thread->path() . '?page=2#reply-3',
+            $replies[1]->path()
+        );
+
+        $this->assertEquals(
+            $thread->path() . '?page=3#reply-3',
             $replies->last()->path()
         );
     }

@@ -57,11 +57,12 @@ class Reply extends Model
     {
         $perPage = config('council.pagination.perPage');//1
 
-        $replyPosition = $this->thread->replies()->pluck('id')->search($this->id);
+        $replyPosition = $this->thread->replies()->pluck('id')->search($this->id)+1;
 
         $page = ceil($replyPosition/ $perPage);
+        
 
-        return $this->thread->path()."#reply-{$this->id}";
+        return $this->thread->path()."?page={$page}#reply-{$this->id}";
     }
 
     public function wasJustPublished()

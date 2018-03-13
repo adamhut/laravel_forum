@@ -14,4 +14,8 @@ return [
     'administrators' => [
         'ahuang@bacera.com'
     ],
+    'pagination'=>[
+        'perPage'=>  25,
+    ]
+
 ];

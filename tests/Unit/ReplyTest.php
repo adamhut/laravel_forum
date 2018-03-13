@@ -54,7 +54,7 @@ class ReplyTest extends TestCase
             'body'=>'Hello @JaneDoe.'
         ]);
         $this->assertEquals(
-            'Hello <a href="/profiles/JaneDoe">@JaneDoe</a>.', 
+            'Hello <a href="/profiles/JaneDoe">@JaneDoe</a>.',
         $reply->body);
     }
 
@@ -65,7 +65,7 @@ class ReplyTest extends TestCase
         $this->assertFalse($reply->isBest());
         $reply->thread->update(['best_reply_id'=>$reply->id]);
         $this->assertTrue($reply->fresh()->isBest());
-        
+
 
     }
 
@@ -76,5 +76,26 @@ class ReplyTest extends TestCase
         $reply = make('App\Reply', ['body' => '<script>alert("bad")</script><p>This is ok</p>']);
 
         $this->assertEquals('<p>This is ok</p>', $reply->body);
+    }
+
+    /** @test */
+    public function it_generate_the_correct_path_for_a_paginated_thread ()
+    {
+        //give we have a thread
+        $thread = create('App\Thread');
+        //and that thread has three replies
+        $replies = create('App\Reply',['thread_id'=>$thread->id],3);
+
+        //and we are paginating 1 per page
+        config(['council.pagination.perPage'=>1]);
+
+        //if we generate the path for the last reply (3rd one)
+        $replies->last()->path();
+
+        //it shuld includ ?page -3 in the path
+        $this->assertEquals(
+            $thread->path().'?page=3#reply-3',
+            $replies->last()->path()
+        );
     }
 }

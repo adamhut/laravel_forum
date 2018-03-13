@@ -20,6 +20,11 @@ use App\Jobs\PerformRunningThing;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('rebate',function(){
+
+    collect([1141, 1064, 708, 805, 1061, 1061, 1213, 1061, 1062, 1062, 1062, 1061, 151, 151, 151, 808, 808, 151, 646, 151, 151, 151, 139, 148])->unique()->values()->dd();
+});
 //auth()->loginUsingId(1);
 //auth()->logout();
 //
@@ -79,7 +84,7 @@ Route::redirect('/', '/threads', 301);
 /*
 Route::get('/', function () {
 
-    
+
     //$visit = Redis::incr('visit');
     //return $visit;
     return view('welcome');

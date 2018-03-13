@@ -5,7 +5,6 @@ use Pusher\Pusher;
 use App\ChatMessage;
 use App\Events\ChatMessageWasReceived;
 use App\Notifications\YouWereMentioned;
-use App\Jobs\PerformRunningThing;
 
 //use Illuminate\Support\Facades\Auth;
 //use Illuminate\Support\Facades\Redis;
@@ -21,8 +20,7 @@ use App\Jobs\PerformRunningThing;
 |
 */
 
-Route::get('rebate',function(){
-
+Route::get('rebate', function () {
     collect([1141, 1064, 708, 805, 1061, 1061, 1213, 1061, 1062, 1062, 1062, 1061, 151, 151, 151, 808, 808, 151, 646, 151, 151, 151, 139, 148])->unique()->values()->dd();
 });
 //auth()->loginUsingId(1);
@@ -100,12 +98,9 @@ Route::get('test', function () {
     });
 });
 
-
 Route::get('jobs', function () {
     dispatch(new App\Jobs\PerformRunningThing)->delay(now()->addMinutes(3));
 });
-
-
 
 Auth::routes();
 
@@ -124,7 +119,6 @@ Route::delete('locked-threads/{thread}', 'LockedThreadsController@destroy')->nam
 
 Route::post('pinned-threads/{thread}', 'PinnedThreadsController@store')->name('pinned-threads.store')->middleware('admin');
 Route::delete('pinned-threads/{thread}', 'PinnedThreadsController@destroy')->name('pinned-threads.destroy')->middleware('admin');
-
 
 Route::post('/threads/{channel}/{thread}/favorites', 'FavoriteThreadsController@store');
 Route::delete('/threads/{channel}/{thread}/favorites', 'FavoriteThreadsController@destroy');
@@ -167,7 +161,7 @@ Route::get('api/channels', 'Api\ChannelsController@index');
 Route::group([
     'prefix' => 'admin',
     'middleware' => 'admin',
-    'namespace' => 'Admin'
+    'namespace' => 'Admin',
 ], function () {
     Route::get('/', 'DashboardController@index')->name('admin.dashboard.index');
     Route::post('/channels', 'ChannelsController@store')->name('admin.channels.store');

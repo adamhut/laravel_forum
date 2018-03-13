@@ -60,7 +60,7 @@ class ThreadsController extends Controller
         $channels = Channel::all();
         //return view('threads.create',compact('channels'));
         //Create a View Composer on App service provider
-        
+
         return view('threads.create',compact($channels));
     }
 
@@ -241,6 +241,6 @@ class ThreadsController extends Controller
         }
         //dd($threads->toSql());
         //return $threads->get();
-        return $threads->paginate(25);
+        return $threads->paginate(config('council.pagination.perPage',25));
     }
 }

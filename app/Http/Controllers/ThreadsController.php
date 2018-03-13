@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Thread;
+use App\Channel;
 use App\Trending;
 use Carbon\Carbon;
-use App\Channel;
 use App\Rules\Recaptcha;
 use Illuminate\Http\Request;
 use App\Filters\ThreadFilters;
@@ -61,7 +61,7 @@ class ThreadsController extends Controller
         //return view('threads.create',compact('channels'));
         //Create a View Composer on App service provider
 
-        return view('threads.create',compact($channels));
+        return view('threads.create', compact($channels));
     }
 
     /**
@@ -241,6 +241,6 @@ class ThreadsController extends Controller
         }
         //dd($threads->toSql());
         //return $threads->get();
-        return $threads->paginate(config('council.pagination.perPage',25));
+        return $threads->paginate(config('council.pagination.perPage', 25));
     }
 }

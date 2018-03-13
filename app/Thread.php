@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Channel;
 use Facades\App\Reputation;
 use Laravel\Scout\Searchable;
 use App\Events\ThreadHasNewReply;

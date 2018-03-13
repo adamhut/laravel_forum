@@ -24,3 +24,9 @@
         }
     }
 </script>
+
+<style>
+.trix-editor{
+    min-height: 100px;
+}
+</style>

@@ -129,6 +129,7 @@ class Thread extends Model
 
     public function scropReplyCount($query)
     {
+        
     }
 
     public function addReply($reply)
@@ -200,7 +201,7 @@ class Thread extends Model
      */
     public function channel()
     {
-        return $this->belongsTo(Channel::class);
+        return $this->belongsTo(Channel::class)->withoutGlobalScopes(['active']);
     }
 
     /**

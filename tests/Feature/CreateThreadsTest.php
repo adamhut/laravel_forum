@@ -43,17 +43,14 @@ class CreateThreadsTest extends TestCase
     }
 
     /** @test */
-    public function new_user_must_first_confirm_their_email_address_before_create_threads()
+    function new_users_must_first_confirm_their_email_address_before_creating_threads()
     {
-        $user = factory('App\User')->states('unconfirmd')->create();
-
-        $this->withExceptionHandling()->signIn($user);
-
-        $thread = make('App\Thread', $overrides);
-
-        $this->publishThread()
-            ->assertRedirect('/threads')
-            ->assertSessionHas('flash','You must first confirm your email address');
+        $user = factory('App\User')->states('unconfirmed')->create();
+        $this->signIn($user);
+        $thread = make('App\Thread');
+        $this->post(route('threads'), $thread->toArray())
+            ->assertRedirect(route('threads'))
+            ->assertSessionHas('flash', 'You must first confirm your email address.');
     }
 
     /** @test */
@@ -138,13 +135,14 @@ class CreateThreadsTest extends TestCase
     /** @test */
     public function a_thread_with_a_title_that_ends_in_a_number_should_generate_the_proper_slug()
     {
+        $this->withExceptionHandling();
         $this->signIn();
         $thread = factory('App\Thread')->create([
             'title' =>'some title 24',
         ]);
 
         $thread = $this->postJson(route('threads'),$thread->toArray()+['g-recaptcha-response'=>'token'])->json();
-
+        dd($thread);
         $this->assertEquals("some-title-24-{$thread['id']}", $thread['slug']);
     }
 
@@ -192,6 +190,17 @@ class CreateThreadsTest extends TestCase
 
     }
 
+    /** @test */
+    public function a_new_thread_cannot_be_created_in_an_archived_channel()
+    {
+
+        $channel = factory('App\Channel')->create(['archived' => true]);
+
+        $this->publishThread(['channel_id' => $channel->id])
+            ->assertSessionHasErrors('channel_id');
+        
+        $this->assertCount(0, $channel->threads);
+    }
 
 
     protected function publishThread($overrides = [])

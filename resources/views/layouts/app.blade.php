@@ -71,6 +71,8 @@
 
 
         <flash message="{{ session('falsh') }}" cate="success"></flash>
+        
+        @include('modals.all')
 
     </div>
 

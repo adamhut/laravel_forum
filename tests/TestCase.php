@@ -15,7 +15,9 @@ abstract class TestCase extends BaseTestCase
     protected function setUp()
     {
         parent::setUp();
+        
         $this->disableExceptionHandling();
+
         DB::statement('PRAGMA foreign_keys=on'); //Due to sqlite by default disable foreign key constraint
        
     }

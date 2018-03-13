@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Thread;
+use App\Channel;
 use App\Trending;
 use Carbon\Carbon;
-use App\Channel;
 use App\Rules\Recaptcha;
 use Illuminate\Http\Request;
 use App\Filters\ThreadFilters;
+use Illuminate\Validation\Rule;
 
 class ThreadsController extends Controller
 {
@@ -81,7 +82,10 @@ class ThreadsController extends Controller
         request()->validate([
             'title' => 'required|spamfree',
             'body' => 'required|spamfree',
-            'channel_id' => 'required|exists:forum_channels,id',
+            //'channel_id' => 'required|exists:forum_channels,id',
+            'channel_id' => ['required',Rule::exists('channels','id')->where(function($query){
+                $query->where('archieved',false);
+            })],            
             'g-recaptcha-response' => ['required', $recaptcha],
 
         ]);

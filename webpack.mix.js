@@ -13,9 +13,14 @@ let mix = require('laravel-mix');
 
 mix.js('resources/assets/js/app.js', 'public/js')
    .js('resources/assets/js/vuexapp.js', 'public/js/vuexapp.js')
-   .js('resources/assets/js/vuextodo.js', 'public/js/vuextodo.js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+   .js('resources/assets/js/vuextodo.js', 'public/js/vuextodo.js');
+   //.sass('resources/assets/sass/app.scss', 'public/css');
 
+mix.sass("resources/assets/sass/app.scss", "public/css")
+     .options({
+       processCssUrls: false,
+       postCss: [tailwindcss("./tailwind.js")]
+     });
 // Full API
 // mix.js(src, output);
 // mix.react(src, output); <-- Identical to mix.js(), but registers React Babel compilation.

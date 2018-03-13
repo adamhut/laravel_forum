@@ -16,9 +16,10 @@ require('./bootstrap');
 
 Vue.component('flash', require('./components/Flash.vue'));
 //Vue.component('reply', require('./components/Reply.vue'));
-
 //Vue.component('replies', require('./components/Replies.vue'));
+
 Vue.component('thread-view', require('./Pages/Thread.vue'));
+
 
 Vue.component('user-notifications', require('./components/UserNotifications.vue'));
 Vue.component('channel-dropdown', require('./components/ChannelDropdown.vue'));
@@ -30,6 +31,8 @@ Vue.component('wysiwyg', require('./components/Wysiwyg.vue'));
 
 Vue.component('chatMessages', require('./components/ChatMessages.vue'));
 Vue.component('chatForm', require('./components/ChatForm.vue'));
+
+Vue.component("login", require("./components/Login.vue"));
 
 const app = new Vue({
     el: '#app',

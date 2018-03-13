@@ -36,13 +36,13 @@ class UpdateThreadsTest extends TestCase
         $thread = create('App\Thread',['user_id'=>$user->id]);
 
         $this->patch($thread->path(),[
-            'title' => 'Changed', 
-            
+            'title' => 'Changed',
+
         ])->assertSessionHasErrors('body');
 
         $this->patch($thread->path(),[
-            'body' => 'Changed Body', 
-            
+            'body' => 'Changed Body',
+
         ])->assertSessionHasErrors('title');
 
     }
@@ -65,14 +65,14 @@ class UpdateThreadsTest extends TestCase
         $thread = create('App\Thread',['user_id'=>$user->id]);
 
         $this->patch($thread->path(),[
-            'title' => 'Changed', 
+            'title' => 'Changed',
             'body'  => 'Changed body',
         ]);
 
         tap($thread->fresh(),function($thread){
             $this->assertEquals('Changed', $thread->title);
             $this->assertEquals('Changed body', $thread->body);
-        }); 
+        });
 
 
 

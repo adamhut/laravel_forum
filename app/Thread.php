@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Channel;
 use Facades\App\Reputation;
 use Laravel\Scout\Searchable;
 use App\Events\ThreadHasNewReply;
@@ -129,7 +128,6 @@ class Thread extends Model
 
     public function scropReplyCount($query)
     {
-        
     }
 
     public function addReply($reply)

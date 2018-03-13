@@ -21,6 +21,6 @@ class CommunityChannel extends Model
 
     public function threads()
     {
-        return $this->hasMany(Thread::class,'channel_id');
+        return $this->hasMany(Thread::class, 'channel_id');
     }
 }

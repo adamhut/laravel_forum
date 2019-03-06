@@ -62,7 +62,7 @@ class ThreadsController extends Controller
         //return view('threads.create',compact('channels'));
         //Create a View Composer on App service provider
 
-        return view('threads.create',compact($channels));
+        return view('threads.create', compact($channels));
     }
 
     /**
@@ -83,9 +83,9 @@ class ThreadsController extends Controller
             'title' => 'required|spamfree',
             'body' => 'required|spamfree',
             //'channel_id' => 'required|exists:forum_channels,id',
-            'channel_id' => ['required',Rule::exists('channels','id')->where(function($query){
-                $query->where('archieved',false);
-            })],            
+            'channel_id' => ['required', Rule::exists('channels', 'id')->where(function ($query) {
+                $query->where('archieved', false);
+            })],
             'g-recaptcha-response' => ['required', $recaptcha],
 
         ]);
@@ -245,6 +245,6 @@ class ThreadsController extends Controller
         }
         //dd($threads->toSql());
         //return $threads->get();
-        return $threads->paginate(config('council.pagination.perPage',25));
+        return $threads->paginate(config('council.pagination.perPage', 25));
     }
 }

@@ -35,7 +35,6 @@ $factory->state(App\User::class, 'unconfirmed', function (Faker\Generator $faker
     ];
 });
 
-
 $factory->define(App\Thread::class, function (Faker\Generator $faker) {
     // /static $password;
     $title = $faker->sentence;
@@ -87,7 +86,7 @@ $factory->define(App\CommunityChannel::class, function ($faker) {
     return [
         'name' => $faker->unique()->word,
         'description' => $faker->sentence,
-        'archived' => false
+        'archived' => false,
     ];
 });
 
@@ -95,7 +94,7 @@ $factory->define(App\Channel::class, function ($faker) {
     return [
         'name' => $faker->unique()->word,
         'description' => $faker->sentence,
-        'archived' => false
+        'archived' => false,
     ];
 });
 

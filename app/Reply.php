@@ -55,12 +55,11 @@ class Reply extends Model
 
     public function path()
     {
-        $perPage = config('council.pagination.perPage');//1
+        $perPage = config('council.pagination.perPage'); //1
 
-        $replyPosition = $this->thread->replies()->pluck('id')->search($this->id)+1;
+        $replyPosition = $this->thread->replies()->pluck('id')->search($this->id) + 1;
 
-        $page = ceil($replyPosition/ $perPage);
-        
+        $page = ceil($replyPosition / $perPage);
 
         return $this->thread->path()."?page={$page}#reply-{$this->id}";
     }

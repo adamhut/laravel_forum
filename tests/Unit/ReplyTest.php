@@ -66,7 +66,6 @@ class ReplyTest extends TestCase
         $reply->thread->update(['best_reply_id'=>$reply->id]);
         $this->assertTrue($reply->fresh()->isBest());
 
-
     }
 
 

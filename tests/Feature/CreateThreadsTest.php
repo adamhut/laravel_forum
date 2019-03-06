@@ -25,7 +25,6 @@ class CreateThreadsTest extends TestCase
 
                 $m->shouldRecevie('passes')->andReturn(true);
             });
-
             //$m->shouldRecevie('passes')->once()->andReturn(true);
         });
 

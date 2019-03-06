@@ -54,6 +54,9 @@
 				data.append('avatar',avatar)
 				axios.post(`/api/users/${this.user.name}/avatar`,data)
 					.then(()=>flash('Avatar uploaded!'));
+					.then(response=>{
+						this.model.data= response.data
+					});
 			}
 
 		}

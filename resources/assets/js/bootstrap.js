@@ -47,6 +47,7 @@ window.Vue.prototype.signedIn = window.App.signedIn;
 
 window.moment = require('moment');
 
+
 /*
 let Highlighter = require('highlight.js');
 require('highlight.js/styles/foundation.css');
